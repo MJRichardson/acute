@@ -1,0 +1,18 @@
+*.swp
+*.swo
+
+#Visual Studio files
+*.[Oo]bj
+[Bb]in
+[Dd]ebug*/
+[Rr]elease*/
+*.user
+*.suo
+
+#Tooling
+_ReSharper*/
+*.resharper
+*.swp
+
+#nuget
+/src/packages/*/
