@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acute", "Acute\Acute.csproj", "{B7E3A9C4-8680-47C5-84BE-3530EB587DD1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acute.Compiler", "Acute.Compiler\Acute.Compiler.csproj", "{ADC58B29-6307-43F9-A8BD-640F610EB41E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{B7E3A9C4-8680-47C5-84BE-3530EB587DD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7E3A9C4-8680-47C5-84BE-3530EB587DD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7E3A9C4-8680-47C5-84BE-3530EB587DD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADC58B29-6307-43F9-A8BD-640F610EB41E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADC58B29-6307-43F9-A8BD-640F610EB41E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADC58B29-6307-43F9-A8BD-640F610EB41E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADC58B29-6307-43F9-A8BD-640F610EB41E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
