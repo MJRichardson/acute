@@ -19,7 +19,7 @@ namespace Acute.Compiler.CompilationSteps
                             .ToList();
 
             context.Compilation = Compilation.Create(
-                "AcuteCompilation.dll",
+                context.Input.TargetName + ".dll",
                 new CompilationOptions(OutputKind.DynamicallyLinkedLibrary),
                 syntaxTrees, references);
         }
