@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
+using Acute.Compiler;
 
 namespace Test.Scenarios
 {
@@ -10,6 +9,20 @@ namespace Test.Scenarios
     {
         static void Main(string[] args)
         {
+            var scenarioPaths = Directory.GetDirectories(Path.Combine(Environment.CurrentDirectory, "Scenarios"));
+
+            var compiler = new AcuteCompiler();
+
+            foreach (var scenarioPath in scenarioPaths)
+            {
+                var scenarioName = Path.GetFileName(scenarioPath);
+                var sourcePaths = Directory.GetFiles(scenarioPath, "*.cs", SearchOption.AllDirectories);
+                var referencePaths = new List<string>();
+
+                compiler.Compile(new CompilationRequest(sourcePaths, referencePaths, scenarioName));
+
+            }
+
         }
     }
 }
