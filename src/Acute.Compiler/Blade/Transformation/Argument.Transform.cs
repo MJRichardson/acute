@@ -13,7 +13,7 @@ namespace Blade.Compiler.Transformation.CSharp
             model.Expression = TransformToSingleOrNull<ExpressionModel>(node.Expression);
 
             if (node.NameColon != null)
-                model.ParameterName = node.NameColon.Identifier.Identifier.ValueText;
+                model.ParameterName = node.NameColon.Name.Identifier.ValueText;
 
             yield return model;
         }

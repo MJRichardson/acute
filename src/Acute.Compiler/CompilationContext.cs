@@ -1,4 +1,5 @@
-﻿using Roslyn.Compilers.CSharp;
+﻿using Blade.Compiler;
+using Roslyn.Compilers.CSharp;
 
 namespace Acute.Compiler
 {
@@ -7,6 +8,7 @@ namespace Acute.Compiler
         public CompilationContext(CompilationRequest input)
         {
             Input = input;
+            Result = new CompilationResult();
         }
 
         /// <summary>
@@ -15,5 +17,9 @@ namespace Acute.Compiler
         public CompilationRequest Input { get; private set; }
 
         public Compilation Compilation { get; set; }
+
+        public CompilationModel Model { get; set; }
+
+        public CompilationResult Result { get; private set; }
     }
 }

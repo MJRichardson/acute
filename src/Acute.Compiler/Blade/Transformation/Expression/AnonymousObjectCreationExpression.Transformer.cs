@@ -15,7 +15,7 @@ namespace Blade.Compiler.Transformation.CSharp
                 var assignment = Create<AssignmentExpression>(item);
                 assignment.RightExpression = TransformToSingle<ExpressionModel>(item.Expression);
                 assignment.LeftExpression = assignment.Assignee =
-                    TransformToSingle<IdentifierName>(item.NameEquals.Identifier);
+                    TransformToSingle<IdentifierName>(item.NameEquals.Name);
 
                 model.Assignments.Add(assignment);
             }
