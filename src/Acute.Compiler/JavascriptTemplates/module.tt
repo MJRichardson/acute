@@ -6,7 +6,7 @@
 
 'use strict';
 
-var <# ModuleName #> = angular.module('<# ModuleName #>', [])
+var <#  #> = angular.module('<#  #>', [])
     .config(['authenticatedRouteProvider', '$httpProvider', function(authenticatedRouteProvider, $httpProvider) {
-		<# ConfigBody #>
+		<#  #>
     }])

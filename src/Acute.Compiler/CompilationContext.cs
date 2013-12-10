@@ -21,5 +21,7 @@ namespace Acute.Compiler
         public CompilationModel Model { get; set; }
 
         public CompilationResult Result { get; private set; }
+
+        public static CompilationContext Current { get; set; }
     }
 }

@@ -14,8 +14,17 @@ namespace Acute.Compiler
 
          public void Compile(CompilationRequest request)
          {
-             var context = new CompilationContext(request);
-             _pipeline.Execute(context);
+             try
+             {
+                 var context = new CompilationContext(request);
+                 CompilationContext.Current = context;
+
+                 _pipeline.Execute(context);
+             }
+             finally
+             {
+                 CompilationContext.Current = null;
+             }
 
          }
     }
