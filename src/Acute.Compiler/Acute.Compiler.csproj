@@ -189,6 +189,16 @@
     <Compile Include="Blade\Models\Statement\TryStatement.cs" />
     <Compile Include="Blade\Models\Statement\WhileStatement.cs" />
     <Compile Include="Blade\Models\SyntacticModel.cs" />
+    <Compile Include="JavascriptTemplates\module.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>module.tt</DependentUpon>
+    </Compile>
+    <Compile Include="JavascriptTemplates\snippets.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>snippets.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Blade\Transformation\Argument.Transform.cs" />
     <Compile Include="Blade\Transformation\ArrayRankSpecifier.Transform.cs" />
@@ -257,8 +267,18 @@
     <Compile Include="Blade\Transformation\Statement\WhileStatement.Transformer.cs" />
     <Compile Include="Blade\Transformation\Transformer.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="JavascriptTemplates\module.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>module.cs</LastGenOutput>
+    </None>
+    <None Include="JavascriptTemplates\snippets.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>snippets.cs</LastGenOutput>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
