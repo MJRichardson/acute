@@ -1,4 +1,5 @@
-﻿using Blade.Compiler;
+﻿using System.IO;
+using Blade.Compiler;
 using Roslyn.Compilers.CSharp;
 
 namespace Acute.Compiler
@@ -21,6 +22,11 @@ namespace Acute.Compiler
         public CompilationModel Model { get; set; }
 
         public CompilationResult Result { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the translation output stream.
+        /// </summary>
+        public Stream OutputStream { get; set; }
 
         public static CompilationContext Current { get; set; }
     }
