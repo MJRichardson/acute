@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Acute.Compiler.Translation;
 using Blade.Compiler;
 using Blade.Compiler.Translation;
 
@@ -22,9 +23,11 @@ namespace Acute.Compiler.CompilationSteps
                 enumTranslator.Translate(item, translationCtx);
 
             // write class declarations
-            var classTranslator = new ClassTranslator();
             foreach (var item in ClassSorter.Sort(context.Model.Classes))
+            {
+                var classTranslator = ClassTranslatorFactory.CreateTranslator(item);
                 classTranslator.Translate(item, translationCtx);
+            }
 
             // write global statements
             if (context.Model.GlobalStatements.Any())

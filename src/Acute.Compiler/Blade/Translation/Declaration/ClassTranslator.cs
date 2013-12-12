@@ -139,7 +139,7 @@ namespace Blade.Compiler.Translation
 
         // this writes field initializers that must be in the constructor
         // essentially this applies to any fields that are assigned mutable values
-        private static IEnumerable<FieldDeclaration> WriteCtorInitializers(IEnumerable<FieldDeclaration> fields, TranslationContext context)
+        protected static IEnumerable<FieldDeclaration> WriteCtorInitializers(IEnumerable<FieldDeclaration> fields, TranslationContext context)
         {
             var outList = new List<FieldDeclaration>();
 

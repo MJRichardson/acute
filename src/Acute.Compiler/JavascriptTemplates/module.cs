@@ -9,6 +9,7 @@
 // ------------------------------------------------------------------------------
 namespace Acute.Compiler.JavascriptTemplates
 {
+    using Acute.Compiler.Core;
     using System.Linq;
     using System.Text;
     using System.Collections.Generic;
@@ -18,9 +19,9 @@ namespace Acute.Compiler.JavascriptTemplates
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Users\mjr\src\Acute\src\Acute.Compiler\JavascriptTemplates\module.tt"
+    #line 1 "C:\Users\michaer\src\acute\src\Acute.Compiler\JavascriptTemplates\module.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public partial class module : moduleBase
+    internal partial class module : moduleBase
     {
 #line hidden
         /// <summary>
@@ -28,29 +29,42 @@ namespace Acute.Compiler.JavascriptTemplates
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("\r\n\'use strict\';\r\n\r\nvar ");
+            this.Write("\r\n\r\n\'use strict\';\r\n\r\nvar ");
             
-            #line 9 "C:\Users\mjr\src\Acute\src\Acute.Compiler\JavascriptTemplates\module.tt"
-  
+            #line 11 "C:\Users\michaer\src\acute\src\Acute.Compiler\JavascriptTemplates\module.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ModuleName));
             
             #line default
             #line hidden
             this.Write(" = angular.module(\'");
             
-            #line 9 "C:\Users\mjr\src\Acute\src\Acute.Compiler\JavascriptTemplates\module.tt"
-  
+            #line 11 "C:\Users\michaer\src\acute\src\Acute.Compiler\JavascriptTemplates\module.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ModuleName));
             
             #line default
             #line hidden
-            this.Write("\', [])\r\n    .config([\'authenticatedRouteProvider\', \'$httpProvider\', function(auth" +
-                    "enticatedRouteProvider, $httpProvider) {\r\n\t\t");
+            this.Write("\', [])\r\n    .config([");
             
-            #line 11 "C:\Users\mjr\src\Acute\src\Acute.Compiler\JavascriptTemplates\module.tt"
-  
+            #line 12 "C:\Users\michaer\src\acute\src\Acute.Compiler\JavascriptTemplates\module.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ConfigDependencies.Select(x => x.SingleQuote()).CommaSeparate()));
             
             #line default
             #line hidden
-            this.Write("    }])");
+            this.Write(", function( ");
+            
+            #line 12 "C:\Users\michaer\src\acute\src\Acute.Compiler\JavascriptTemplates\module.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ConfigDependencies.CommaSeparate()));
+            
+            #line default
+            #line hidden
+            this.Write(") {\r\n\t\t");
+            
+            #line 13 "C:\Users\michaer\src\acute\src\Acute.Compiler\JavascriptTemplates\module.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ConfigBody));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n    }])\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }
@@ -62,7 +76,7 @@ namespace Acute.Compiler.JavascriptTemplates
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public class moduleBase
+    internal class moduleBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

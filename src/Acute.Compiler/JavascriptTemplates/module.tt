@@ -1,12 +1,14 @@
-﻿<#@ template language="C#" #>
+﻿<#@ template language="C#" visibility="internal" #>
 <#@ assembly name="System.Core" #>
+<#@ import namespace="Acute.Compiler.Core" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 
+
 'use strict';
 
-var <#  #> = angular.module('<#  #>', [])
-    .config(['authenticatedRouteProvider', '$httpProvider', function(authenticatedRouteProvider, $httpProvider) {
-		<#  #>
+var <#= ModuleName #> = angular.module('<#= ModuleName #>', [])
+    .config([<#= ConfigDependencies.Select(x => x.SingleQuote()).CommaSeparate() #>, function( <#=  ConfigDependencies.CommaSeparate()  #>) {
+		<#= ConfigBody #>
     }])

@@ -6,7 +6,7 @@ namespace Acute.Compiler.Translation
 {
     internal class ClassTranslatorFactory
     {
-        public Translator<ClassDeclaration> CreateTranslator(ClassDeclaration declaration)
+        public static Translator<ClassDeclaration> CreateTranslator(ClassDeclaration declaration)
         {
             //if the class inherits from Acute.App
             if (declaration.IsDerived && InheritsFrom(declaration.Definition.BaseClass.Symbol, typeof (App).FullName))
