@@ -7,7 +7,7 @@ namespace System
     /// each instantiation of the class.
     /// </summary>
     [Extension(
-        "Blade.Compiler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "Acute.Compiler",
         "Blade.Compiler.Extensibility.ScriptObjectLiteralExtension")]
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct)]
     public sealed class ScriptObjectLiteralAttribute : Attribute

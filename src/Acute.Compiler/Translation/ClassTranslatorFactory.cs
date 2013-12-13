@@ -9,7 +9,7 @@ namespace Acute.Compiler.Translation
         public static Translator<ClassDeclaration> CreateTranslator(ClassDeclaration declaration)
         {
             //if the class inherits from Acute.App
-            if (declaration.IsDerived && InheritsFrom(declaration.Definition.BaseClass.Symbol, typeof (App).FullName))
+            if (declaration.IsDerived && InheritsFrom(declaration.Definition.Symbol, typeof (App).FullName))
                 return new AppClassTranslator();
 
             return new ClassTranslator();

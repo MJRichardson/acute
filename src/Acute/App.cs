@@ -2,7 +2,7 @@
 
 namespace Acute
 {
-    public interface App
+    public abstract class App
     {
          
     }

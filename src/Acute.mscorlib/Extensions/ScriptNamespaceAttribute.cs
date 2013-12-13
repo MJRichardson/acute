@@ -5,7 +5,7 @@ namespace System
     /// Specifies that a target should use an alternate namespace in script.
     /// </summary>
     [Extension(
-        "Blade.Compiler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "Acute.Compiler",
         "Blade.Compiler.Extensibility.ScriptNamespaceExtension")]
     [AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Interface)]
     public sealed class ScriptNamespaceAttribute : Attribute

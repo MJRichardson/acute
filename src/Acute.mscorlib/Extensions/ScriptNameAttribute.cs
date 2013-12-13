@@ -5,7 +5,7 @@ namespace System
     /// Specifies that a target should use an alternate name in script.
     /// </summary>
     [Extension(
-        "Blade.Compiler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "Acute.Compiler",
         "Blade.Compiler.Extensibility.ScriptNameExtension")]
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Event | AttributeTargets.Field |
         AttributeTargets.Interface | AttributeTargets.Method | AttributeTargets.Property | AttributeTargets.Struct)]

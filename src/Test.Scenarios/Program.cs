@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
+using Acute;
 using Acute.Compiler;
 
 namespace Test.Scenarios
@@ -17,7 +19,11 @@ namespace Test.Scenarios
             {
                 var scenarioName = Path.GetFileName(scenarioPath);
                 var sourcePaths = Directory.GetFiles(scenarioPath, "*.cs", SearchOption.AllDirectories);
-                var referencePaths = new List<string>();
+                var referencePaths = new List<string>
+                    {
+                       typeof(App).Assembly.Location,
+                       Path.Combine(Path.GetDirectoryName( Assembly.GetExecutingAssembly().Location), @"..\..\..\bin\mscorlib.dll")
+                    };
 
                 compiler.Compile(new CompilationRequest(sourcePaths, referencePaths, scenarioName));
 

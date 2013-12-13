@@ -6,7 +6,7 @@ namespace System
     /// No script will be rendered for the declaration.
     /// </summary>
     [Extension(
-        "Blade.Compiler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+        "Acute.Compiler",
         "Blade.Compiler.Extensibility.ScriptExternalExtension")]
     [AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Class | AttributeTargets.Event |
         AttributeTargets.Field | AttributeTargets.Method | AttributeTargets.Property | AttributeTargets.Struct)]
