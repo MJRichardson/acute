@@ -9,9 +9,13 @@ namespace Test.Scenarios.Scenarios.RouteConfiguration
         {
             routeProvider.When("", new RouteConfig<DefaultController> {TemplateUrl = "blah.html"});
 
-            var name = typeof (App).FullName;
+            var name = NameFromType<App>();
 
-            var a = new Func<string>(()=> typeof (App).FullName);
         } 
+
+        private string NameFromType<T>()
+        {
+            return typeof (T).FullName;
+        }
     }
 }
