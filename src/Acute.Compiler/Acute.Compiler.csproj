@@ -255,6 +255,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>module.tt</DependentUpon>
     </Compile>
+    <Compile Include="JavascriptTemplates\Partials\ProviderTemplate.cs" />
     <Compile Include="JavascriptTemplates\Partials\module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Blade\Transformation\Argument.Transform.cs" />

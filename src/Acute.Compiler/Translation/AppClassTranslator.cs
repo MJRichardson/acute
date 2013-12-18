@@ -50,6 +50,7 @@ namespace Acute.Compiler.Translation
             //write the module template 
             context.Write(new module(model.Definition.GetFullName() + "Module", ctorBody, ctor.Parameters.Select(p => p.Definition.Name).ToArray()  ).TransformText());
 
+
             //and write the standard blade transformation of the class
             base.Translate(model, context);
         }
