@@ -107,6 +107,7 @@
     <Compile Include="Blade\Translation\Expression\PrefixUnaryExpressionTranslator.cs" />
     <Compile Include="Blade\Translation\Expression\QualifiedNameTranslator.cs" />
     <Compile Include="Blade\Translation\Expression\ThisExpressionTranslator.cs" />
+    <Compile Include="Blade\Translation\Expression\TypeOfExpressionTranslater.cs" />
     <Compile Include="Blade\Translation\ITranslator.cs" />
     <Compile Include="Blade\Translation\PositionalWriter.cs" />
     <Compile Include="Blade\Translation\Statement\BreakStatementTranslator.cs" />
@@ -331,6 +332,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Blade\Transformation\Expression\TypeOfExpression.Transformer.cs" />
     <None Include="JavascriptTemplates\module.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>module.cs</LastGenOutput>

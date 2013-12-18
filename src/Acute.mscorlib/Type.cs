@@ -3,10 +3,17 @@ namespace System
 {
     public class Type
     {
-        public static Type GetTypeFromHandle(RuntimeTypeHandle handle)
+        internal Type(string fullName)
         {
-            return new Type();
+            FullName = fullName;
         }
+
+        //public static Type GetTypeFromHandle(RuntimeTypeHandle handle)
+        //{
+        //    return new Type();
+        //}
+
+        public string FullName { get; private set; }
     }
 }
 

@@ -1,4 +1,5 @@
-﻿using Acute;
+﻿using System;
+using Acute;
 
 namespace Test.Scenarios.Scenarios.RouteConfiguration
 {
@@ -7,6 +8,10 @@ namespace Test.Scenarios.Scenarios.RouteConfiguration
         public App(RouteProvider routeProvider)
         {
             routeProvider.When("", new RouteConfig<DefaultController> {TemplateUrl = "blah.html"});
+
+            var name = typeof (App).FullName;
+
+            var a = new Func<string>(()=> typeof (App).FullName);
         } 
     }
 }
