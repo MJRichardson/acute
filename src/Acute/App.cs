@@ -4,7 +4,7 @@ namespace Acute
 {
     public abstract class App
     {
-         protected void RegisterService<T>()
+         protected void RegisterService(Type service)
          {}
     }
 }

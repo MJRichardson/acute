@@ -2,7 +2,7 @@
 
 namespace Acute
 {
-    public abstract class RouteProvider
+    public sealed class RouteProvider
     {
 
         [AngularInject("$routeProvider")]

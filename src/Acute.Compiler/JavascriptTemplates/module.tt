@@ -8,7 +8,7 @@
 
 'use strict';
 
-var <#= ModuleName #> = angular.module('<#= ModuleName #>', [])
+var <#= ModuleName #> = angular.module('<#= ModuleName #>', ['Acute.App'])
     .config([<#= ConfigDependencies.Select(x => x.SingleQuote()).CommaSeparate() #>, function( <#=  ConfigDependencies.CommaSeparate()  #>) {
 		<#= ConfigBody #>
     }])

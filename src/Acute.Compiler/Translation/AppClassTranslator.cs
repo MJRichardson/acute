@@ -48,7 +48,7 @@ namespace Acute.Compiler.Translation
 
             context.OutputStream = realOutputStream;
             //write the module template 
-            context.Write(new module(model.Definition.GetFullName() + "Module", ctorBody, ctor.Parameters.Select(p => p.Definition.Name).ToArray()  ).TransformText());
+            context.Write(new module(model.Definition.GetFullName() + "Module", ctorBody, ctor.Parameters.Select(p => p.Definition.Type.GetFullName()).ToArray()  ).TransformText());
 
 
             //and write the standard blade transformation of the class

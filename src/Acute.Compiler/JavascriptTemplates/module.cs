@@ -19,7 +19,7 @@ namespace Acute.Compiler.JavascriptTemplates
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Users\michaer\src\acute\src\Acute.Compiler\JavascriptTemplates\module.tt"
+    #line 1 "C:\Users\mjr\src\Acute\src\Acute.Compiler\JavascriptTemplates\module.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
     internal partial class module : moduleBase
     {
@@ -31,35 +31,35 @@ namespace Acute.Compiler.JavascriptTemplates
         {
             this.Write("\r\n\r\n\'use strict\';\r\n\r\nvar ");
             
-            #line 11 "C:\Users\michaer\src\acute\src\Acute.Compiler\JavascriptTemplates\module.tt"
+            #line 11 "C:\Users\mjr\src\Acute\src\Acute.Compiler\JavascriptTemplates\module.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ModuleName));
             
             #line default
             #line hidden
             this.Write(" = angular.module(\'");
             
-            #line 11 "C:\Users\michaer\src\acute\src\Acute.Compiler\JavascriptTemplates\module.tt"
+            #line 11 "C:\Users\mjr\src\Acute\src\Acute.Compiler\JavascriptTemplates\module.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ModuleName));
             
             #line default
             #line hidden
-            this.Write("\', [])\r\n    .config([");
+            this.Write("\', [\'Acute.App\'])\r\n    .config([");
             
-            #line 12 "C:\Users\michaer\src\acute\src\Acute.Compiler\JavascriptTemplates\module.tt"
+            #line 12 "C:\Users\mjr\src\Acute\src\Acute.Compiler\JavascriptTemplates\module.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ConfigDependencies.Select(x => x.SingleQuote()).CommaSeparate()));
             
             #line default
             #line hidden
             this.Write(", function( ");
             
-            #line 12 "C:\Users\michaer\src\acute\src\Acute.Compiler\JavascriptTemplates\module.tt"
+            #line 12 "C:\Users\mjr\src\Acute\src\Acute.Compiler\JavascriptTemplates\module.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ConfigDependencies.CommaSeparate()));
             
             #line default
             #line hidden
             this.Write(") {\r\n\t\t");
             
-            #line 13 "C:\Users\michaer\src\acute\src\Acute.Compiler\JavascriptTemplates\module.tt"
+            #line 13 "C:\Users\mjr\src\Acute\src\Acute.Compiler\JavascriptTemplates\module.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ConfigBody));
             
             #line default
