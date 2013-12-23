@@ -154,7 +154,7 @@ namespace Blade.Compiler.Models
             }
 
             if (model != null)
-                ExtendDefinition(model);
+                model = ExtendDefinition(model);
 
             return model;
         }
@@ -208,24 +208,28 @@ namespace Blade.Compiler.Models
         }
 
         // runs definition extensions
-        private void ExtendDefinition(IDefinition definition)
+        private IDefinition ExtendDefinition(IDefinition definition)
         {
             if (definition == null || definition.Symbol == null)
-                return;
+                return definition;
+
+            var extendedDefinition = definition; 
 
             // execute assembly level extensions
             var asm = definition.Symbol.ContainingAssembly;
             if (asm != null)
             {
                 foreach (var ext in _extFactory.GetExtensions(asm))
-                    ext.ExtendDefinition(definition);
+                    extendedDefinition = ext.ExtendDefinition(extendedDefinition);
             }
 
             // execute target level extensions
             foreach (var ext in _extFactory.GetExtensions(definition.Symbol))
             {
-                ext.ExtendDefinition(definition);
+                extendedDefinition = ext.ExtendDefinition(extendedDefinition);
             }
+
+            return extendedDefinition;
         }
     }
 }

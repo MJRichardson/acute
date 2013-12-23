@@ -19,7 +19,7 @@ namespace Blade.Compiler.Extensibility
         /// Extends a definition.
         /// </summary>
         /// <param name="definition">The target definition.</param>
-        void ExtendDefinition(IDefinition definition);
+        IDefinition ExtendDefinition(IDefinition definition);
 
         /// <summary>
         /// Extends the completed compilation model.

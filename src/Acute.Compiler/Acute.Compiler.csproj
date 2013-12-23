@@ -139,6 +139,7 @@
     <Compile Include="Blade\DocumentLocation.cs" />
     <Compile Include="CompilationSteps\TranslateStep.cs" />
     <Compile Include="Core\StringExtensions.cs" />
+    <Compile Include="Extensibility\CustomScriptTypeExtension.cs" />
     <Compile Include="ICompilationStep.cs" />
     <Compile Include="Blade\Models\Common\Argument.cs" />
     <Compile Include="Blade\Models\Common\ArrayRankSpecifier.cs" />

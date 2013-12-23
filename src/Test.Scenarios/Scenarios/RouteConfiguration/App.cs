@@ -9,13 +9,13 @@ namespace Test.Scenarios.Scenarios.RouteConfiguration
         {
             routeProvider.When("", new RouteConfig<DefaultController> {TemplateUrl = "blah.html"});
 
-            var name = NameFromType<App>();
+            //var name = NameFromType<App>();
 
         } 
 
-        private string NameFromType<T>()
-        {
-            return typeof (T).FullName;
-        }
+        //private string NameFromType<T>()
+        //{
+        //    return typeof (T).FullName;
+        //}
     }
 }

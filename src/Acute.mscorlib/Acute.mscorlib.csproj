@@ -61,6 +61,7 @@
     <Compile Include="Enum.cs" />
     <Compile Include="Exception.cs" />
     <Compile Include="Extensions\AngularInjectAttribute.cs" />
+    <Compile Include="Extensions\CustomScriptTypeAttribute.cs" />
     <Compile Include="Extensions\ExtensionAttribute.cs" />
     <Compile Include="Extensions\ScriptExternalAttribute.cs" />
     <Compile Include="Extensions\ScriptFieldAttribute.cs" />
