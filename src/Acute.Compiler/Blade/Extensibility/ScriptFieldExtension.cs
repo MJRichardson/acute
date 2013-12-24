@@ -32,15 +32,17 @@ namespace Blade.Compiler.Extensibility
             container.AddMember(field);
         }
 
-        public override void ExtendDefinition(IDefinition definition)
+        public override IDefinition ExtendDefinition(IDefinition definition)
         {
             var memberDef = definition as IMemberDefinition;
             if (memberDef == null)
-                return;
+                return definition;
 
             // change property to field
             if (memberDef.MemberKind == MemberDefinitionKind.Property)
                 memberDef.MemberKind = MemberDefinitionKind.Field;
+
+            return definition;
         }
     }
 }

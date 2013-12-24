@@ -11,9 +11,10 @@ namespace Blade.Compiler.Extensibility
             _name = name;
         }
 
-        public override void ExtendDefinition(IDefinition definition)
+        public override IDefinition ExtendDefinition(IDefinition definition)
         {
             definition.Name = _name;
+            return definition;
         }
     }
 }

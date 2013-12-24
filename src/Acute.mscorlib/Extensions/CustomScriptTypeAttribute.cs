@@ -6,9 +6,8 @@
     [AttributeUsage( AttributeTargets.Interface)]
     public class CustomScriptTypeAttribute : Attribute
     {
-        public CustomScriptTypeAttribute(string customTranslator)
+        public CustomScriptTypeAttribute()
         {
-            
         } 
     }
 }

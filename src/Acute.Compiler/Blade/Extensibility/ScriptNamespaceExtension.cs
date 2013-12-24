@@ -12,12 +12,14 @@ namespace Blade.Compiler.Extensibility
             _name = name;
         }
 
-        public override void ExtendDefinition(IDefinition definition)
+        public override IDefinition ExtendDefinition(IDefinition definition)
         {
             // only applies to type definitions
             var typeDef = definition as ITypeDefinition;
             if (typeDef != null)
                 typeDef.Namespace = _name;
+
+            return definition;
         }
     }
 }

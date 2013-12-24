@@ -32,8 +32,6 @@
     <NoStdLib>true</NoStdLib>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Angular\Provide.cs" />
-    <Compile Include="Angular\RouteProvider.cs" />
     <Compile Include="App.cs" />
     <Compile Include="Controller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

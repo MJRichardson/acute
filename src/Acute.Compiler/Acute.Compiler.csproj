@@ -72,10 +72,12 @@
     <Compile Include="Blade\Extensibility\ScriptObjectLiteralExtension.cs" />
     <Compile Include="Blade\GenericImportProvider.cs" />
     <Compile Include="Blade\ImportProvider.cs" />
+    <Compile Include="Blade\Models\Definition\CustomScriptTypeDefinition.cs" />
     <Compile Include="Blade\Translation\ClassSorter.cs" />
     <Compile Include="Blade\Translation\Common\BlockTranslator.cs" />
     <Compile Include="Blade\Translation\Common\ParameterTranslator.cs" />
     <Compile Include="Blade\Translation\Common\VariableDeclaratorTranslator.cs" />
+    <Compile Include="Blade\Translation\CustomScripts\RouteProviderCustomTranslator.cs" />
     <Compile Include="Blade\Translation\Declaration\ClassTranslator.cs" />
     <Compile Include="Blade\Translation\Declaration\EnumTranslator.cs" />
     <Compile Include="Blade\Translation\Declaration\EventTranslator.cs" />
@@ -252,6 +254,12 @@
     <Compile Include="Blade\Models\Statement\TryStatement.cs" />
     <Compile Include="Blade\Models\Statement\WhileStatement.cs" />
     <Compile Include="Blade\Models\SyntacticModel.cs" />
+    <Compile Include="JavascriptTemplates\Invocations\RouteProvider\Partials\WhenTemplate.cs" />
+    <Compile Include="JavascriptTemplates\Invocations\RouteProvider\WhenTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WhenTemplate.tt</DependentUpon>
+    </Compile>
     <Compile Include="JavascriptTemplates\module.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -334,6 +342,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Blade\Transformation\Expression\TypeOfExpression.Transformer.cs" />
+    <None Include="JavascriptTemplates\Invocations\RouteProvider\WhenTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>WhenTemplate.cs</LastGenOutput>
+    </None>
     <None Include="JavascriptTemplates\module.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>module.cs</LastGenOutput>

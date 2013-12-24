@@ -20,19 +20,21 @@ namespace Blade.Compiler.Extensibility
             model.RemoveType(classDecl);
         }
 
-        public override void ExtendDefinition(IDefinition definition)
+        public override IDefinition ExtendDefinition(IDefinition definition)
         {
             var typeDef = definition as ContainerTypeDefinition;
 
-            if (typeDef == null)
-                return;
+            if (typeDef != null)
+            {
+                // set to anonymous type view
+                typeDef.TypeKind = TypeDefinitionKind.Anonymous;
 
-            // set to anonymous type view
-            typeDef.TypeKind = TypeDefinitionKind.Anonymous;
+                // set each property to render as a field
+                foreach (var prop in typeDef.Properties)
+                    prop.MemberKind = MemberDefinitionKind.Field;
+            }
 
-            // set each property to render as a field
-            foreach (var prop in typeDef.Properties)
-                prop.MemberKind = MemberDefinitionKind.Field;
+            return definition;
         }
 
         private void ValidateClass(ClassDeclaration classDecl)

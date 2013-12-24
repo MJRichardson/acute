@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Blade.Compiler.Models;
+using Blade.Compiler.Translation.CustomScripts;
 
 namespace Blade.Compiler.Translation
 {
@@ -13,8 +14,33 @@ namespace Blade.Compiler.Translation
     {
         public override void Translate(InvocationExpression model, TranslationContext context)
         {
-            context.WriteModel(model.Expression);
             var args = GetArguments(model);
+
+            //if we are invoking a member on a custom-script-type
+            var memberAccessExpression = model.Expression as MemberAccessExpression;
+
+            if (memberAccessExpression != null)
+            {
+                var methodDefinition = memberAccessExpression.Member.Definition as MethodDefinition;
+
+                if (methodDefinition != null)
+                {
+                    var customScriptType = methodDefinition.ContainingType as CustomScriptTypeDefinition;
+
+                    if (customScriptType != null)
+                    {
+                        var translateFunction = new RouteProviderCustomTranslator().Transalation(methodDefinition.Name);
+
+                        if (translateFunction != null)
+                        {
+                            translateFunction(model, args, context);
+                            return;
+                        }
+                    }
+                }
+            }
+
+            context.WriteModel(model.Expression);
 
             // when invoking explicitly, use 'call' and 
             // explicity pass the 'this' context in

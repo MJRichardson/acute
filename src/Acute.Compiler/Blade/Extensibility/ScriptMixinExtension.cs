@@ -58,11 +58,11 @@ namespace Blade.Compiler.Extensibility
             });
         }
 
-        public override void ExtendDefinition(IDefinition definition)
+        public override IDefinition ExtendDefinition(IDefinition definition)
         {
             var methodDef = definition as MethodDefinition;
             if (methodDef == null || methodDef.Symbol == null)
-                return;
+                return definition;
 
             if (methodDef.Symbol.ReducedFrom != null)
             {
@@ -70,6 +70,8 @@ namespace Blade.Compiler.Extensibility
                 methodDef.Symbol = methodDef.Symbol.ReducedFrom;
                 methodDef.Modifiers.IsStatic = false;
             }
+
+            return definition;
         }
     }
 }
