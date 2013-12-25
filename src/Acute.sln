@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Scenarios", "Test.Scen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acute.mscorlib", "Acute.mscorlib\Acute.mscorlib.csproj", "{BC45F926-11A7-4DC0-8568-563C9A0E0281}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Jasmine", "Test.Jasmine\Test.Jasmine.csproj", "{0E319A42-1CFD-4557-8034-99ED1992CFEB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,11 +70,22 @@ Global
 		{BC45F926-11A7-4DC0-8568-563C9A0E0281}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{BC45F926-11A7-4DC0-8568-563C9A0E0281}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{BC45F926-11A7-4DC0-8568-563C9A0E0281}.Release|x86.ActiveCfg = Release|Any CPU
+		{0E319A42-1CFD-4557-8034-99ED1992CFEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E319A42-1CFD-4557-8034-99ED1992CFEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E319A42-1CFD-4557-8034-99ED1992CFEB}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{0E319A42-1CFD-4557-8034-99ED1992CFEB}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{0E319A42-1CFD-4557-8034-99ED1992CFEB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0E319A42-1CFD-4557-8034-99ED1992CFEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E319A42-1CFD-4557-8034-99ED1992CFEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E319A42-1CFD-4557-8034-99ED1992CFEB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{0E319A42-1CFD-4557-8034-99ED1992CFEB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{0E319A42-1CFD-4557-8034-99ED1992CFEB}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E03C0662-1760-4A3E-A868-1B0C2E1CEDB1} = {68344715-AA51-4898-AB1C-53A72456FB3E}
+		{0E319A42-1CFD-4557-8034-99ED1992CFEB} = {68344715-AA51-4898-AB1C-53A72456FB3E}
 	EndGlobalSection
 EndGlobal
