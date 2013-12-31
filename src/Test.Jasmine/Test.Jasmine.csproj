@@ -66,10 +66,13 @@
     <Content Include="lib\jasmine-2.0.0\jasmine.css" />
     <Content Include="lib\jasmine-2.0.0\jasmine.js" />
     <Content Include="lib\jasmine-2.0.0\jasmine_favicon.png" />
+    <Content Include="scenarios\scenarios.js" />
     <Content Include="SpecRunner.html" />
     <Content Include="spec\PlayerSpec.js" />
+    <Content Include="spec\RouteProviderSpecs.js" />
     <Content Include="spec\SpecHelper.js" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -95,6 +98,10 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>$(ProjectDir)..\Test.Scenarios\bin\$(ConfigurationName)\scenarios.exe
+xcopy $(ProjectDir)..\Test.Scenarios\bin\$(ConfigurationName)\scenarios.js $(ProjectDir)scenarios /Y</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

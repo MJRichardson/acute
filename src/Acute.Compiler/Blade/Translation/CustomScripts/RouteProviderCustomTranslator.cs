@@ -18,7 +18,9 @@ namespace Blade.Compiler.Translation.CustomScripts
 
         private static void TranslateWhen(InvocationExpression model, IEnumerable<ExpressionModel> arguments,  TranslationContext context)
         {
-            context.Write(RouteProviderFullName + ".when(");
+            var memberAccessExpression = (MemberAccessExpression) model.Expression;
+            context.WriteModel(memberAccessExpression.Expression);
+            context.Write(".when(");
             context.WriteModels(arguments, ",");
             context.Write(")");
         }

@@ -1,4 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Reflection;
+using System.Text;
 using Acute.Compiler.CompilationSteps;
 using Blade.Compiler.Models;
 
@@ -25,8 +28,19 @@ namespace Acute.Compiler
 
                  ModelRegistry.BeginRegistration();
 
-                 using (context.OutputStream = File.Create(request.TargetName + ".js"))
+                 string outputFileName = request.TargetName + ".js";
+                 string outputFilePath = !string.IsNullOrEmpty(request.OutputPath)
+                                             ? Path.Combine(request.OutputPath, outputFileName)
+                                             : outputFileName; 
+
+
+
+                 using (context.OutputStream = File.Create(outputFilePath))
                  {
+                     CopyEmbeddedFileContentsToStream("Acute.Compiler.JavascriptTemplates.angular.min.js", context.OutputStream);
+                     CopyEmbeddedFileContentsToStream("Acute.Compiler.JavascriptTemplates.blade.js", context.OutputStream);
+                     CopyEmbeddedFileContentsToStream("Acute.Compiler.JavascriptTemplates.acute.js", context.OutputStream);
+
                      _pipeline.Execute(context);
                  }
              }
@@ -37,5 +51,17 @@ namespace Acute.Compiler
              }
 
          }
+
+        private static void CopyEmbeddedFileContentsToStream(string resourceName, Stream outputStream)
+        {
+             using (var resourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
+             {
+                 using (var streamReader = new StreamReader(resourceStream))
+                 {
+                     var contents = Encoding.UTF8.GetBytes(streamReader.ReadToEnd());
+                     outputStream.Write(contents, 0, contents.Length);
+                 }
+             }
+        }
     }
 }

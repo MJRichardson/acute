@@ -5,10 +5,7 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 
-
-'use strict';
-
-var <#= ModuleName #> = angular.module('<#= ModuleName #>', ['Acute.App'])
-    .config([<#= ConfigDependencies.Select(x => x.SingleQuote()).CommaSeparate() #>, function( <#=  ConfigDependencies.CommaSeparate()  #>) {
+angular.module('<#= ModuleName #>', ['Acute.App'])
+    .config([<#= ConfigDependencies.Select(x => x.SingleQuote()).CommaSeparate() #>, function( <#=  Parameters.CommaSeparate()  #>) {
 		<#= ConfigBody #>
-    }])
+    }]);

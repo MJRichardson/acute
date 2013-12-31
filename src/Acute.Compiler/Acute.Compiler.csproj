@@ -363,7 +363,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="JavascriptTemplates\acute.js" />
+    <EmbeddedResource Include="JavascriptTemplates\acute.js" />
+    <EmbeddedResource Include="JavascriptTemplates\blade.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="JavascriptTemplates\angular.min.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
