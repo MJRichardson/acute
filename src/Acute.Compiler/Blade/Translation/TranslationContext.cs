@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using Blade.Compiler.Models;
 
@@ -61,6 +63,13 @@ namespace Blade.Compiler.Translation
         public TranslationContext()
         {
             _namespaces = new List<string>();
+
+            var list = new List<Assembly> {Assembly.GetExecutingAssembly()}; 
+
+            // create MEF container
+            var container = new CompositionContainer(new AggregateCatalog(
+                list.Select(a => new AssemblyCatalog(a))));
+
             _provider = new TranslatorProvider(null);
         }
 
@@ -206,11 +215,11 @@ namespace Blade.Compiler.Translation
         /// <summary>
         /// Resolves a translator by model type.
         /// </summary>
-        /// <param name="type">The model type.</param>
+        /// <param name="model">The model.</param>
         /// <returns>The associated translator.</returns>
-        public ITranslator ResolveTranslator(Type type)
+        public ITranslator ResolveTranslator(IModel model)
         {
-            return _provider.ResolveImport(type);
+            return _provider.ResolveImport(model);
         }
 
         /// <summary>

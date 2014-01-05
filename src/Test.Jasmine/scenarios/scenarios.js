@@ -317,39 +317,55 @@ var acute = angular.module('Acute.App', [])
 if(typeof Test == 'undefined') Test = {};
 if(!Test.Scenarios) Test.Scenarios = {};
 if(!Test.Scenarios.RouteConfiguration) Test.Scenarios.RouteConfiguration = {};
+if(!Test.Scenarios.RouteConfiguration.When) Test.Scenarios.RouteConfiguration.When = {};
+if(!Test.Scenarios.RouteConfiguration.When.WithGenericController) Test.Scenarios.RouteConfiguration.When.WithGenericController = {};
 
-Test.Scenarios.RouteConfiguration.App = (function() {
+Test.Scenarios.RouteConfiguration.When.WithGenericController.App = (function() {
     Blade.derive(App, Acute.App);
     var $base = Acute.App.prototype;
     function App(routeProvider) {
         $base.constructor.call(this);
-        routeProvider.when('',{
+        var routeConfig = new Acute.RouteConfig();
+        routeProvider.when('/this/is/a/path',routeConfig);
+    }
+    return App;
+})();
+
+angular.module('Test.Scenarios.RouteConfiguration.When.WithGenericController.AppModule', ['Acute.App'])
+    .config(['Acute.RouteProvider', function( routeProvider) {
+		
+var routeConfig = new Acute.RouteConfig();
+routeProvider.when('/this/is/a/path',routeConfig);
+
+    }]);
+
+Test.Scenarios.RouteConfiguration.When.WithGenericController.DefaultController = (function() {
+    Blade.derive(DefaultController, Acute.Controller);
+    var $base = Acute.Controller.prototype;
+    function DefaultController() {
+        $base.constructor.call(this);
+    }
+    return DefaultController;
+})();
+if(!Test.Scenarios.RouteConfiguration.When.WithTemplateUrl) Test.Scenarios.RouteConfiguration.When.WithTemplateUrl = {};
+
+Test.Scenarios.RouteConfiguration.When.WithTemplateUrl.App = (function() {
+    Blade.derive(App, Acute.App);
+    var $base = Acute.App.prototype;
+    function App(routeProvider) {
+        $base.constructor.call(this);
+        routeProvider.when('/this/is/a/path',{
             templateUrl: '/this/is/a/template.html'
         });
     }
     return App;
 })();
 
-angular.module('Test.Scenarios.RouteConfiguration.AppModule', ['Acute.App'])
+angular.module('Test.Scenarios.RouteConfiguration.When.WithTemplateUrl.AppModule', ['Acute.App'])
     .config(['Acute.RouteProvider', function( routeProvider) {
 		
-routeProvider.when('',{
+routeProvider.when('/this/is/a/path',{
     templateUrl: '/this/is/a/template.html'
 });
 
     }]);
-if(!Test.Scenarios.Scenarios) Test.Scenarios.Scenarios = {};
-if(!Test.Scenarios.Scenarios.RouteConfiguration) Test.Scenarios.Scenarios.RouteConfiguration = {};
-
-Test.Scenarios.Scenarios.RouteConfiguration.DefaultController = (function() {
-    Blade.derive(DefaultController, Acute.Controller);
-    var $base = Acute.Controller.prototype;
-    function DefaultController() {
-        $base.constructor.call(this);
-    }
-    var p = DefaultController.prototype;
-    p.Blah = function () {
-        return 'blah';
-    };
-    return DefaultController;
-})();

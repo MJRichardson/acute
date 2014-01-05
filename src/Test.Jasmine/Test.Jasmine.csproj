@@ -72,7 +72,12 @@
     <Content Include="spec\RouteProviderSpecs.js" />
     <Content Include="spec\SpecHelper.js" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Test.Scenarios\Test.Scenarios.csproj">
+      <Project>{e03c0662-1760-4a3e-a868-1b0c2e1cedb1}</Project>
+      <Name>Test.Scenarios</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

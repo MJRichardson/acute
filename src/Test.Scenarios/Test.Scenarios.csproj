@@ -43,10 +43,13 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Scenarios\RouteConfiguration\App.cs">
+    <Compile Include="Scenarios\RouteConfiguration\When\WithGenericController\App.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Scenarios\RouteConfiguration\DefaultController.cs">
+    <Compile Include="Scenarios\RouteConfiguration\When\WithGenericController\DefaultController.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Scenarios\RouteConfiguration\When\WithTemplateUrl\App.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>
@@ -63,6 +66,7 @@
       <Name>Acute</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
