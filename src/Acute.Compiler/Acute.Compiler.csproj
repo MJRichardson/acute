@@ -77,7 +77,9 @@
     <Compile Include="Blade\Translation\Common\BlockTranslator.cs" />
     <Compile Include="Blade\Translation\Common\ParameterTranslator.cs" />
     <Compile Include="Blade\Translation\Common\VariableDeclaratorTranslator.cs" />
+    <Compile Include="Blade\Translation\CustomScripts\CustomScriptTypeTranslator.cs" />
     <Compile Include="Blade\Translation\CustomScripts\RouteProviderCustomTranslator.cs" />
+    <Compile Include="Blade\Translation\CustomScriptTypeTranslatorAttribute.cs" />
     <Compile Include="Blade\Translation\Declaration\ClassTranslator.cs" />
     <Compile Include="Blade\Translation\Declaration\EnumTranslator.cs" />
     <Compile Include="Blade\Translation\Declaration\EventTranslator.cs" />
@@ -111,6 +113,7 @@
     <Compile Include="Blade\Translation\Expression\ThisExpressionTranslator.cs" />
     <Compile Include="Blade\Translation\Expression\TypeOfExpressionTranslater.cs" />
     <Compile Include="Blade\Translation\ITranslator.cs" />
+    <Compile Include="Blade\Translation\ITranslatorMetadata.cs" />
     <Compile Include="Blade\Translation\PositionalWriter.cs" />
     <Compile Include="Blade\Translation\Statement\BreakStatementTranslator.cs" />
     <Compile Include="Blade\Translation\Statement\ContinueStatementTranslator.cs" />

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Blade.Compiler.Models;
-using Blade.Compiler.Translation.CustomScripts;
 
 namespace Blade.Compiler.Translation
 {
@@ -14,33 +13,8 @@ namespace Blade.Compiler.Translation
     {
         public override void Translate(InvocationExpression model, TranslationContext context)
         {
-            var args = GetArguments(model);
-
-            //if we are invoking a member on a custom-script-type
-            var memberAccessExpression = model.Expression as MemberAccessExpression;
-
-            if (memberAccessExpression != null)
-            {
-                var methodDefinition = memberAccessExpression.Member.Definition as MethodDefinition;
-
-                if (methodDefinition != null)
-                {
-                    var customScriptType = methodDefinition.ContainingType as CustomScriptTypeDefinition;
-
-                    if (customScriptType != null)
-                    {
-                        var translateFunction = new RouteProviderCustomTranslator().Transalation(methodDefinition.Name);
-
-                        if (translateFunction != null)
-                        {
-                            translateFunction(model, args, context);
-                            return;
-                        }
-                    }
-                }
-            }
-
             context.WriteModel(model.Expression);
+            var args = TranslationHelper.GetInvocationArgs(model);
 
             // when invoking explicitly, use 'call' and 
             // explicity pass the 'this' context in
@@ -72,26 +46,5 @@ namespace Blade.Compiler.Translation
             context.Write(")");
         }
 
-        // gets ordered params, taking into account named arguments and optional parameters
-        private IEnumerable<ExpressionModel> GetArguments(InvocationExpression model)
-        {
-            ISymbolicModel symbolicModel = null;
-
-            var mbrAccess = model.Expression as MemberAccessExpression;
-            if (mbrAccess != null)
-                symbolicModel = mbrAccess.Member;
-            else symbolicModel = model.Expression as ISymbolicModel;
-
-            if (symbolicModel != null)
-            {
-                // only method definitions are applicable here
-                var methodDef = symbolicModel.Definition as MethodDefinition;
-
-                return TranslationHelper.GetInvocationArgs((methodDef != null ?
-                    methodDef.Parameters : null), model.Arguments);
-            }
-
-            return Enumerable.Empty<ExpressionModel>();
-        }
     }
 }

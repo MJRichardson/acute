@@ -72,5 +72,27 @@ namespace Blade.Compiler.Translation
 
             return returnArgs;
         }
+
+        // gets ordered params, taking into account named arguments and optional parameters
+        public static IEnumerable<ExpressionModel> GetInvocationArgs(InvocationExpression model)
+        {
+            ISymbolicModel symbolicModel = null;
+
+            var mbrAccess = model.Expression as MemberAccessExpression;
+            if (mbrAccess != null)
+                symbolicModel = mbrAccess.Member;
+            else symbolicModel = model.Expression as ISymbolicModel;
+
+            if (symbolicModel != null)
+            {
+                // only method definitions are applicable here
+                var methodDef = symbolicModel.Definition as MethodDefinition;
+
+                return TranslationHelper.GetInvocationArgs((methodDef != null ?
+                    methodDef.Parameters : null), model.Arguments);
+            }
+
+            return Enumerable.Empty<ExpressionModel>();
+        }
     }
 }

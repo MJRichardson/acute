@@ -4,7 +4,7 @@ using Blade.Compiler.Models;
 
 namespace Blade.Compiler.Translation.CustomScripts
 {
-    internal class RouteProviderCustomTranslator
+    internal class RouteProviderCustomTranslator : CustomScriptTypeTranslator
     {
         private const string RouteProviderFullName = "Acute.RouteProvider";
 
@@ -16,9 +16,25 @@ namespace Blade.Compiler.Translation.CustomScripts
              return null;
          }
 
-        private static void TranslateWhen(InvocationExpression model, IEnumerable<ExpressionModel> arguments,  TranslationContext context)
+
+        protected override void TranslateMemberInvocation(InvocationExpression model, TranslationContext context)
         {
             var memberAccessExpression = (MemberAccessExpression) model.Expression;
+            var memberName = memberAccessExpression.Member.Definition.Name;
+
+            switch (memberName)
+            {
+                case "When":
+                   TranslateWhen(memberAccessExpression, TranslationHelper.GetInvocationArgs(model), context ); 
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException("memberName", memberName, "Unexpected member name." ); 
+            }
+        }
+
+        private static void TranslateWhen(MemberAccessExpression memberAccessExpression, IEnumerable<ExpressionModel> arguments,  TranslationContext context)
+        {
             context.WriteModel(memberAccessExpression.Expression);
             context.Write(".when(");
             context.WriteModels(arguments, ",");

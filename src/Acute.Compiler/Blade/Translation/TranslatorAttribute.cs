@@ -8,14 +8,20 @@ namespace Blade.Compiler.Translation
     /// </summary>
     [MetadataAttribute]
     [AttributeUsage(AttributeTargets.Class)]
-    internal class TranslatorAttribute : ExportAttribute
+    internal class TranslatorAttribute : ExportAttribute, ITranslatorMetadata
     {
+
+        public const string TranslatorContractName = "Acute.Compiler.Translation.Translator";
+
         /// <summary>
         /// Creates a new instance of the class.
         /// </summary>
-        public TranslatorAttribute()
-            : base(typeof(ITranslator))
+        public TranslatorAttribute(Type modelType)
+            : base(TranslatorContractName, typeof(ITranslator))
         {
+            ModelType = modelType;
         }
+
+        public Type ModelType { get; set; }
     }
 }

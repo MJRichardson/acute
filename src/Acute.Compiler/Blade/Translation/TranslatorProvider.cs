@@ -12,6 +12,8 @@ namespace Blade.Compiler.Translation
     /// </summary>
     internal sealed class TranslatorProvider //: GenericImportProvider<ITranslator>
     {
+
+
         /// <summary>
         /// Creates a new instance of the class.
         /// </summary>
@@ -26,8 +28,10 @@ namespace Blade.Compiler.Translation
                 list.Add(thisAssembly);
 
             // create MEF container
-             _container = new CompositionContainer(new AggregateCatalog(
+             var container = new CompositionContainer(new AggregateCatalog(
                 list.Select(a => new AssemblyCatalog(a))));
+
+            _exports = container.GetExports<ITranslator, ITranslatorMetadata>().ToList();
         }
 
         /// <summary>
@@ -35,6 +39,15 @@ namespace Blade.Compiler.Translation
         /// </summary>
         public ITranslator ResolveTranslator(IModel model)
         {
+            var customScriptTranslator = ResolveCustomScriptTranslator(model);
+
+            if (customScriptTranslator != null)
+                return customScriptTranslator;
+        }
+
+        private ITranslator ResolveGeneralTranslator(IModel model)
+        {
+            
         }
 
         private ITranslator ResolveCustomScriptTranslator(IModel model)
@@ -48,15 +61,21 @@ namespace Blade.Compiler.Translation
 
                 if (memberAccessExpression != null)
                 {
-                    var methodDefinition = memberAccessExpression.Member.Definition as MethodDefinition;
+                    var memberDefinition = memberAccessExpression.Member.Definition as IMemberDefinition;
 
-                    if (methodDefinition != null)
+                    if (memberDefinition != null)
                     {
-                        var customScriptType = methodDefinition.ContainingType as CustomScriptTypeDefinition;
+                        var customScriptType = memberDefinition.ContainingType as CustomScriptTypeDefinition;
 
                         if (customScriptType != null)
                         {
                             //get translator
+                           var customScriptTranslatorExport =  _exports.SingleOrDefault(
+                                x => !string.IsNullOrEmpty(x.Metadata.CustomScriptType) && x.Metadata.CustomScriptType == customScriptType.GetFullName());
+
+                            return customScriptTranslatorExport != null
+                                       ? customScriptTranslatorExport.Value
+                                       : null;
                         }
                     }
                 }
@@ -73,6 +92,7 @@ namespace Blade.Compiler.Translation
             get { return typeof(Translator<>); }
         }
 
-        private CompositionContainer _container;
+        private readonly IEnumerable<Lazy<ITranslator, ITranslatorMetadata>> _exports { get; set; }
+
     }
 }
