@@ -6,8 +6,13 @@ namespace Test.Scenarios.RouteConfiguration.When.WithGenericController
     {
         public App(RouteProvider routeProvider)
         {
-            var routeConfig = new RouteConfig<DefaultController>();
-            routeProvider.When("/this/is/a/path", routeConfig );
+            //route-config with default constuctor and no initializers
+            routeProvider.When("/path/for/route/config/with/no/initializers", new RouteConfig<DefaultController>() );
+
+            //route-config with initalizer
+            routeProvider.When("/path/for/route/config/with/initializer", new RouteConfig<DefaultController>{TemplateUrl = "/a/template.html"} );
+
+
         } 
     }
 }

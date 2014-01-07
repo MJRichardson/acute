@@ -8,11 +8,16 @@ namespace Blade.Compiler.Translation.CustomScripts
     {
         protected override void TranslateNew(Models.NewExpression model, TranslationContext context)
         {
+            bool hasInitializers = NewExpressionTranslator.TranslateInitializers(model, context);
+
             context.Write("{ controller:");
 
             context.Write(((NamedTypeSymbol) model.Type.Symbol).TypeArguments[0].GetFullName());
 
             context.Write("}");
+
+            if (hasInitializers)
+                context.Write(")");
          
         }
 

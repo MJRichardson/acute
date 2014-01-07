@@ -15,6 +15,19 @@ namespace Blade.Compiler.Translation
             if (HandleSpecialCases(model, context))
                 return;
 
+            var hasInit = TranslateInitializers(model, context);
+
+            // always create types by full name
+            context.Write("new " + model.Type.GetFullName() + "(");
+
+            if (model.HasArguments)
+                context.WriteModels(model.Arguments.Select(a => a.Expression), ", ");
+
+            context.Write(hasInit ? "))" : ")");
+        }
+
+        internal static bool TranslateInitializers(NewExpression model, TranslationContext context)
+        {
             var hasInit = model.Initializer != null &&
                 model.Initializer.Expressions.Any();
 
@@ -51,13 +64,7 @@ namespace Blade.Compiler.Translation
                 context.Write("return $0; })(");
             }
 
-            // always create types by full name
-            context.Write("new " + model.Type.GetFullName() + "(");
-
-            if (model.HasArguments)
-                context.WriteModels(model.Arguments.Select(a => a.Expression), ", ");
-
-            context.Write(hasInit ? "))" : ")");
+            return hasInit;
         }
 
         private bool HandleSpecialCases(NewExpression model, TranslationContext context)
