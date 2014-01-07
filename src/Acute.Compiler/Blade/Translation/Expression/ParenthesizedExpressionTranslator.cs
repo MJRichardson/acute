@@ -5,7 +5,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles translation of a parenthesized expression.
     /// </summary>
-    [Translator]
+    [Translator(typeof(ParenthesizedExpression))]
     internal class ParenthesizedExpressionTranslator : Translator<ParenthesizedExpression>
     {
         public override void Translate(ParenthesizedExpression model, TranslationContext context)

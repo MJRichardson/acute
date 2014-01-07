@@ -5,7 +5,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles translation of a variable declarator model.
     /// </summary>
-    [Translator]
+    [Translator(typeof(VariableDeclarator))]
     internal class VariableDeclaratorTranslator : Translator<VariableDeclarator>
     {
         public override void Translate(VariableDeclarator model, TranslationContext context)

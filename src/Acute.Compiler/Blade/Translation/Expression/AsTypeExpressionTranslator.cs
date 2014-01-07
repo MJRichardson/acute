@@ -5,7 +5,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles translation of an object cast using the as keyword.
     /// </summary>
-    [Translator]
+    [Translator(typeof(AsTypeExpression))]
     internal class AsTypeExpressionTranslator : Translator<AsTypeExpression>
     {
         public override void Translate(AsTypeExpression model, TranslationContext context)

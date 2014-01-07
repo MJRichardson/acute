@@ -5,7 +5,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles translation of an assignment expression.
     /// </summary>
-    [Translator]
+    [Translator(typeof(AssignmentExpression))]
     internal class AssignmentExpressionTranslator : Translator<AssignmentExpression>
     {
         public override void Translate(AssignmentExpression model, TranslationContext context)

@@ -5,7 +5,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles translation of do-while statement models.
     /// </summary>
-    [Translator]
+    [Translator(typeof(DoStatement))]
     internal class DoStatementTranslator : Translator<DoStatement>
     {
         public override void Translate(DoStatement model, TranslationContext context)

@@ -5,7 +5,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles translation of a default type expression.
     /// </summary>
-    [Translator]
+    [Translator(typeof(DefaultExpression))]
     internal class DefaultTypeExpressionTranslator : Translator<DefaultExpression>
     {
         public override void Translate(DefaultExpression model, TranslationContext context)

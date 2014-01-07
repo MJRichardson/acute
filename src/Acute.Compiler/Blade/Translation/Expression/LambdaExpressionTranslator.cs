@@ -5,7 +5,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles translation of lambda expressions
     /// </summary>
-    [Translator]
+    [Translator(typeof(LambdaExpression))]
     internal class LambdaExpressionTranslator : Translator<LambdaExpression>
     {
         public override void Translate(LambdaExpression model, TranslationContext context)

@@ -82,7 +82,7 @@ namespace Blade.Compiler.Translation
             if (model == null)
                 return;
 
-            var translator = ResolveTranslator(model.GetType());
+            var translator = ResolveTranslator(model);
 
             if (translator == null)
             {
@@ -219,7 +219,7 @@ namespace Blade.Compiler.Translation
         /// <returns>The associated translator.</returns>
         public ITranslator ResolveTranslator(IModel model)
         {
-            return _provider.ResolveImport(model);
+            return _provider.ResolveTranslator(model);
         }
 
         /// <summary>

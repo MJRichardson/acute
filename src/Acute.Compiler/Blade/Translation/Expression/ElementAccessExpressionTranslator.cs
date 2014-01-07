@@ -6,7 +6,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles translation of an element access expressions.
     /// </summary>
-    [Translator]
+    [Translator(typeof(ElementAccessExpression))]
     internal class ElementAccessExpressionTranslator : Translator<ElementAccessExpression>
     {
         public override void Translate(ElementAccessExpression model, TranslationContext context)

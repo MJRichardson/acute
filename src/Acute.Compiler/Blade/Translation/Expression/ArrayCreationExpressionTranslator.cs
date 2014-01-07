@@ -6,7 +6,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles translation of an array creation expression.
     /// </summary>
-    [Translator]
+    [Translator(typeof(ArrayCreationExpression))]
     internal class ArrayCreationExpressionTranslator : Translator<ArrayCreationExpression>
     {
         public override void Translate(ArrayCreationExpression model, TranslationContext context)

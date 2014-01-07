@@ -5,7 +5,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles translation of block models.
     /// </summary>
-    [Translator]
+    [Translator(typeof(CodeBlock))]
     internal class BlockTranslator : Translator<CodeBlock>
     {
         public override void Translate(CodeBlock model, TranslationContext context)

@@ -5,7 +5,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles translation of identifier models.
     /// </summary>
-    [Translator]
+    [Translator(typeof(IdentifierName))]
     internal class IdentifierNameTranslator : Translator<IdentifierName>
     {
         public override void Translate(IdentifierName model, TranslationContext context)

@@ -6,7 +6,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles translation of try statement models.
     /// </summary>
-    [Translator]
+    [Translator(typeof(TryStatement))]
     internal class TryStatementTranslator : Translator<TryStatement>
     {
         public override void Translate(TryStatement model, TranslationContext context)

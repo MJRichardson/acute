@@ -5,7 +5,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles translation of an explicit base call.
     /// </summary>
-    [Translator]
+    [Translator(typeof(BaseExpression))]
     internal class BaseExpressionTranslator : Translator<BaseExpression>
     {
         public override void Translate(BaseExpression model, TranslationContext context)

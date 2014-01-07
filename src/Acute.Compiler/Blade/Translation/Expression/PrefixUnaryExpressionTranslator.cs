@@ -5,7 +5,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles translation of prefix unary expressions.
     /// </summary>
-    [Translator]
+    [Translator(typeof(PrefixUnaryExpression))]
     internal class PrefixUnaryExpressionTranslator : Translator<PrefixUnaryExpression>
     {
         public override void Translate(PrefixUnaryExpression model, TranslationContext context)

@@ -5,7 +5,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles translation of while statement models.
     /// </summary>
-    [Translator]
+    [Translator(typeof(WhileStatement))]
     internal class WhileStatementTranslator : Translator<WhileStatement>
     {
         public override void Translate(WhileStatement model, TranslationContext context)

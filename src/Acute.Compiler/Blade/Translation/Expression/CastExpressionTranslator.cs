@@ -5,7 +5,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles translation of an object cast.
     /// </summary>
-    [Translator]
+    [Translator(typeof(CastExpression))]
     internal class CastExpressionTranslator : Translator<CastExpression>
     {
         public override void Translate(CastExpression model, TranslationContext context)

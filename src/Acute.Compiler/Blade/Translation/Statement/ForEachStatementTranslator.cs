@@ -5,7 +5,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles translation of foreach loop statement models.
     /// </summary>
-    [Translator]
+    [Translator(typeof(ForEachStatement))]
     internal class ForEachStatementTranslator : Translator<ForEachStatement>
     {
         public override void Translate(ForEachStatement model, TranslationContext context)

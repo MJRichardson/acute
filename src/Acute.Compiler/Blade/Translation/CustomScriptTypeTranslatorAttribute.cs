@@ -5,7 +5,7 @@ namespace Blade.Compiler.Translation
 {
     [MetadataAttribute]
     [AttributeUsage(AttributeTargets.Class)]
-    internal class CustomScriptTypeTranslatorAttribute : ExportAttribute
+    internal class CustomScriptTypeTranslatorAttribute : ExportAttribute, ICustomScriptTypeTranslatorMetadata
     {
         public const string CustomScriptTypeTranslatorContractName = "Acute.Compiler.Translation.CustomScriptTypeTranslator";
 

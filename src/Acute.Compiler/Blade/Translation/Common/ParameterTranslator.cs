@@ -5,7 +5,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles translation of a parameter.
     /// </summary>
-    [Translator]
+    [Translator(typeof(ParameterDeclaration))]
     internal class ParameterTranslator : Translator<ParameterDeclaration>
     {
         public override void Translate(ParameterDeclaration model, TranslationContext context)

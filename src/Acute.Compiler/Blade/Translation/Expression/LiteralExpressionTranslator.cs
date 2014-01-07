@@ -6,7 +6,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles translation of a literal expression.
     /// </summary>
-    [Translator]
+    [Translator(typeof(LiteralExpression))]
     internal class LiteralExpressionTranslator : Translator<LiteralExpression>
     {
         public override void Translate(LiteralExpression model, TranslationContext context)

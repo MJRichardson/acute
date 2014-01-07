@@ -9,7 +9,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles the translation of class declarations.
     /// </summary>
-    [Translator]
+    [Translator(typeof(ClassDeclaration))]
     internal class ClassTranslator : Translator<ClassDeclaration>
     {
         public override void Translate(ClassDeclaration model, TranslationContext context)

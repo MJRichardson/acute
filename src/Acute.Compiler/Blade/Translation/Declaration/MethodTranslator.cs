@@ -7,7 +7,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles the translation of method declarations.
     /// </summary>
-    [Translator]
+    [Translator(typeof(MethodDeclaration))]
     internal class MethodTranslator : Translator<MethodDeclaration>
     {
         public override void Translate(MethodDeclaration model, TranslationContext context)

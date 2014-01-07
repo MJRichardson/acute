@@ -5,7 +5,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles translation of qualified name models.
     /// </summary>
-    [Translator]
+    [Translator(typeof(QualifiedName))]
     internal class QualifiedNameTranslator : Translator<QualifiedName>
     {
         public override void Translate(QualifiedName model, TranslationContext context)

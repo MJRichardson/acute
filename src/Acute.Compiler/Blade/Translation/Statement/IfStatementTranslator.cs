@@ -5,7 +5,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles translation of an if statement.
     /// </summary>
-    [Translator]
+    [Translator(typeof(IfStatement))]
     internal class IfStatementTranslator : Translator<IfStatement>
     {
         public override void Translate(IfStatement model, TranslationContext context)

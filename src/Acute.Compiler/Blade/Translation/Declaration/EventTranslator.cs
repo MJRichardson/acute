@@ -5,7 +5,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles the translation of event declarations
     /// </summary>
-    [Translator]
+    [Translator(typeof(EventDeclaration))]
     internal class EventTranslator : Translator<EventDeclaration>
     {
         public override void Translate(EventDeclaration model, TranslationContext context)

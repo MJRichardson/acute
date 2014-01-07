@@ -7,7 +7,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles translation of an object creation expression.
     /// </summary>
-    [Translator]
+    [Translator(typeof(NewExpression))]
     internal class NewExpressionTranslator : Translator<NewExpression>
     {
         public override void Translate(NewExpression model, TranslationContext context)

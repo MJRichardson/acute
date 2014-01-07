@@ -6,7 +6,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles translation of a local variable declaration.
     /// </summary>
-    [Translator]
+    [Translator(typeof(LocalDeclarationStatement))]
     internal class LocalDeclarationTranslator : Translator<LocalDeclarationStatement>
     {
         public override void Translate(LocalDeclarationStatement model, TranslationContext context)

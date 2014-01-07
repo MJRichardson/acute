@@ -7,7 +7,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles the translation of enum declarations.
     /// </summary>
-    [Translator]
+    [Translator(typeof(EnumDeclaration))]
     internal class EnumTranslator : Translator<EnumDeclaration>
     {
         public override void Translate(EnumDeclaration model, TranslationContext context)

@@ -5,7 +5,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles translation of a binary expression.
     /// </summary>
-    [Translator]
+    [Translator(typeof(BinaryExpression))]
     internal class BinaryExpressionTranslator : Translator<BinaryExpression>
     {
         public override void Translate(BinaryExpression model, TranslationContext context)

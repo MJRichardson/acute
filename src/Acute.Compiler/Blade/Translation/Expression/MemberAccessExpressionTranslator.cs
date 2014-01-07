@@ -6,7 +6,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles translation of a member access expression.
     /// </summary>
-    [Translator]
+    [Translator(typeof(MemberAccessExpression))]
     internal class MemberAccessExpressionTranslator : Translator<MemberAccessExpression>
     {
         public override void Translate(MemberAccessExpression model, TranslationContext context)

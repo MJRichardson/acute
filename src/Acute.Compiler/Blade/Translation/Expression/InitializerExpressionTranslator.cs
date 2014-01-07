@@ -6,7 +6,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles translation of an initializer expression.
     /// </summary>
-    [Translator]
+    [Translator(typeof(InitializerExpression))]
     internal class InitializerExpressionTranslator : Translator<InitializerExpression>
     {
         public override void Translate(InitializerExpression model, TranslationContext context)

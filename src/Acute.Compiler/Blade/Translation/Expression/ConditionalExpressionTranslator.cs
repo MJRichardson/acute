@@ -5,7 +5,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles translation of a conditional expression.
     /// </summary>
-    [Translator]
+    [Translator(typeof(ConditionalExpression))]
     internal class ConditionalExpressionTranslator : Translator<ConditionalExpression>
     {
         public override void Translate(ConditionalExpression model, TranslationContext context)

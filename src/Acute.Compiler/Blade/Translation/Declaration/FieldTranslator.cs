@@ -5,7 +5,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles the translation of field declarations.
     /// </summary>
-    [Translator]
+    [Translator(typeof(FieldDeclaration))]
     internal class FieldTranslator : Translator<FieldDeclaration>
     {
         public override void Translate(FieldDeclaration model, TranslationContext context)

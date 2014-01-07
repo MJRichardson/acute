@@ -5,7 +5,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles translation of any expression statement.
     /// </summary>
-    [Translator]
+    [Translator(typeof(ExpressionStatement))]
     internal class ExpressionStatementTranslator : Translator<ExpressionStatement>
     {
         public override void Translate(ExpressionStatement model, TranslationContext context)

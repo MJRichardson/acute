@@ -70,8 +70,6 @@
     <Compile Include="Blade\Extensibility\ScriptNameExtension.cs" />
     <Compile Include="Blade\Extensibility\ScriptNamespaceExtension.cs" />
     <Compile Include="Blade\Extensibility\ScriptObjectLiteralExtension.cs" />
-    <Compile Include="Blade\GenericImportProvider.cs" />
-    <Compile Include="Blade\ImportProvider.cs" />
     <Compile Include="Blade\Models\Definition\CustomScriptTypeDefinition.cs" />
     <Compile Include="Blade\Translation\ClassSorter.cs" />
     <Compile Include="Blade\Translation\Common\BlockTranslator.cs" />
@@ -112,6 +110,7 @@
     <Compile Include="Blade\Translation\Expression\QualifiedNameTranslator.cs" />
     <Compile Include="Blade\Translation\Expression\ThisExpressionTranslator.cs" />
     <Compile Include="Blade\Translation\Expression\TypeOfExpressionTranslater.cs" />
+    <Compile Include="Blade\Translation\ICustomScriptTypeTranslatorMetadata.cs" />
     <Compile Include="Blade\Translation\ITranslator.cs" />
     <Compile Include="Blade\Translation\ITranslatorMetadata.cs" />
     <Compile Include="Blade\Translation\PositionalWriter.cs" />

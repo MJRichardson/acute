@@ -5,7 +5,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles translation of return statement models.
     /// </summary>
-    [Translator]
+    [Translator(typeof(ReturnStatement))]
     internal class ReturnStatementTranslator : Translator<ReturnStatement>
     {
         public override void Translate(ReturnStatement model, TranslationContext context)

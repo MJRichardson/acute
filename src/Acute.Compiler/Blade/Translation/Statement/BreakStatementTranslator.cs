@@ -5,7 +5,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles translation of break statement models.
     /// </summary>
-    [Translator]
+    [Translator(typeof(BreakStatement))]
     internal class BreakStatementTranslator : Translator<BreakStatement>
     {
         public override void Translate(BreakStatement model, TranslationContext context)

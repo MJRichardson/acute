@@ -5,7 +5,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles the translation of property declarations
     /// </summary>
-    [Translator]
+    [Translator(typeof(PropertyDeclaration))]
     internal class PropertyTranslator : Translator<PropertyDeclaration>
     {
         public override void Translate(PropertyDeclaration model, TranslationContext context)

@@ -4,18 +4,10 @@ using Blade.Compiler.Models;
 
 namespace Blade.Compiler.Translation.CustomScripts
 {
+    [CustomScriptTypeTranslator(RouteProviderFullName)]
     internal class RouteProviderCustomTranslator : CustomScriptTypeTranslator
     {
         private const string RouteProviderFullName = "Acute.RouteProvider";
-
-         public Action<InvocationExpression, IEnumerable<ExpressionModel>,  TranslationContext> Transalation(string methodName)
-         {
-             if (methodName == "When")
-                 return TranslateWhen;
-
-             return null;
-         }
-
 
         protected override void TranslateMemberInvocation(InvocationExpression model, TranslationContext context)
         {

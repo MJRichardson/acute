@@ -8,7 +8,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles translation of an invocation expression.
     /// </summary>
-    [Translator]
+    [Translator(typeof(InvocationExpression))]
     internal class InvocationExpressionTranslator : Translator<InvocationExpression>
     {
         public override void Translate(InvocationExpression model, TranslationContext context)

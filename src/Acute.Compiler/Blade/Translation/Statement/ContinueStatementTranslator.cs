@@ -5,7 +5,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles translation of continue statement models.
     /// </summary>
-    [Translator]
+    [Translator(typeof(ContinueStatement))]
     internal class ContinueStatementTranslator : Translator<ContinueStatement>
     {
         public override void Translate(ContinueStatement model, TranslationContext context)

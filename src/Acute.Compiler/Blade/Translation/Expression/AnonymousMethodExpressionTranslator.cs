@@ -5,7 +5,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles translation of an anonymous method.
     /// </summary>
-    [Translator]
+    [Translator(typeof(AnonymousMethodExpression))]
     internal class AnonymousMethodExpressionTranslator : Translator<AnonymousMethodExpression>
     {
         public override void Translate(AnonymousMethodExpression model, TranslationContext context)

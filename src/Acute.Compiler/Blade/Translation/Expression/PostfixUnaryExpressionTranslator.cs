@@ -5,7 +5,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles translation of postfix unary expressions.
     /// </summary>
-    [Translator]
+    [Translator(typeof(PostfixUnaryExpression))]
     internal class PostfixUnaryExpressionTranslator : Translator<PostfixUnaryExpression>
     {
         public override void Translate(PostfixUnaryExpression model, TranslationContext context)

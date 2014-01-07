@@ -5,7 +5,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles translation of throw statement models.
     /// </summary>
-    [Translator]
+    [Translator(typeof(ThrowStatement))]
     internal class ThrowStatementTranslator : Translator<ThrowStatement>
     {
         public override void Translate(ThrowStatement model, TranslationContext context)

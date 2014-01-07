@@ -7,7 +7,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles translation of for-loop statement models.
     /// </summary>
-    [Translator]
+    [Translator(typeof(ForStatement))]
     internal class ForStatementTranslator : Translator<ForStatement>
     {
         public override void Translate(ForStatement model, TranslationContext context)

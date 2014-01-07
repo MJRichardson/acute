@@ -5,7 +5,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Handles translation of switch statement models.
     /// </summary>
-    [Translator]
+    [Translator(typeof(SwitchStatement))]
     internal class SwitchStatementTranslator : Translator<SwitchStatement>
     {
         public override void Translate(SwitchStatement model, TranslationContext context)

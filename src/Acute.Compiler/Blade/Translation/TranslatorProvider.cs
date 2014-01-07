@@ -10,7 +10,7 @@ namespace Blade.Compiler.Translation
     /// <summary>
     /// Provides methods for importing and resolving translators by model type.
     /// </summary>
-    internal sealed class TranslatorProvider //: GenericImportProvider<ITranslator>
+    internal sealed class TranslatorProvider 
     {
 
 
@@ -31,7 +31,8 @@ namespace Blade.Compiler.Translation
              var container = new CompositionContainer(new AggregateCatalog(
                 list.Select(a => new AssemblyCatalog(a))));
 
-            _exports = container.GetExports<ITranslator, ITranslatorMetadata>().ToList();
+            _generalTranslators = container.GetExports<ITranslator, ITranslatorMetadata>(TranslatorAttribute.TranslatorContractName).ToList();
+            _customScriptTypeTranslators = container.GetExports<ITranslator, ICustomScriptTypeTranslatorMetadata>(CustomScriptTypeTranslatorAttribute.CustomScriptTypeTranslatorContractName).ToList();
         }
 
         /// <summary>
@@ -39,15 +40,19 @@ namespace Blade.Compiler.Translation
         /// </summary>
         public ITranslator ResolveTranslator(IModel model)
         {
-            var customScriptTranslator = ResolveCustomScriptTranslator(model);
-
-            if (customScriptTranslator != null)
-                return customScriptTranslator;
+            //if there is a custom-script-translator for the type, then use it
+            return ResolveCustomScriptTranslator(model) 
+                //otherwise use the general translator
+                ?? ResolveGeneralTranslator(model);
         }
 
         private ITranslator ResolveGeneralTranslator(IModel model)
         {
-            
+            var generalTranslatorExport = _generalTranslators.SingleOrDefault(x => x.Metadata.ModelType == model.GetType());
+
+            return generalTranslatorExport != null
+                       ? generalTranslatorExport.Value
+                       : null;
         }
 
         private ITranslator ResolveCustomScriptTranslator(IModel model)
@@ -70,7 +75,7 @@ namespace Blade.Compiler.Translation
                         if (customScriptType != null)
                         {
                             //get translator
-                           var customScriptTranslatorExport =  _exports.SingleOrDefault(
+                           var customScriptTranslatorExport =  _customScriptTypeTranslators.SingleOrDefault(
                                 x => !string.IsNullOrEmpty(x.Metadata.CustomScriptType) && x.Metadata.CustomScriptType == customScriptType.GetFullName());
 
                             return customScriptTranslatorExport != null
@@ -84,15 +89,8 @@ namespace Blade.Compiler.Translation
             return null;
         }
 
-        /// <summary>
-        /// Gets the generic base type definition.
-        /// </summary>
-        protected override Type BaseType
-        {
-            get { return typeof(Translator<>); }
-        }
-
-        private readonly IEnumerable<Lazy<ITranslator, ITranslatorMetadata>> _exports { get; set; }
+        private readonly IEnumerable<Lazy<ITranslator, ITranslatorMetadata>> _generalTranslators;
+        private readonly IEnumerable<Lazy<ITranslator, ICustomScriptTypeTranslatorMetadata>> _customScriptTypeTranslators;
 
     }
 }

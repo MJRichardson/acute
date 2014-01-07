@@ -2,7 +2,7 @@
 
 namespace Blade.Compiler.Translation
 {
-    [Translator]
+    [Translator(typeof(TypeOfExpression))]
     internal class TypeOfExpressionTranslater : Translator<TypeOfExpression>
     {
         public override void Translate(TypeOfExpression model, TranslationContext context)
