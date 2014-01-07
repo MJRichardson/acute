@@ -5,7 +5,7 @@ namespace Blade.Compiler.Models
     /// <summary>
     /// Represents an interface definition.
     /// </summary>
-    public class InterfaceDefinition : ContainerTypeDefinition
+    public sealed class InterfaceDefinition : ContainerTypeDefinition
     {
         /// <summary>
         /// Creates a new interface defintion.

@@ -20,8 +20,24 @@ namespace Blade.Compiler.Translation.CustomScripts
                 return;
             }
 
+             var newExpression = model as NewExpression;
+
+             if (newExpression != null)
+             {
+                 TranslateNew(newExpression, context);
+                 return;
+             }
+
         }
 
-        protected abstract void TranslateMemberInvocation(InvocationExpression model,TranslationContext context);
+        protected virtual void TranslateMemberInvocation(InvocationExpression model, TranslationContext context)
+        {
+           new InvocationExpressionTranslator().Translate(model, context); 
+        }
+
+        protected virtual void TranslateNew(NewExpression model, TranslationContext context)
+        {
+           new NewExpressionTranslator().Translate(model, context); 
+        }
     }
 }

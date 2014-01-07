@@ -15,6 +15,7 @@ namespace Acute
 
     }
 
+    [CustomScriptType]
     public class RouteConfig<TController> : RouteConfig where TController : Controller
     {
         public RouteConfig()

@@ -75,18 +75,39 @@ namespace Blade.Compiler.Translation
                         if (customScriptType != null)
                         {
                             //get translator
-                           var customScriptTranslatorExport =  _customScriptTypeTranslators.SingleOrDefault(
-                                x => !string.IsNullOrEmpty(x.Metadata.CustomScriptType) && x.Metadata.CustomScriptType == customScriptType.GetFullName());
-
-                            return customScriptTranslatorExport != null
-                                       ? customScriptTranslatorExport.Value
-                                       : null;
+                            return ResolveCustomScriptTranslator(customScriptType);
                         }
                     }
                 }
             }
 
+            //if the model is a new expression
+            var newExpressionModel = model as NewExpression;
+
+            if (newExpressionModel != null)
+            {
+               if ((newExpressionModel.Type.TypeKind == TypeDefinitionKind.Class ||
+                   newExpressionModel.Type.TypeKind == TypeDefinitionKind.Interface ||
+                   newExpressionModel.Type.TypeKind == TypeDefinitionKind.Generic) &&
+                   newExpressionModel.Type is CustomScriptTypeDefinition )
+               {
+                   return ResolveCustomScriptTranslator((CustomScriptTypeDefinition)newExpressionModel.Type);
+               }
+            }
+
             return null;
+        }
+
+        private ITranslator ResolveCustomScriptTranslator(CustomScriptTypeDefinition customScriptType)
+        {
+            var customScriptTranslatorExport = _customScriptTypeTranslators.SingleOrDefault(
+                x =>
+                !string.IsNullOrEmpty(x.Metadata.CustomScriptType) &&
+                x.Metadata.CustomScriptType == customScriptType.GetFullName());
+
+            return customScriptTranslatorExport != null
+                       ? customScriptTranslatorExport.Value
+                       : null;
         }
 
         private readonly IEnumerable<Lazy<ITranslator, ITranslatorMetadata>> _generalTranslators;

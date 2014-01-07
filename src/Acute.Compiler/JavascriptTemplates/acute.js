@@ -2,7 +2,11 @@
 Acute = {};
 
 //define App class
-Acute.App = function (){};
+Acute.App = function () { };
+
+//define Controller class
+Acute.Controller = function () { };
+
 
 
 var acute = angular.module('Acute.App', [])

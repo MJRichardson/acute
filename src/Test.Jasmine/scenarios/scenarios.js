@@ -299,7 +299,11 @@ Array.prototype.GetEnumerator = function () {
 Acute = {};
 
 //define App class
-Acute.App = function (){};
+Acute.App = function () { };
+
+//define Controller class
+Acute.Controller = function () { };
+
 
 
 var acute = angular.module('Acute.App', [])
@@ -325,7 +329,7 @@ Test.Scenarios.RouteConfiguration.When.WithGenericController.App = (function() {
     var $base = Acute.App.prototype;
     function App(routeProvider) {
         $base.constructor.call(this);
-        var routeConfig = new Acute.RouteConfig();
+        var routeConfig = { controller:Test.Scenarios.RouteConfiguration.When.WithGenericController.DefaultController};
         routeProvider.when('/this/is/a/path',routeConfig);
     }
     return App;
@@ -334,7 +338,7 @@ Test.Scenarios.RouteConfiguration.When.WithGenericController.App = (function() {
 angular.module('Test.Scenarios.RouteConfiguration.When.WithGenericController.AppModule', ['Acute.App'])
     .config(['Acute.RouteProvider', function( routeProvider) {
 		
-var routeConfig = new Acute.RouteConfig();
+var routeConfig = { controller:Test.Scenarios.RouteConfiguration.When.WithGenericController.DefaultController};
 routeProvider.when('/this/is/a/path',routeConfig);
 
     }]);

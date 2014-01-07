@@ -3,7 +3,7 @@
     [Extension(
         "Acute.Compiler",
         "Acute.Compiler.Extensibility.CustomScriptTypeExtension")]
-    [AttributeUsage( AttributeTargets.Interface)]
+    [AttributeUsage( AttributeTargets.Interface | AttributeTargets.Class )]
     public class CustomScriptTypeAttribute : Attribute
     {
         public CustomScriptTypeAttribute()

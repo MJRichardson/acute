@@ -76,6 +76,7 @@
     <Compile Include="Blade\Translation\Common\ParameterTranslator.cs" />
     <Compile Include="Blade\Translation\Common\VariableDeclaratorTranslator.cs" />
     <Compile Include="Blade\Translation\CustomScripts\CustomScriptTypeTranslator.cs" />
+    <Compile Include="Blade\Translation\CustomScripts\RouteConfigCustomTranslator.cs" />
     <Compile Include="Blade\Translation\CustomScripts\RouteProviderCustomTranslator.cs" />
     <Compile Include="Blade\Translation\CustomScriptTypeTranslatorAttribute.cs" />
     <Compile Include="Blade\Translation\Declaration\ClassTranslator.cs" />

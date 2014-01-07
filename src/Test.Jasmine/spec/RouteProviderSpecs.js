@@ -22,7 +22,7 @@
     describe("with a generic controller", function () {
 
         var path = "/this/is/a/path";
-        
+
         var app;
         var angularRouteProvider;
 
@@ -31,8 +31,8 @@
             app = new Test.Scenarios.RouteConfiguration.When.WithGenericController.App(angularRouteProvider);
         });
 
-        it("configures the angular routeProvider", function() {
-            expect(angularRouteProvider.when).toHaveBeenCalledWith(path, { controller: Test.Scenarios.When.WithGenericController.DefaultController });
+        it("configures the angular routeProvider", function () {
+            expect(angularRouteProvider.when).toHaveBeenCalledWith(path, { controller: Test.Scenarios.RouteConfiguration.When.WithGenericController.DefaultController });
         });
 
     });

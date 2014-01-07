@@ -2,11 +2,11 @@
 
 namespace Blade.Compiler.Models
 {
-    public sealed class CustomScriptTypeDefinition : InterfaceDefinition
+    public sealed class CustomScriptTypeDefinition : ContainerTypeDefinition
     {
-        public CustomScriptTypeDefinition(INamedTypeSymbol symbol = null) : base(symbol)
+        public CustomScriptTypeDefinition(TypeDefinitionKind typeKind, INamedTypeSymbol symbol = null) : base(symbol)
         {
-            
+            TypeKind = typeKind;
         } 
     }
 }
