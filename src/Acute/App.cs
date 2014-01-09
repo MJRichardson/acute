@@ -1,10 +1,15 @@
 ﻿using System;
+using Acute.Angular;
 
 namespace Acute
 {
     public abstract class App
     {
-         protected void RegisterService(Type service)
-         {}
+        private Module _module;
+
+        protected App()
+        {
+           _module = new Module(this.GetType().FullName); 
+        }
     }
 }
