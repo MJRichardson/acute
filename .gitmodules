@@ -1,0 +1,3 @@
+[submodule "submodules/saltarelle.compiler"]
+	path = submodules/saltarelle.compiler
+	url = https://github.com/mjrichardson/SaltarelleCompiler.git
