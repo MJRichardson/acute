@@ -4,17 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{ADC58B29-6307-43F9-A8BD-640F610EB41E}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{DF634B2A-4692-4E94-9C8F-A04B1FE1B168}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Acute.Compiler</RootNamespace>
     <AssemblyName>Acute.Compiler</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -32,25 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Roslyn.Compilers">
-      <HintPath>..\packages\Roslyn.Compilers.Common.1.2.20906.2\lib\net45\Roslyn.Compilers.dll</HintPath>
-    </Reference>
-    <Reference Include="Roslyn.Compilers.CSharp">
-      <HintPath>..\packages\Roslyn.Compilers.CSharp.1.2.20906.2\lib\net45\Roslyn.Compilers.CSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="Roslyn.Services">
-      <HintPath>..\packages\Roslyn.Services.Common.1.2.20906.2\lib\net45\Roslyn.Services.dll</HintPath>
-    </Reference>
-    <Reference Include="Roslyn.Services.CSharp">
-      <HintPath>..\packages\Roslyn.Services.CSharp.1.2.20906.2\lib\net45\Roslyn.Services.CSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="Roslyn.Utilities">
-      <HintPath>..\packages\Roslyn.Services.Common.1.2.20906.2\lib\net45\Roslyn.Utilities.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -58,324 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AcuteCompiler.cs" />
-    <Compile Include="Blade\CompilationResult.cs" />
-    <Compile Include="Blade\Extensibility\Extension.cs" />
-    <Compile Include="Blade\Extensibility\ExtensionFactory.cs" />
-    <Compile Include="Blade\Extensibility\IExtension.cs" />
-    <Compile Include="Blade\Extensibility\ScriptExternalExtension.cs" />
-    <Compile Include="Blade\Extensibility\ScriptFieldExtension.cs" />
-    <Compile Include="Blade\Extensibility\ScriptIgnoreNamespaceExtension.cs" />
-    <Compile Include="Blade\Extensibility\ScriptMixinExtension.cs" />
-    <Compile Include="Blade\Extensibility\ScriptNameExtension.cs" />
-    <Compile Include="Blade\Extensibility\ScriptNamespaceExtension.cs" />
-    <Compile Include="Blade\Extensibility\ScriptObjectLiteralExtension.cs" />
-    <Compile Include="Blade\Models\Definition\CustomScriptTypeDefinition.cs" />
-    <Compile Include="Blade\Translation\ClassSorter.cs" />
-    <Compile Include="Blade\Translation\Common\BlockTranslator.cs" />
-    <Compile Include="Blade\Translation\Common\ParameterTranslator.cs" />
-    <Compile Include="Blade\Translation\Common\VariableDeclaratorTranslator.cs" />
-    <Compile Include="Blade\Translation\CustomScripts\CustomScriptTypeTranslator.cs" />
-    <Compile Include="Blade\Translation\CustomScripts\RouteConfigCustomTranslator.cs" />
-    <Compile Include="Blade\Translation\CustomScripts\RouteProviderCustomTranslator.cs" />
-    <Compile Include="Blade\Translation\CustomScriptTypeTranslatorAttribute.cs" />
-    <Compile Include="Blade\Translation\Declaration\ClassTranslator.cs" />
-    <Compile Include="Blade\Translation\Declaration\EnumTranslator.cs" />
-    <Compile Include="Blade\Translation\Declaration\EventTranslator.cs" />
-    <Compile Include="Blade\Translation\Declaration\FieldTranslator.cs" />
-    <Compile Include="Blade\Translation\Declaration\MethodTranslator.cs" />
-    <Compile Include="Blade\Translation\Declaration\PropertyTranslator.cs" />
-    <Compile Include="Blade\Translation\Expression\AnonymousMethodExpressionTranslator.cs" />
-    <Compile Include="Blade\Translation\Expression\AnonymousTypeExpressionTranslator.cs" />
-    <Compile Include="Blade\Translation\Expression\ArrayCreationExpressionTranslator.cs" />
-    <Compile Include="Blade\Translation\Expression\AssignmentExpressionTranslator.cs" />
-    <Compile Include="Blade\Translation\Expression\AsTypeExpressionTranslator.cs" />
-    <Compile Include="Blade\Translation\Expression\BaseExpressionTranslator.cs" />
-    <Compile Include="Blade\Translation\Expression\BinaryExpressionTranslator.cs" />
-    <Compile Include="Blade\Translation\Expression\CastExpressionTranslator.cs" />
-    <Compile Include="Blade\Translation\Expression\ConditionalExpressionTranslator.cs" />
-    <Compile Include="Blade\Translation\Expression\DefaultTypeExpressionTranslator.cs" />
-    <Compile Include="Blade\Translation\Expression\ElementAccessExpressionTranslator.cs" />
-    <Compile Include="Blade\Translation\Expression\IdentifierNameTranslator.cs" />
-    <Compile Include="Blade\Translation\Expression\ImplicitArrayCreationExpressionTranslator.cs" />
-    <Compile Include="Blade\Translation\Expression\InitializerExpressionTranslator.cs" />
-    <Compile Include="Blade\Translation\Expression\InvocationExpressionTranslator.cs" />
-    <Compile Include="Blade\Translation\Expression\IsTypeExpressionTranslator.cs" />
-    <Compile Include="Blade\Translation\Expression\LambdaExpressionTranslator.cs" />
-    <Compile Include="Blade\Translation\Expression\LiteralExpressionTranslator.cs" />
-    <Compile Include="Blade\Translation\Expression\MemberAccessExpressionTranslator.cs" />
-    <Compile Include="Blade\Translation\Expression\NewExpressionTranslator.cs" />
-    <Compile Include="Blade\Translation\Expression\ParenthesizedExpressionTranslator.cs" />
-    <Compile Include="Blade\Translation\Expression\PostfixUnaryExpressionTranslator.cs" />
-    <Compile Include="Blade\Translation\Expression\PrefixUnaryExpressionTranslator.cs" />
-    <Compile Include="Blade\Translation\Expression\QualifiedNameTranslator.cs" />
-    <Compile Include="Blade\Translation\Expression\ThisExpressionTranslator.cs" />
-    <Compile Include="Blade\Translation\Expression\TypeOfExpressionTranslater.cs" />
-    <Compile Include="Blade\Translation\ICustomScriptTypeTranslatorMetadata.cs" />
-    <Compile Include="Blade\Translation\ITranslator.cs" />
-    <Compile Include="Blade\Translation\ITranslatorMetadata.cs" />
-    <Compile Include="Blade\Translation\PositionalWriter.cs" />
-    <Compile Include="Blade\Translation\Statement\BreakStatementTranslator.cs" />
-    <Compile Include="Blade\Translation\Statement\ContinueStatementTranslator.cs" />
-    <Compile Include="Blade\Translation\Statement\DoStatementTranslator.cs" />
-    <Compile Include="Blade\Translation\Statement\ExpressionStatementTranslator.cs" />
-    <Compile Include="Blade\Translation\Statement\ForEachStatementTranslator.cs" />
-    <Compile Include="Blade\Translation\Statement\ForStatementTranslator.cs" />
-    <Compile Include="Blade\Translation\Statement\IfStatementTranslator.cs" />
-    <Compile Include="Blade\Translation\Statement\LocalDeclarationTranslator.cs" />
-    <Compile Include="Blade\Translation\Statement\ReturnStatementTranslator.cs" />
-    <Compile Include="Blade\Translation\Statement\SwitchStatementTranslator.cs" />
-    <Compile Include="Blade\Translation\Statement\ThrowStatementTranslator.cs" />
-    <Compile Include="Blade\Translation\Statement\TryStatementTranslator.cs" />
-    <Compile Include="Blade\Translation\Statement\WhileStatementTranslator.cs" />
-    <Compile Include="Blade\Translation\TranslationContext.cs" />
-    <Compile Include="Blade\Translation\TranslationHelper.cs" />
-    <Compile Include="Blade\Translation\Translator.cs" />
-    <Compile Include="Blade\Translation\TranslatorAttribute.cs" />
-    <Compile Include="Blade\Translation\TranslatorProvider.cs" />
-    <Compile Include="CompilationContext.cs" />
-    <Compile Include="Blade\CompilationException.cs" />
-    <Compile Include="Blade\CompilationMessage.cs" />
-    <Compile Include="CompilationModel.cs" />
-    <Compile Include="CompilationPipeline.cs" />
-    <Compile Include="CompilationRequest.cs" />
-    <Compile Include="CompilationSteps\TransformStep.cs" />
-    <Compile Include="CompilationSteps\SyntaxParseStep.cs" />
-    <Compile Include="Blade\DocumentLocation.cs" />
-    <Compile Include="CompilationSteps\TranslateStep.cs" />
-    <Compile Include="Core\StringExtensions.cs" />
-    <Compile Include="Extensibility\CustomScriptTypeExtension.cs" />
-    <Compile Include="ICompilationStep.cs" />
-    <Compile Include="Blade\Models\Common\Argument.cs" />
-    <Compile Include="Blade\Models\Common\ArrayRankSpecifier.cs" />
-    <Compile Include="Blade\Models\Common\VariableDeclaration.cs" />
-    <Compile Include="Blade\Models\Common\VariableDeclarator.cs" />
-    <Compile Include="Blade\Models\Declaration\ClassDeclaration.cs" />
-    <Compile Include="Blade\Models\Declaration\ConstructorDeclaration.cs" />
-    <Compile Include="Blade\Models\Declaration\DeclarationModel.cs" />
-    <Compile Include="Blade\Models\Declaration\DelegateDeclaration.cs" />
-    <Compile Include="Blade\Models\Declaration\EnumDeclaration.cs" />
-    <Compile Include="Blade\Models\Declaration\EnumMemberDeclaration.cs" />
-    <Compile Include="Blade\Models\Declaration\EventDeclaration.cs" />
-    <Compile Include="Blade\Models\Declaration\FieldDeclaration.cs" />
-    <Compile Include="Blade\Models\Declaration\IDeclarationModel.cs" />
-    <Compile Include="Blade\Models\Declaration\IMemberDeclarationModel.cs" />
-    <Compile Include="Blade\Models\Declaration\ITypeDeclarationModel.cs" />
-    <Compile Include="Blade\Models\Declaration\MemberDeclarationModel.cs" />
-    <Compile Include="Blade\Models\Declaration\MethodDeclaration.cs" />
-    <Compile Include="Blade\Models\Declaration\MethodDeclarationBase.cs" />
-    <Compile Include="Blade\Models\Declaration\ParameterDeclaration.cs" />
-    <Compile Include="Blade\Models\Declaration\PropertyDeclaration.cs" />
-    <Compile Include="Blade\Models\Declaration\TypeDeclarationModel.cs" />
-    <Compile Include="Blade\Models\Definition\Accessibility.cs" />
-    <Compile Include="Blade\Models\Definition\ArrayTypeDefinition.cs" />
-    <Compile Include="Blade\Models\Definition\BaseMethodDefinition.cs" />
-    <Compile Include="Blade\Models\Definition\ClassDefinition.cs" />
-    <Compile Include="Blade\Models\Definition\ConstructorDefinition.cs" />
-    <Compile Include="Blade\Models\Definition\ContainerTypeDefinition.cs" />
-    <Compile Include="Blade\Models\Definition\Definition.cs" />
-    <Compile Include="Blade\Models\Definition\DefinitionKind.cs" />
-    <Compile Include="Blade\Models\Definition\DelegateDefinition.cs" />
-    <Compile Include="Blade\Models\Definition\DynamicTypeDefinition.cs" />
-    <Compile Include="Blade\Models\Definition\EmptyDefinition.cs" />
-    <Compile Include="Blade\Models\Definition\EnumDefinition.cs" />
-    <Compile Include="Blade\Models\Definition\EnumMemberDefinition.cs" />
-    <Compile Include="Blade\Models\Definition\EventDefinition.cs" />
-    <Compile Include="Blade\Models\Definition\FieldDefinition.cs" />
-    <Compile Include="Blade\Models\Definition\GenericTypeDefinition.cs" />
-    <Compile Include="Blade\Models\Definition\IDefinition.cs" />
-    <Compile Include="Blade\Models\Definition\IMemberDefinition.cs" />
-    <Compile Include="Blade\Models\Definition\InterfaceDefinition.cs" />
-    <Compile Include="Blade\Models\Definition\ITypeDefinition.cs" />
-    <Compile Include="Blade\Models\Definition\LocalDefinition.cs" />
-    <Compile Include="Blade\Models\Definition\MemberDefinition.cs" />
-    <Compile Include="Blade\Models\Definition\MemberDefinitionKind.cs" />
-    <Compile Include="Blade\Models\Definition\MethodDefinition.cs" />
-    <Compile Include="Blade\Models\Definition\ModifierOptions.cs" />
-    <Compile Include="Blade\Models\Definition\NamespaceDefinition.cs" />
-    <Compile Include="Blade\Models\Definition\ParameterDefinition.cs" />
-    <Compile Include="Blade\Models\Definition\PropertyDefinition.cs" />
-    <Compile Include="Blade\Models\Definition\StructDefinition.cs" />
-    <Compile Include="Blade\Models\Definition\TypeDefinition.cs" />
-    <Compile Include="Blade\Models\Definition\TypeDefinitionKind.cs" />
-    <Compile Include="Blade\Models\Expression\AnonymousMethodExpression.cs" />
-    <Compile Include="Blade\Models\Expression\AnonymousObjectExpression.cs" />
-    <Compile Include="Blade\Models\Expression\ArrayCreationExpression.cs" />
-    <Compile Include="Blade\Models\Expression\ArrayTypeExpression.cs" />
-    <Compile Include="Blade\Models\Expression\AssignmentExpression.cs" />
-    <Compile Include="Blade\Models\Expression\AsTypeExpression.cs" />
-    <Compile Include="Blade\Models\Expression\BaseExpression.cs" />
-    <Compile Include="Blade\Models\Expression\BinaryExpression.cs" />
-    <Compile Include="Blade\Models\Expression\BinaryExpressionBase.cs" />
-    <Compile Include="Blade\Models\Expression\CastExpression.cs" />
-    <Compile Include="Blade\Models\Expression\ConditionalExpression.cs" />
-    <Compile Include="Blade\Models\Expression\DefaultTypeExpression.cs" />
-    <Compile Include="Blade\Models\Expression\ElementAccessExpression.cs" />
-    <Compile Include="Blade\Models\Expression\ExpressionModel.cs" />
-    <Compile Include="Blade\Models\Expression\IdentifierName.cs" />
-    <Compile Include="Blade\Models\Expression\ImplicitArrayCreationExpression.cs" />
-    <Compile Include="Blade\Models\Expression\InitializerExpression.cs" />
-    <Compile Include="Blade\Models\Expression\InvocationExpression.cs" />
-    <Compile Include="Blade\Models\Expression\IsTypeExpression.cs" />
-    <Compile Include="Blade\Models\Expression\LambdaExpression.cs" />
-    <Compile Include="Blade\Models\Expression\LiteralExpression.cs" />
-    <Compile Include="Blade\Models\Expression\LiteralType.cs" />
-    <Compile Include="Blade\Models\Expression\MemberAccessExpression.cs" />
-    <Compile Include="Blade\Models\Expression\NewExpression.cs" />
-    <Compile Include="Blade\Models\Expression\NullableTypeExpression.cs" />
-    <Compile Include="Blade\Models\Expression\ParenthesizedExpression.cs" />
-    <Compile Include="Blade\Models\Expression\PostfixUnaryExpression.cs" />
-    <Compile Include="Blade\Models\Expression\PredefinedType.cs" />
-    <Compile Include="Blade\Models\Expression\PredefinedTypeExpression.cs" />
-    <Compile Include="Blade\Models\Expression\PrefixUnaryExpression.cs" />
-    <Compile Include="Blade\Models\Expression\QualifiedName.cs" />
-    <Compile Include="Blade\Models\Expression\SymbolicExpression.cs" />
-    <Compile Include="Blade\Models\Expression\ThisExpression.cs" />
-    <Compile Include="Blade\Models\Expression\TypeOfExpression.cs" />
-    <Compile Include="Blade\Models\Expression\UnaryExpressionBase.cs" />
-    <Compile Include="Blade\Models\Extensions.cs" />
-    <Compile Include="Blade\Models\IModel.cs" />
-    <Compile Include="Blade\Models\ISymbolicModel.cs" />
-    <Compile Include="Blade\Models\ISyntacticModel.cs" />
-    <Compile Include="Blade\Models\ModelRegistry.cs" />
-    <Compile Include="Blade\Models\Statement\BreakStatement.cs" />
-    <Compile Include="Blade\Models\Statement\CatchStatement.cs" />
-    <Compile Include="Blade\Models\Statement\CodeBlock.cs" />
-    <Compile Include="Blade\Models\Statement\ContinueStatement.cs" />
-    <Compile Include="Blade\Models\Statement\DoStatement.cs" />
-    <Compile Include="Blade\Models\Statement\EmptyStatement.cs" />
-    <Compile Include="Blade\Models\Statement\ExpressionStatement.cs" />
-    <Compile Include="Blade\Models\Statement\ForEachStatement.cs" />
-    <Compile Include="Blade\Models\Statement\ForStatement.cs" />
-    <Compile Include="Blade\Models\Statement\IfStatement.cs" />
-    <Compile Include="Blade\Models\Statement\LocalDeclarationStatement.cs" />
-    <Compile Include="Blade\Models\Statement\ReturnStatement.cs" />
-    <Compile Include="Blade\Models\Statement\StatementModel.cs" />
-    <Compile Include="Blade\Models\Statement\SwitchSection.cs" />
-    <Compile Include="Blade\Models\Statement\SwitchStatement.cs" />
-    <Compile Include="Blade\Models\Statement\ThrowStatement.cs" />
-    <Compile Include="Blade\Models\Statement\TryStatement.cs" />
-    <Compile Include="Blade\Models\Statement\WhileStatement.cs" />
-    <Compile Include="Blade\Models\SyntacticModel.cs" />
-    <Compile Include="JavascriptTemplates\Invocations\RouteProvider\Partials\WhenTemplate.cs" />
-    <Compile Include="JavascriptTemplates\Invocations\RouteProvider\WhenTemplate.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>WhenTemplate.tt</DependentUpon>
-    </Compile>
-    <Compile Include="JavascriptTemplates\module.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>module.tt</DependentUpon>
-    </Compile>
-    <Compile Include="JavascriptTemplates\Partials\ProviderTemplate.cs" />
-    <Compile Include="JavascriptTemplates\Partials\module.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Blade\Transformation\Argument.Transform.cs" />
-    <Compile Include="Blade\Transformation\ArrayRankSpecifier.Transform.cs" />
-    <Compile Include="Blade\Transformation\ArrayType.Transform.cs" />
-    <Compile Include="Blade\Transformation\BaseList.Transform.cs" />
-    <Compile Include="Blade\Transformation\BracketedArgumentList.Transform.cs" />
-    <Compile Include="Blade\Transformation\BracketedParameterList.Transform.cs" />
-    <Compile Include="Blade\Transformation\CompilationUnit.Transform.cs" />
-    <Compile Include="Blade\Transformation\Declaration\AccessorDeclaration.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Declaration\AccessorList.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Declaration\ClassDeclaration.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Declaration\ConstructorDeclaration.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Declaration\DelegateDeclaration.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Declaration\EnumDeclaration.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Declaration\EventDeclaration.Transform.cs" />
-    <Compile Include="Blade\Transformation\Declaration\FieldDeclaration.Transform.cs" />
-    <Compile Include="Blade\Transformation\Declaration\InterfaceDeclaration.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Declaration\MethodDeclaration.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Declaration\NamespaceDeclaration.Transform.cs" />
-    <Compile Include="Blade\Transformation\Declaration\Parameter.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Declaration\ParameterList.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Declaration\PropertyDeclaration.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Declaration\VariableDeclaration.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Declaration\VariableDeclarator.Transformer.cs" />
-    <Compile Include="Blade\Transformation\EqualsValueClause.Transform.cs" />
-    <Compile Include="Blade\Transformation\Expression\AnonymousMethodExpression.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Expression\AnonymousObjectCreationExpression.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Expression\ArrayCreationExpression.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Expression\BaseExpression.Transform.cs" />
-    <Compile Include="Blade\Transformation\Expression\BinaryExpression.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Expression\CastExpression.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Expression\ConditionalExpression.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Expression\DefaultExpression.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Expression\ElementAccessExpression.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Expression\ImplicitArrayCreationExpression.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Expression\InitializerExpression.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Expression\InvocationExpression.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Expression\LiteralExpression.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Expression\MemberAccessExpression.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Expression\ObjectCreationExpression.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Expression\ParenthesizedExpression.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Expression\ParenthesizedLambdaExpression.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Expression\PostfixUnaryExpression.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Expression\PrefixUnaryExpression.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Expression\SimpleLambdaExpression.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Expression\ThisExpression.Transform.cs" />
-    <Compile Include="Blade\Transformation\Expression\Type\GenericName.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Expression\Type\IdentifierName.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Expression\Type\PredefinedType.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Expression\Type\QualifiedName.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Statement\Block.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Statement\BreakStatement.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Statement\ContinueStatement.Transform.cs" />
-    <Compile Include="Blade\Transformation\Statement\DoStatement.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Statement\EmptyStatement.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Statement\ExpressionStatement.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Statement\ForEachStatement.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Statement\ForStatement.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Statement\IfStatement.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Statement\LabeledStatement.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Statement\LocalDeclarationStatement.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Statement\ReturnStatement.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Statement\SwitchStatement.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Statement\ThrowStatement.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Statement\TryStatement.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Statement\WhileStatement.Transformer.cs" />
-    <Compile Include="Blade\Transformation\Transformer.cs" />
-    <Compile Include="Translation\AppClassTranslator.cs" />
-    <Compile Include="Translation\ClassTranslatorFactory.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Blade\Transformation\Expression\TypeOfExpression.Transformer.cs" />
-    <None Include="JavascriptTemplates\Invocations\RouteProvider\WhenTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>WhenTemplate.cs</LastGenOutput>
-    </None>
-    <None Include="JavascriptTemplates\module.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>module.cs</LastGenOutput>
-    </None>
-    <None Include="JavascriptTemplates\snippets.t4">
-      <LastGenOutput>snippets1.cs</LastGenOutput>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Acute\Acute.csproj">
-      <Project>{b7e3a9c4-8680-47c5-84be-3530eb587dd1}</Project>
-      <Name>Acute</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="JavascriptTemplates\acute.js" />
-    <EmbeddedResource Include="JavascriptTemplates\blade.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="JavascriptTemplates\angular.min.js" />
+    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
