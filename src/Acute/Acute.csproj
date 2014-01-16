@@ -35,6 +35,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Angular\Module.cs" />
+    <Compile Include="Angular\RouteConfig.cs" />
+    <Compile Include="Angular\RouteProvider.cs" />
     <Compile Include="App.cs" />
     <Compile Include="Controller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

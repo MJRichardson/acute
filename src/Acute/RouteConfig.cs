@@ -1,28 +1,23 @@
-﻿//using System;
+﻿using System;
+using System.Runtime.CompilerServices;
 
-//namespace Acute
-//{
-//    [ScriptObjectLiteral]
-//    public class RouteConfig
-//    {
-//        [ScriptName("templateUrl")]
-//        public string TemplateUrl { get; set; }
+namespace Acute
+{
+    public class RouteConfig
+    {
+        public string TemplateUrl { get; set; }
 
-//        [ScriptExternal]
-//        public Type Controller { get; set; }
+        public Type Controller { get; set; }
 
-//        protected string controller { get; set; }
+    }
 
-//    }
+    public class RouteConfig<TController> : RouteConfig where TController : Controller
+    {
+        public RouteConfig()
+        {
 
-//    [CustomScriptType]
-//    public class RouteConfig<TController> : RouteConfig where TController : Controller
-//    {
-//        public RouteConfig()
-//        {
+        }
+    }
 
-//        }
-//    }
 
-    
-//}
+}

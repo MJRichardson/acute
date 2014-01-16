@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using Acute;
 using Acute.Compiler;
+using Saltarelle.Compiler.SCExe;
 
 namespace Test.Scenarios
 {
@@ -15,7 +16,6 @@ namespace Test.Scenarios
             string exeLocationPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             var scenarioPaths = Directory.GetDirectories(Path.Combine(exeLocationPath, "Scenarios"));
 
-            var compiler = new AcuteCompiler();
 
             //foreach (var scenarioPath in scenarioPaths)
             //{
@@ -37,12 +37,15 @@ namespace Test.Scenarios
                    Path.Combine(Path.GetDirectoryName( Assembly.GetExecutingAssembly().Location), @"..\..\..\bin\mscorlib.dll")
                 };
 
-            compiler.Compile(
-                new CompilationRequest(
-                    scenarioPaths.SelectMany( scenarioPath => Directory.GetFiles(scenarioPath, "*.cs", SearchOption.AllDirectories)),
-                    referencePaths, 
-                    "scenarios",
-                    outputPath: exeLocationPath));
+            Acute.Compiler.Driver.Compile(new CompileOptions(
+                                              scenarioPaths.SelectMany(
+                                                  scenarioPath =>
+                                                  Directory.GetFiles(scenarioPath, "*.cs", SearchOption.AllDirectories)),
+                                              referencePaths,
+                                              Path.Combine(exeLocationPath, "Scenarios.dll"),
+                                              Path.Combine(exeLocationPath, "scenarios.js")
+
+                                              ), new ExecutableErrorReporter(Console.Error));
 
         }
     }
