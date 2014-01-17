@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace Acute.Angular
 {
@@ -15,5 +16,16 @@ namespace Acute.Angular
       public Module(string moduleName, params string[] requires)
       {         
       }
+
+      [InlineCode("{module}.config({func})")]
+      public static void Config(Module module, object func)
+      {
+      }    
+
+      [InlineCode("{this}.service({Name},{func})")]
+      public void Service(string Name, Type func)
+      {
+      }          
+
     }
 }
