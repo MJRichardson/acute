@@ -22,6 +22,11 @@ namespace Acute.Angular
       {
       }    
 
+      [InlineCode("{module}.controller({Name},{func})")]
+      public static void Controller(Module module, string Name, object func)
+      {
+      } 
+
       [InlineCode("{this}.service({Name},{func})")]
       public void Service(string Name, Type func)
       {
