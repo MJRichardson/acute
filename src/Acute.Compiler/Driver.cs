@@ -1,4 +1,5 @@
-﻿using Saltarelle.Compiler;
+﻿using System.Linq;
+using Saltarelle.Compiler;
 using Saltarelle.Compiler.Driver;
 
 namespace Acute.Compiler
@@ -13,6 +14,7 @@ namespace Acute.Compiler
             saltarelleOptions.SourceFiles.AddRange(options.SourcePaths);
             saltarelleOptions.OutputScriptPath = options.OutputScriptPath;
             saltarelleOptions.OutputAssemblyPath = options.OutputAssemblyPath;
+            saltarelleOptions.References.AddRange(options.ReferencePaths.Select(x => new Reference(x)));
 
             if (saltarelleDriver.Compile(saltarelleOptions) == false)
                 return false;

@@ -17,13 +17,13 @@ namespace Acute.Angular
       {         
       }
 
-      [InlineCode("{module}.config({func})")]
-      public static void Config(Module module, object func)
+      [InlineCode("{this}.config({func})")]
+      public void Config(object func)
       {
       }    
 
-      [InlineCode("{module}.controller({Name},{func})")]
-      public static void Controller(Module module, string Name, object func)
+      [InlineCode("{this}.controller({Name},{func})")]
+      public void Controller(string Name, object func)
       {
       } 
 

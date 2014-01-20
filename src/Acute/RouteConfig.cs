@@ -6,8 +6,15 @@ namespace Acute
     public class RouteConfig
     {
         public string TemplateUrl { get; set; }
-
         public Type Controller { get; set; }
+
+        internal Angular.RouteConfig ToAngularRouteConfig()
+        {
+           return new Angular.RouteConfig
+               {
+                   TemplateUrl = TemplateUrl
+               }; 
+        }
 
     }
 
@@ -15,7 +22,7 @@ namespace Acute
     {
         public RouteConfig()
         {
-
+            Controller = typeof (TController);
         }
     }
 

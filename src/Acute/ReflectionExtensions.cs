@@ -4,11 +4,27 @@ using System.Runtime.CompilerServices;
 
 namespace Acute
 {
+    //todo: rename this class
     internal static class ReflectionExtensions
     {
+        public static Function GetFunction(this Type type, string functionName)
+        {
+            return (Function) type.Prototype[functionName];
+        }
+
         public static Function GetConstructorFunction(this Type type)
         {
-            return (Function) type.Prototype["constructor"];
+            return type.GetFunction("controller");
+        }
+
+        public static List<string> GetInstanceMethodNames(this Type type)
+        {
+            var result = new List<string>();
+            foreach (string key in type.Prototype.Keys)
+            {
+                if (key != "constructor") result.Add(key);
+            }
+            return result;
         }
 
         [InlineCode("{type}")]
@@ -17,7 +33,19 @@ namespace Acute
             return null;
         }
 
-      public static object CreateFunctionCall(this Function fun, List<string> parameters) 
+        [InlineCode("{type}.$inject")]
+        public static List<string> ReadInjection(this Type type)
+        {
+            return null;
+        }
+
+        [InlineCode("new Function({args},{body})")]
+        public static Function CreateNewFunction(List<string> args, string body)
+        {
+            return null;
+        }
+
+        public static object CreateFunctionCall(this Function fun, List<string> parameters) 
       {
          // if no parameters, takes function out of the array
          if(parameters.Count==0) return fun;

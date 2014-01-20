@@ -24,7 +24,7 @@ namespace Test.Scenarios
             //    var referencePaths = new List<string>
             //        {
             //           typeof(App).Assembly.Location,
-            //           Path.Combine(Path.GetDirectoryName( Assembly.GetExecutingAssembly().Location), @"..\..\..\bin\mscorlib.dll")
+            //           Path.Combine(Path.GetDirectoryName( Assembly.GetExecutingAssembly().Location), @"..\..\..\..\submodules\saltarelle.compiler\Runtime\CorLib\bin\mscorlib.dll")
             //        };
 
             //    compiler.Compile(new CompilationRequest(sourcePaths, referencePaths, scenarioName));
@@ -34,7 +34,7 @@ namespace Test.Scenarios
             var referencePaths = new List<string>
                 {
                    typeof(App).Assembly.Location,
-                   Path.Combine(Path.GetDirectoryName( Assembly.GetExecutingAssembly().Location), @"..\..\..\bin\mscorlib.dll")
+                   Path.Combine(Path.GetDirectoryName( Assembly.GetExecutingAssembly().Location), @"..\..\..\..\submodules\saltarelle.compiler\Runtime\CoreLib\bin\mscorlib.dll")
                 };
 
             Acute.Compiler.Driver.Compile(new CompileOptions(
@@ -45,7 +45,9 @@ namespace Test.Scenarios
                                               Path.Combine(exeLocationPath, "Scenarios.dll"),
                                               Path.Combine(exeLocationPath, "scenarios.js")
 
-                                              ), new ExecutableErrorReporter(Console.Error));
+                                              ), new ExecutableErrorReporter(Console.Out));
+
+            Console.ReadKey();
 
         }
     }
