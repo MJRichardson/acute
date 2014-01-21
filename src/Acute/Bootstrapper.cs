@@ -3,9 +3,14 @@ using System.Reflection;
 
 namespace Acute
 {
-    public class Bootstrapper
+    internal class Bootstrapper
     {
-        public static void Init()
+        public static void Main()
+        {
+           Init(); 
+        }
+
+        private static void Init()
         {
            foreach (var type in Assembly.GetExecutingAssembly().GetTypes())
            {

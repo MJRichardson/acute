@@ -66,6 +66,7 @@
     <Content Include="lib\jasmine-2.0.0\jasmine.css" />
     <Content Include="lib\jasmine-2.0.0\jasmine.js" />
     <Content Include="lib\jasmine-2.0.0\jasmine_favicon.png" />
+    <Content Include="scenarios\Acute.js" />
     <Content Include="scenarios\scenarios.js" />
     <Content Include="SpecRunner.html" />
     <Content Include="spec\PlayerSpec.js" />
@@ -91,7 +92,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>61584</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:62191/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
@@ -105,7 +106,9 @@
   </ProjectExtensions>
   <PropertyGroup>
     <PostBuildEvent>$(ProjectDir)..\Test.Scenarios\bin\$(ConfigurationName)\scenarios.exe
-xcopy $(ProjectDir)..\Test.Scenarios\bin\$(ConfigurationName)\scenarios.js $(ProjectDir)scenarios /Y</PostBuildEvent>
+xcopy $(ProjectDir)..\Test.Scenarios\bin\$(ConfigurationName)\scenarios.js $(ProjectDir)scenarios /Y
+xcopy $(ProjectDir)..\Acute\bin\$(ConfigurationName)\acute.js $(ProjectDir)scenarios /Y
+xcopy $(ProjectDir)..\..\submodules\saltarelle.compiler\Runtime\CoreLib.Script\bin\mscorlib.js $(ProjectDir)scenarios /Y</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
