@@ -47,8 +47,6 @@ namespace Test.Scenarios
 
                                               ), new ExecutableErrorReporter(Console.Out));
 
-            Console.ReadKey();
-
         }
     }
 }

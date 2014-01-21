@@ -15,6 +15,7 @@ namespace Acute.Compiler
             saltarelleOptions.OutputScriptPath = options.OutputScriptPath;
             saltarelleOptions.OutputAssemblyPath = options.OutputAssemblyPath;
             saltarelleOptions.References.AddRange(options.ReferencePaths.Select(x => new Reference(x)));
+            saltarelleOptions.AlreadyCompiled = true;
 
             if (saltarelleDriver.Compile(saltarelleOptions) == false)
                 return false;
