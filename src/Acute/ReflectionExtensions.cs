@@ -14,7 +14,7 @@ namespace Acute
 
         public static Function GetConstructorFunction(this Type type)
         {
-            return type.GetFunction("controller");
+            return type.GetFunction("constructor");
         }
 
         public static List<string> GetInstanceMethodNames(this Type type)

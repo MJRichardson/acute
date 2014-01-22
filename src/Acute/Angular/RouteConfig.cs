@@ -5,7 +5,7 @@ namespace Acute.Angular
 {
     [Serializable]
     [Imported]
-    internal class RouteConfig
+    public class RouteConfig
     {
       [ScriptName("controller")]     
       public string Controller;

@@ -30,7 +30,7 @@
 		return ss.cast(type.prototype[functionName], Function);
 	};
 	$Acute_$ReflectionExtensions.$getConstructorFunction = function(type) {
-		return $Acute_$ReflectionExtensions.$getFunction(type, 'controller');
+		return $Acute_$ReflectionExtensions.$getFunction(type, 'constructor');
 	};
 	$Acute_$ReflectionExtensions.$getInstanceMethodNames = function(type) {
 		var result = [];
@@ -72,7 +72,7 @@
 		$Acute_App.$registerControllers(this.$_module);
 		this.service($Acute_RouteProvider).call(this);
 		//register the config
-		var configFunc = $Acute_$ReflectionExtensions.$getFunction($Acute_App, 'Config');
+		var configFunc = $Acute_$ReflectionExtensions.$getFunction($Acute_App, $Acute_App.$configMethodScriptName);
 		angular.injector().annotate(configFunc);
 		this.$_module.config(configFunc);
 	};
@@ -161,7 +161,7 @@
 				this.$_module.service(servicename, type);
 			};
 		},
-		$config: function(routeProvider) {
+		config: function(routeProvider) {
 			this.configureRoutes(routeProvider);
 		},
 		configureRoutes: function(routeProvider) {
@@ -195,5 +195,6 @@
 			return this;
 		}
 	});
+	$Acute_App.$configMethodScriptName = 'config';
 	$Acute_$Bootstrapper.$main();
 })();

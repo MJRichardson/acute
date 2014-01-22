@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using Acute.Angular;
 
 namespace Acute
@@ -7,6 +8,7 @@ namespace Acute
     public abstract class App
     {
         private readonly Module _module;
+        private const string ConfigMethodScriptName = "config";
 
         protected App()
         {
@@ -17,7 +19,7 @@ namespace Acute
             Service<RouteProvider>();
 
             //register the config
-            var configFunc = typeof (App).GetFunction("Config");
+            var configFunc = typeof (App).GetFunction(ConfigMethodScriptName);
             GlobalApi.Injector().Annotate(configFunc);
             _module.Config(configFunc);
 
@@ -33,6 +35,7 @@ namespace Acute
              _module.Service(servicename,type);
         }
 
+        [ScriptName(ConfigMethodScriptName)]
         private void Config(RouteProvider routeProvider)
         {
            ConfigureRoutes(routeProvider); 
