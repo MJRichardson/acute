@@ -1,4 +1,12 @@
 ﻿describe("When configuring a route", function () {
+    
+    var angularRouteProvider;
+    var acuteRouteProvider;
+
+    beforeEach(function () {
+        angularRouteProvider = jasmine.createSpyObj('$routeProvider', ['when']);
+        acuteRouteProvider = new Acute.RouteProvider(angularRouteProvider);
+    });
 
     describe("with a template-url", function () {
 
@@ -6,11 +14,8 @@
         var templateUrl = "/this/is/a/template.html";
 
         var app;
-        var angularRouteProvider;
 
         beforeEach(function () {
-            angularRouteProvider = jasmine.createSpyObj('$routeProvider', ['when']);
-            var acuteRouteProvider = new Acute.RouteProvider(angularRouteProvider);
             app = new Test.Scenarios.RouteConfiguration.When.WithTemplateUrl.App();
             app.configureRoutes(acuteRouteProvider);
         });
@@ -27,11 +32,8 @@
         var pathConfiguredWithRouteConfigWithInitializer = "/path/for/route/config/with/initializer";
         var templateUrl = "/a/template.html";
         var app;
-        var angularRouteProvider;
         
         beforeEach(function () {
-            angularRouteProvider = jasmine.createSpyObj('$routeProvider', ['when']);
-            var acuteRouteProvider = new Acute.RouteProvider(angularRouteProvider);
             app = new Test.Scenarios.RouteConfiguration.When.WithGenericController.App();
             app.configureRoutes(acuteRouteProvider);
         });

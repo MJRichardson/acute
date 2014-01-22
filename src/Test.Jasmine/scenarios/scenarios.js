@@ -3,11 +3,28 @@
 	var $asm = {};
 	global.Test = global.Test || {};
 	global.Test.Scenarios = global.Test.Scenarios || {};
+	global.Test.Scenarios.Controllers = global.Test.Scenarios.Controllers || {};
 	global.Test.Scenarios.RouteConfiguration = global.Test.Scenarios.RouteConfiguration || {};
 	global.Test.Scenarios.RouteConfiguration.When = global.Test.Scenarios.RouteConfiguration.When || {};
 	global.Test.Scenarios.RouteConfiguration.When.WithGenericController = global.Test.Scenarios.RouteConfiguration.When.WithGenericController || {};
 	global.Test.Scenarios.RouteConfiguration.When.WithTemplateUrl = global.Test.Scenarios.RouteConfiguration.When.WithTemplateUrl || {};
 	ss.initAssembly($asm, 'Scenarios');
+	////////////////////////////////////////////////////////////////////////////////
+	// Test.Scenarios.Controllers.App
+	var $Test_Scenarios_Controllers_App = function() {
+		Acute.App.call(this);
+	};
+	$Test_Scenarios_Controllers_App.__typeName = 'Test.Scenarios.Controllers.App';
+	global.Test.Scenarios.Controllers.App = $Test_Scenarios_Controllers_App;
+	////////////////////////////////////////////////////////////////////////////////
+	// Test.Scenarios.Controllers.Controller
+	var $Test_Scenarios_Controllers_Controller = function() {
+		this.$2$SimpleStringField = null;
+		Acute.Controller.call(this);
+		this.set_simpleString('Yabba dabba doo!');
+	};
+	$Test_Scenarios_Controllers_Controller.__typeName = 'Test.Scenarios.Controllers.Controller';
+	global.Test.Scenarios.Controllers.Controller = $Test_Scenarios_Controllers_Controller;
 	////////////////////////////////////////////////////////////////////////////////
 	// Test.Scenarios.RouteConfiguration.When.WithGenericController.App
 	var $Test_Scenarios_RouteConfiguration_When_WithGenericController_App = function() {
@@ -29,6 +46,15 @@
 	};
 	$Test_Scenarios_RouteConfiguration_When_WithTemplateUrl_App.__typeName = 'Test.Scenarios.RouteConfiguration.When.WithTemplateUrl.App';
 	global.Test.Scenarios.RouteConfiguration.When.WithTemplateUrl.App = $Test_Scenarios_RouteConfiguration_When_WithTemplateUrl_App;
+	ss.initClass($Test_Scenarios_Controllers_App, $asm, {}, Acute.App);
+	ss.initClass($Test_Scenarios_Controllers_Controller, $asm, {
+		get_simpleString: function() {
+			return this.$2$SimpleStringField;
+		},
+		set_simpleString: function(value) {
+			this.$2$SimpleStringField = value;
+		}
+	}, Acute.Controller);
 	ss.initClass($Test_Scenarios_RouteConfiguration_When_WithGenericController_App, $asm, {
 		configureRoutes: function(routeProvider) {
 			//route-config with default constuctor and no initializers
