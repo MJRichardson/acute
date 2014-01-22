@@ -10,10 +10,15 @@ namespace Acute
 
         internal Angular.RouteConfig ToAngularRouteConfig()
         {
-           return new Angular.RouteConfig
-               {
-                   TemplateUrl = TemplateUrl
-               }; 
+            var angularRouteConfig = new Angular.RouteConfig();
+
+            if (!string.IsNullOrEmpty(TemplateUrl))
+                angularRouteConfig.TemplateUrl = TemplateUrl;
+
+            if (Controller != null)
+                angularRouteConfig.Controller = Controller.ToFunction() ;
+
+            return angularRouteConfig;
         }
 
     }

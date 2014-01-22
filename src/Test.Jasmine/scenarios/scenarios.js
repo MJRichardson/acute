@@ -10,14 +10,8 @@
 	ss.initAssembly($asm, 'Scenarios');
 	////////////////////////////////////////////////////////////////////////////////
 	// Test.Scenarios.RouteConfiguration.When.WithGenericController.App
-	var $Test_Scenarios_RouteConfiguration_When_WithGenericController_App = function(routeProvider) {
+	var $Test_Scenarios_RouteConfiguration_When_WithGenericController_App = function() {
 		Acute.App.call(this);
-		//route-config with default constuctor and no initializers
-		routeProvider.when('/path/for/route/config/with/no/initializers', new (ss.makeGenericType(Acute.RouteConfig$1, [$Test_Scenarios_RouteConfiguration_When_WithGenericController_DefaultController]))());
-		//route-config with initalizer
-		var $t1 = new (ss.makeGenericType(Acute.RouteConfig$1, [$Test_Scenarios_RouteConfiguration_When_WithGenericController_DefaultController]))();
-		$t1.set_templateUrl('/a/template.html');
-		routeProvider.when('/path/for/route/config/with/initializer', $t1);
 	};
 	$Test_Scenarios_RouteConfiguration_When_WithGenericController_App.__typeName = 'Test.Scenarios.RouteConfiguration.When.WithGenericController.App';
 	global.Test.Scenarios.RouteConfiguration.When.WithGenericController.App = $Test_Scenarios_RouteConfiguration_When_WithGenericController_App;
@@ -35,7 +29,16 @@
 	};
 	$Test_Scenarios_RouteConfiguration_When_WithTemplateUrl_App.__typeName = 'Test.Scenarios.RouteConfiguration.When.WithTemplateUrl.App';
 	global.Test.Scenarios.RouteConfiguration.When.WithTemplateUrl.App = $Test_Scenarios_RouteConfiguration_When_WithTemplateUrl_App;
-	ss.initClass($Test_Scenarios_RouteConfiguration_When_WithGenericController_App, $asm, {}, Acute.App);
+	ss.initClass($Test_Scenarios_RouteConfiguration_When_WithGenericController_App, $asm, {
+		configureRoutes: function(routeProvider) {
+			//route-config with default constuctor and no initializers
+			routeProvider.when('/path/for/route/config/with/no/initializers', new (ss.makeGenericType(Acute.RouteConfig$1, [$Test_Scenarios_RouteConfiguration_When_WithGenericController_DefaultController]))());
+			//route-config with initalizer
+			var $t1 = new (ss.makeGenericType(Acute.RouteConfig$1, [$Test_Scenarios_RouteConfiguration_When_WithGenericController_DefaultController]))();
+			$t1.set_templateUrl('/a/template.html');
+			routeProvider.when('/path/for/route/config/with/initializer', $t1);
+		}
+	}, Acute.App);
 	ss.initClass($Test_Scenarios_RouteConfiguration_When_WithGenericController_DefaultController, $asm, {}, Acute.Controller);
 	ss.initClass($Test_Scenarios_RouteConfiguration_When_WithTemplateUrl_App, $asm, {
 		configureRoutes: function(routeProvider) {

@@ -8,7 +8,7 @@ namespace Acute.Angular
     public class RouteConfig
     {
       [ScriptName("controller")]     
-      public string Controller;
+      public Function Controller;
 
       [ScriptName("templateUrl")]    
       public string TemplateUrl;

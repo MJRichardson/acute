@@ -182,7 +182,14 @@
 			this.$1$ControllerField = value;
 		},
 		$toAngularRouteConfig: function() {
-			return { templateUrl: this.get_templateUrl() };
+			var angularRouteConfig = {};
+			if (!ss.isNullOrEmptyString(this.get_templateUrl())) {
+				angularRouteConfig.templateUrl = this.get_templateUrl();
+			}
+			if (ss.isValue(this.get_controller())) {
+				angularRouteConfig.controller = this.get_controller();
+			}
+			return angularRouteConfig;
 		}
 	});
 	ss.initClass($Acute_RouteProvider, $asm, {
