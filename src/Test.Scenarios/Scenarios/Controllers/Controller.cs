@@ -2,11 +2,17 @@
 {
     public class Controller : Acute.Controller
     {
+        private string _simpleString;
+
         public Controller()
         {
-            SimpleString = "Yabba dabba doo!";
+            _simpleString = "Yabba dabba doo!";
         }
 
-        public string SimpleString { get; set; }
+        public string SimpleString()
+        {
+            return _simpleString;
+        }
+
     }
 }

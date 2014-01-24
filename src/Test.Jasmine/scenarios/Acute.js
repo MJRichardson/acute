@@ -68,29 +68,15 @@
 	// Acute.App
 	var $Acute_App = function() {
 		this.$_module = null;
-		this.$_module = angular.module(ss.getTypeFullName(ss.getInstanceType(this)), []);
-		$Acute_App.$registerControllers(this.$_module);
+		this.$_module = angular.module(ss.getTypeFullName(ss.getInstanceType(this)), ['ngRoute']);
 		this.service($Acute_RouteProvider).call(this);
 		//register the config
 		var configFunc = $Acute_$ReflectionExtensions.$getFunction($Acute_App, $Acute_App.$configMethodScriptName);
-		angular.injector().annotate(configFunc);
-		this.$_module.config(configFunc);
+		var parameters = angular.injector().annotate(configFunc);
+		var annotatedFunc = $Acute_$ReflectionExtensions.$createFunctionCall(configFunc, parameters);
+		this.$_module.config(annotatedFunc);
 	};
 	$Acute_App.__typeName = 'Acute.App';
-	$Acute_App.$registerControllers = function(module) {
-		//register controllers
-		var $t1 = ss.getAssemblyTypes($asm);
-		for (var $t2 = 0; $t2 < $t1.length; $t2++) {
-			var type = $t1[$t2];
-			if (type.prototype instanceof $Acute_Controller === false) {
-				continue;
-			}
-			var fun = $Acute_App.$buildControllerFunction(type);
-			var parameters = type.$inject;
-			var fcall = $Acute_$ReflectionExtensions.$createFunctionCall(fun, parameters);
-			module.controller(ss.getTypeName(type), fcall);
-		}
-	};
 	$Acute_App.$buildControllerFunction = function(type) {
 		var body = '';
 		var scopeVar = '$scope';
@@ -100,6 +86,7 @@
 			var funcname = $t1[$t2];
 			body += ss.formatString('{2}.{1} = {0}.prototype.{1}.bind({2});\r\n', ss.getTypeFullName(type), funcname, scopeVar);
 		}
+		body += ss.formatString("alert('called');\r\n");
 		// put call at the end so that methods are defined first
 		body += ss.formatString('{0}.apply({1},arguments);\r\n', ss.getTypeFullName(type), scopeVar);
 		//get the constructor parameters
@@ -142,15 +129,26 @@
 	global.Acute.RouteConfig$1 = $Acute_RouteConfig$1;
 	////////////////////////////////////////////////////////////////////////////////
 	// Acute.RouteProvider
-	var $Acute_RouteProvider = function(angularRouteProvider) {
+	var $Acute_RouteProvider = function(_routeProvider) {
 		this.$_angularRouteProvider = null;
-		this.$_angularRouteProvider = angularRouteProvider;
+		this.$_angularRouteProvider = _routeProvider;
 	};
 	$Acute_RouteProvider.__typeName = 'Acute.RouteProvider';
 	global.Acute.RouteProvider = $Acute_RouteProvider;
 	ss.initClass($Acute_$Bootstrapper, $asm, {});
 	ss.initClass($Acute_$ReflectionExtensions, $asm, {});
 	ss.initClass($Acute_App, $asm, {
+		controller: function(T) {
+			return function() {
+				this.controller$1(T);
+			};
+		},
+		controller$1: function(controllerType) {
+			var func = $Acute_App.$buildControllerFunction(controllerType);
+			var parameters = controllerType.$inject;
+			var fcall = $Acute_$ReflectionExtensions.$createFunctionCall(func, parameters);
+			this.$_module.controller('blah', fcall);
+		},
 		service: function(T) {
 			return function() {
 				var type = T;
@@ -161,8 +159,8 @@
 				this.$_module.service(servicename, type);
 			};
 		},
-		config: function(routeProvider) {
-			this.configureRoutes(routeProvider);
+		config: function(_routeProvider) {
+			this.configureRoutes(_routeProvider);
 		},
 		configureRoutes: function(routeProvider) {
 		}

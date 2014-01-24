@@ -6,9 +6,9 @@ namespace Acute
     {
         private readonly Angular.RouteProvider _angularRouteProvider;
 
-        internal RouteProvider(Angular.RouteProvider angularRouteProvider)
+        internal RouteProvider(Angular.RouteProvider _routeProvider)
         {
-            _angularRouteProvider = angularRouteProvider;
+            _angularRouteProvider = _routeProvider;
         }
 
         public RouteProvider When(string path, RouteConfig routeConfig)

@@ -12,17 +12,29 @@ namespace Acute
 
         protected App()
         {
-           _module = new Module(this.GetType().FullName); 
-
-            RegisterControllers(_module);
+           _module = new Module(this.GetType().FullName, "ngRoute" ); 
 
             Service<RouteProvider>();
 
             //register the config
             var configFunc = typeof (App).GetFunction(ConfigMethodScriptName);
-            GlobalApi.Injector().Annotate(configFunc);
-            _module.Config(configFunc);
+            var parameters = GlobalApi.Injector().Annotate(configFunc);
+            var annotatedFunc = configFunc.CreateFunctionCall(parameters);
+            _module.Config(annotatedFunc);
 
+        }
+
+        protected void Controller<T>() where T : Controller
+        {
+            Controller(typeof (T));
+        }
+
+        protected void Controller(Type controllerType)
+        {
+             var func = BuildControllerFunction(controllerType);     
+             var parameters = controllerType.ReadInjection();         
+             var fcall = func.CreateFunctionCall(parameters);         
+             _module.Controller("blah",fcall);
         }
 
 
@@ -36,29 +48,29 @@ namespace Acute
         }
 
         [ScriptName(ConfigMethodScriptName)]
-        private void Config(RouteProvider routeProvider)
+        private void Config(RouteProvider _routeProvider)
         {
-           ConfigureRoutes(routeProvider); 
+           ConfigureRoutes(_routeProvider); 
         }
 
         protected virtual void ConfigureRoutes(RouteProvider routeProvider)
         {}
 
-        private static void RegisterControllers(Module module)
-        {
-            //register controllers
-            foreach (var type in Assembly.GetExecutingAssembly().GetTypes())
-            {
-                if (type.IsSubclassOf(typeof (Controller)) == false)
-                    continue;
+        //private static void RegisterControllers(Module module)
+        //{
+        //    //register controllers
+        //    foreach (var type in Assembly.GetExecutingAssembly().GetTypes())
+        //    {
+        //        if (type.IsSubclassOf(typeof (Controller)) == false)
+        //            continue;
 
-             Function fun = BuildControllerFunction(type);     
-             var parameters = type.ReadInjection();         
-             var fcall = fun.CreateFunctionCall(parameters);         
-             module.Controller(type.Name,fcall);
-            }
+        //     Function fun = BuildControllerFunction(type);     
+        //     var parameters = type.ReadInjection();         
+        //     var fcall = fun.CreateFunctionCall(parameters);         
+        //     module.Controller(type.Name,fcall);
+        //    }
             
-        }
+        //}
 
         private static Function BuildControllerFunction(Type type)
         {
@@ -71,6 +83,8 @@ namespace Acute
              {
                 body += String.Format("{2}.{1} = {0}.prototype.{1}.bind({2});\r\n",type.FullName,funcname,scopeVar);             
              }
+
+            body += String.Format("alert('called');\r\n");
 
              // put call at the end so that methods are defined first
              body+=String.Format("{0}.apply({1},arguments);\r\n",type.FullName,scopeVar);
