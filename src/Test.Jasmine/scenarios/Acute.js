@@ -71,7 +71,11 @@
 		this.$_module = angular.module(ss.getTypeFullName(ss.getInstanceType(this)), ['ngRoute']);
 		this.service($Acute_RouteProvider).call(this);
 		//register the config
-		var configFunc = $Acute_$ReflectionExtensions.$getFunction($Acute_App, $Acute_App.$configMethodScriptName);
+		//var configFunc = typeof (App).GetFunction(ConfigMethodScriptName);
+		//var parameters = GlobalApi.Injector().Annotate(configFunc);
+		//var annotatedFunc = configFunc.CreateFunctionCall(parameters);
+		//_module.Config(annotatedFunc);
+		var configFunc = $Acute_$ReflectionExtensions.$getFunction($Acute_App, $Acute_App.$configureRoutesScriptName);
 		var parameters = angular.injector().annotate(configFunc);
 		var annotatedFunc = $Acute_$ReflectionExtensions.$createFunctionCall(configFunc, parameters);
 		this.$_module.config(annotatedFunc);
@@ -201,5 +205,6 @@
 		}
 	});
 	$Acute_App.$configMethodScriptName = 'config';
+	$Acute_App.$configureRoutesScriptName = 'configureRoutes';
 	$Acute_$Bootstrapper.$main();
 })();

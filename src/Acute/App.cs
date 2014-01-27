@@ -9,6 +9,7 @@ namespace Acute
     {
         private readonly Module _module;
         private const string ConfigMethodScriptName = "config";
+        private const string ConfigureRoutesScriptName = "configureRoutes";
 
         protected App()
         {
@@ -17,7 +18,12 @@ namespace Acute
             Service<RouteProvider>();
 
             //register the config
-            var configFunc = typeof (App).GetFunction(ConfigMethodScriptName);
+            //var configFunc = typeof (App).GetFunction(ConfigMethodScriptName);
+            //var parameters = GlobalApi.Injector().Annotate(configFunc);
+            //var annotatedFunc = configFunc.CreateFunctionCall(parameters);
+            //_module.Config(annotatedFunc);
+
+            var configFunc = typeof (App).GetFunction(ConfigureRoutesScriptName);
             var parameters = GlobalApi.Injector().Annotate(configFunc);
             var annotatedFunc = configFunc.CreateFunctionCall(parameters);
             _module.Config(annotatedFunc);
@@ -53,6 +59,7 @@ namespace Acute
            ConfigureRoutes(_routeProvider); 
         }
 
+        [ScriptName(ConfigureRoutesScriptName)]
         protected virtual void ConfigureRoutes(RouteProvider routeProvider)
         {}
 
