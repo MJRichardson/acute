@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace Acute
 {
@@ -22,5 +23,12 @@ namespace Acute
             _angularRouteProvider.otherwise(routeConfig.ToAngularRouteConfig());
             return this;
         }
+
+
+        [ScriptName("$get")]
+        protected void Get()
+        {
+        }
+
     }
 }

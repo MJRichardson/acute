@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Reflection;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Acute.Angular;
 
@@ -8,14 +8,12 @@ namespace Acute
     public abstract class App
     {
         private readonly Module _module;
-        private const string ConfigMethodScriptName = "config";
-        private const string ConfigureRoutesScriptName = "configureRoutes";
 
         protected App()
         {
            _module = new Module(this.GetType().FullName, "ngRoute" ); 
 
-            Service<RouteProvider>();
+            Provider<RouteProvider>();
 
             //register the config
             //var configFunc = typeof (App).GetFunction(ConfigMethodScriptName);
@@ -23,10 +21,14 @@ namespace Acute
             //var annotatedFunc = configFunc.CreateFunctionCall(parameters);
             //_module.Config(annotatedFunc);
 
-            var configFunc = typeof (App).GetFunction(ConfigureRoutesScriptName);
-            var parameters = GlobalApi.Injector().Annotate(configFunc);
-            var annotatedFunc = configFunc.CreateFunctionCall(parameters);
-            _module.Config(annotatedFunc);
+            //var configFunc = typeof (App).GetFunction(ConfigureRoutesScriptName);
+            //var parameters = GlobalApi.Injector().Annotate(configFunc);
+            //var annotatedFunc = configFunc.CreateFunctionArray(parameters);
+            //_module.Config(annotatedFunc);
+
+            var appType = this.GetType();
+            var configMethod = appType.GetMethod("ConfigureRoutes");
+            _module.Config(appType.CreateFunctionArray(configMethod));
 
         }
 
@@ -38,28 +40,29 @@ namespace Acute
         protected void Controller(Type controllerType)
         {
              var func = BuildControllerFunction(controllerType);     
-             var parameters = controllerType.ReadInjection();         
-             var fcall = func.CreateFunctionCall(parameters);         
-             _module.Controller("blah",fcall);
+             _module.Controller(controllerType.AsAngularServiceName(), func);
         }
 
 
         protected void Service<T>()
         {
              var type = typeof(T);
-             var parameters = Angular.GlobalApi.Injector().Annotate(type.GetConstructorFunction());         
-             type.ToFunction().CreateFunctionCall(parameters); // only used to fix the "_" to "$" in type.$inject
-             string servicename = typeof(T).Name;        
-             _module.Service(servicename,type);
+            var functionArrayNotation = type.CreateFunctionArray(); 
+             _module.Service(type.AsAngularServiceName(),functionArrayNotation);
         }
 
-        [ScriptName(ConfigMethodScriptName)]
-        private void Config(RouteProvider _routeProvider)
+        protected void Provider<T>()
         {
-           ConfigureRoutes(_routeProvider); 
+             var type = typeof(T);
+            var functionArrayNotation = type.CreateFunctionArray(); 
+             _module.Provider(type.AsAngularServiceName(),functionArrayNotation);
         }
 
-        [ScriptName(ConfigureRoutesScriptName)]
+        //private void Config(RouteProvider _routeProvider)
+        //{
+        //   ConfigureRoutes(_routeProvider); 
+        //}
+
         protected virtual void ConfigureRoutes(RouteProvider routeProvider)
         {}
 
@@ -79,7 +82,7 @@ namespace Acute
             
         //}
 
-        private static Function BuildControllerFunction(Type type)
+        private static IList<object> BuildControllerFunction(Type type)
         {
              string body = "";
              const string scopeVar = "$scope";  
@@ -98,10 +101,18 @@ namespace Acute
 
             //get the constructor parameters
              var parameters = GlobalApi.Injector().Annotate(type.GetConstructorFunction());
+
+            var functionArrayNotation = type.CreateFunctionArray(); 
+            //and add $scope as a parameter
+            functionArrayNotation.Insert(functionArrayNotation.Count - 2, scopeVar );
+
             //and add $scope as a parameter
             parameters.Add(scopeVar);
 
-             return ReflectionExtensions.CreateNewFunction(parameters,body);
+            var modifiedFunc = ReflectionExtensions.CreateNewFunction(parameters,body);
+            functionArrayNotation[parameters.Count] = modifiedFunc;
+
+            return functionArrayNotation;
         }
 
           //private void Config<T>()

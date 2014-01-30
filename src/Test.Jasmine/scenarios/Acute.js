@@ -32,6 +32,10 @@
 	$Acute_$ReflectionExtensions.$getConstructorFunction = function(type) {
 		return $Acute_$ReflectionExtensions.$getFunction(type, 'constructor');
 	};
+	$Acute_$ReflectionExtensions.$asAngularServiceName = function(type) {
+		var angularServiceAttribute = Enumerable.from(ss.getAttributes(type, $Acute_Angular_$AngularServiceAttribute, false)).singleOrDefault(null, ss.getDefaultValue(Object));
+		return (ss.isValue(angularServiceAttribute) ? ss.cast(angularServiceAttribute, $Acute_Angular_$AngularServiceAttribute).get_$serviceName() : ss.replaceAllString(ss.getTypeFullName(type), '.', ''));
+	};
 	$Acute_$ReflectionExtensions.$getInstanceMethodNames = function(type) {
 		var result = [];
 		var $t1 = ss.getEnumerator(Object.keys(type.prototype));
@@ -48,37 +52,40 @@
 		}
 		return result;
 	};
-	$Acute_$ReflectionExtensions.$createFunctionCall = function(fun, parameters) {
-		// if no parameters, takes function out of the array
-		if (parameters.length === 0) {
-			return fun;
+	$Acute_$ReflectionExtensions.$createFunctionArray = function(type) {
+		var constructorInfo = ss.getMembers(type, 1, 28)[0];
+		//todo: assert only one constructor
+		return $Acute_$ReflectionExtensions.$createFunctionArray$1(type, constructorInfo);
+	};
+	$Acute_$ReflectionExtensions.$createFunctionArray$1 = function(type, method) {
+		var func = ((ss.isValue(method) && method.type === 1) ? $Acute_$ReflectionExtensions.$getConstructorFunction(type) : $Acute_$ReflectionExtensions.$getFunction(type, ss.cast(method, ss.isValue(method) && method.type === 8).sname));
+		var parameterTypes = method.params;
+		var functionArrayNotation = [];
+		for (var $t1 = 0; $t1 < parameterTypes.length; $t1++) {
+			var parameterType = parameterTypes[$t1];
+			ss.add(functionArrayNotation, $Acute_$ReflectionExtensions.$asAngularServiceName(parameterType));
 		}
-		// builds array, but also FIX $injection in the type
-		var result = [];
-		for (var t = 0; t < parameters.length; t++) {
-			if (ss.startsWithString(parameters[t], '_')) {
-				parameters[t] = '$' + parameters[t].substring(1);
-			}
-			ss.add(result, parameters[t]);
-		}
-		ss.add(result, fun);
-		return result;
+		ss.add(functionArrayNotation, func);
+		return functionArrayNotation;
 	};
 	////////////////////////////////////////////////////////////////////////////////
 	// Acute.App
 	var $Acute_App = function() {
 		this.$_module = null;
 		this.$_module = angular.module(ss.getTypeFullName(ss.getInstanceType(this)), ['ngRoute']);
-		this.service($Acute_RouteProvider).call(this);
+		this.provider($Acute_RouteProvider).call(this);
 		//register the config
 		//var configFunc = typeof (App).GetFunction(ConfigMethodScriptName);
 		//var parameters = GlobalApi.Injector().Annotate(configFunc);
 		//var annotatedFunc = configFunc.CreateFunctionCall(parameters);
 		//_module.Config(annotatedFunc);
-		var configFunc = $Acute_$ReflectionExtensions.$getFunction($Acute_App, $Acute_App.$configureRoutesScriptName);
-		var parameters = angular.injector().annotate(configFunc);
-		var annotatedFunc = $Acute_$ReflectionExtensions.$createFunctionCall(configFunc, parameters);
-		this.$_module.config(annotatedFunc);
+		//var configFunc = typeof (App).GetFunction(ConfigureRoutesScriptName);
+		//var parameters = GlobalApi.Injector().Annotate(configFunc);
+		//var annotatedFunc = configFunc.CreateFunctionArray(parameters);
+		//_module.Config(annotatedFunc);
+		var appType = ss.getInstanceType(this);
+		var configMethod = ss.getMembers(appType, 8, 284, 'ConfigureRoutes');
+		this.$_module.config($Acute_$ReflectionExtensions.$createFunctionArray$1(appType, configMethod));
 	};
 	$Acute_App.__typeName = 'Acute.App';
 	$Acute_App.$buildControllerFunction = function(type) {
@@ -95,9 +102,14 @@
 		body += ss.formatString('{0}.apply({1},arguments);\r\n', ss.getTypeFullName(type), scopeVar);
 		//get the constructor parameters
 		var parameters = angular.injector().annotate($Acute_$ReflectionExtensions.$getConstructorFunction(type));
+		var functionArrayNotation = $Acute_$ReflectionExtensions.$createFunctionArray(type);
+		//and add $scope as a parameter
+		ss.insert(functionArrayNotation, ss.count(functionArrayNotation) - 2, scopeVar);
 		//and add $scope as a parameter
 		ss.add(parameters, scopeVar);
-		return new Function(parameters, body);
+		var modifiedFunc = new Function(parameters, body);
+		ss.setItem(functionArrayNotation, parameters.length, modifiedFunc);
+		return functionArrayNotation;
 	};
 	global.Acute.App = $Acute_App;
 	////////////////////////////////////////////////////////////////////////////////
@@ -139,6 +151,13 @@
 	};
 	$Acute_RouteProvider.__typeName = 'Acute.RouteProvider';
 	global.Acute.RouteProvider = $Acute_RouteProvider;
+	////////////////////////////////////////////////////////////////////////////////
+	// Acute.Angular.AngularServiceAttribute
+	var $Acute_Angular_$AngularServiceAttribute = function(serviceName) {
+		this.$2$ServiceNameField = null;
+		this.set_$serviceName(serviceName);
+	};
+	$Acute_Angular_$AngularServiceAttribute.__typeName = 'Acute.Angular.$AngularServiceAttribute';
 	ss.initClass($Acute_$Bootstrapper, $asm, {});
 	ss.initClass($Acute_$ReflectionExtensions, $asm, {});
 	ss.initClass($Acute_App, $asm, {
@@ -149,22 +168,21 @@
 		},
 		controller$1: function(controllerType) {
 			var func = $Acute_App.$buildControllerFunction(controllerType);
-			var parameters = controllerType.$inject;
-			var fcall = $Acute_$ReflectionExtensions.$createFunctionCall(func, parameters);
-			this.$_module.controller('blah', fcall);
+			this.$_module.controller($Acute_$ReflectionExtensions.$asAngularServiceName(controllerType), func);
 		},
 		service: function(T) {
 			return function() {
 				var type = T;
-				var parameters = angular.injector().annotate($Acute_$ReflectionExtensions.$getConstructorFunction(type));
-				$Acute_$ReflectionExtensions.$createFunctionCall(type, parameters);
-				// only used to fix the "_" to "$" in type.$inject
-				var servicename = ss.getTypeName(T);
-				this.$_module.service(servicename, type);
+				var functionArrayNotation = $Acute_$ReflectionExtensions.$createFunctionArray(type);
+				this.$_module.service($Acute_$ReflectionExtensions.$asAngularServiceName(type), functionArrayNotation);
 			};
 		},
-		config: function(_routeProvider) {
-			this.configureRoutes(_routeProvider);
+		provider: function(T) {
+			return function() {
+				var type = T;
+				var functionArrayNotation = $Acute_$ReflectionExtensions.$createFunctionArray(type);
+				this.$_module.provider($Acute_$ReflectionExtensions.$asAngularServiceName(type), functionArrayNotation);
+			};
 		},
 		configureRoutes: function(routeProvider) {
 		}
@@ -202,9 +220,17 @@
 		otherwise: function(routeConfig) {
 			this.$_angularRouteProvider.otherwise(routeConfig.$toAngularRouteConfig());
 			return this;
+		},
+		$get: function() {
 		}
 	});
-	$Acute_App.$configMethodScriptName = 'config';
-	$Acute_App.$configureRoutesScriptName = 'configureRoutes';
+	ss.initClass($Acute_Angular_$AngularServiceAttribute, $asm, {
+		get_$serviceName: function() {
+			return this.$2$ServiceNameField;
+		},
+		set_$serviceName: function(value) {
+			this.$2$ServiceNameField = value;
+		}
+	});
 	$Acute_$Bootstrapper.$main();
 })();

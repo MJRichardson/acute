@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Runtime.CompilerServices;
+using Acute.Angular;
 
 namespace Acute
 {
@@ -15,6 +18,15 @@ namespace Acute
         public static Function GetConstructorFunction(this Type type)
         {
             return type.GetFunction("constructor");
+        }
+
+        public static string AsAngularServiceName(this Type type)
+        {
+            var angularServiceAttribute = type.GetCustomAttributes(typeof (AngularServiceAttribute), false).SingleOrDefault();
+
+            return angularServiceAttribute != null
+                       ? ((AngularServiceAttribute) angularServiceAttribute).ServiceName
+                       : type.FullName.Replace(".", "");
         }
 
         public static List<string> GetInstanceMethodNames(this Type type)
@@ -45,20 +57,46 @@ namespace Acute
             return null;
         }
 
-        public static object CreateFunctionCall(this Function fun, List<string> parameters) 
-      {
-         // if no parameters, takes function out of the array
-         if(parameters.Count==0) return fun;
+      //  public static object CreateFunctionArray(this Function fun, List<string> parameters) 
+      //{
+      //   // if no parameters, takes function out of the array
+      //   if(parameters.Count==0) return fun;
 
-         // builds array, but also FIX $injection in the type
-         var result = new List<object>();
-         for(int t=0;t<parameters.Count;t++)
-         {
-            if(parameters[t].StartsWith("_")) parameters[t] = "$" + parameters[t].Substring(1);
-            result.Add(parameters[t]);
-         }                           
-         result.Add(fun);
-         return result;
-      }      
+      //   // builds array, but also FIX $injection in the type
+      //   var result = new List<object>();
+      //   for(int t=0;t<parameters.Count;t++)
+      //   {
+      //      if(parameters[t].StartsWith("_")) parameters[t] = "$" + parameters[t].Substring(1);
+      //      result.Add(parameters[t]);
+      //   }                           
+      //   result.Add(fun);
+      //   return result;
+      //}      
+
+        public static IList<object> CreateFunctionArray(this Type type)
+        {
+            var constructorInfo = type.GetConstructors()[0]; //todo: assert only one constructor
+
+            return type.CreateFunctionArray(constructorInfo);
+        }
+
+        public static IList<object> CreateFunctionArray(this Type type, MethodBase method)
+        {
+            var func = method is ConstructorInfo
+                           ? type.GetConstructorFunction()
+                           : type.GetFunction(((MethodInfo) method).ScriptName); 
+
+            var parameterTypes = method.ParameterTypes;
+
+            var functionArrayNotation = new List<object>();
+            foreach (var parameterType in parameterTypes)
+            {
+                functionArrayNotation.Add(parameterType.AsAngularServiceName());
+            }
+
+            functionArrayNotation.Add(func);
+
+            return functionArrayNotation;
+        }
     }
 }

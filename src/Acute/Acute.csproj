@@ -37,6 +37,7 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Angular\AngularServiceAttribute.cs" />
     <Compile Include="Angular\GlobalApi.cs" />
     <Compile Include="Angular\Injector.cs" />
     <Compile Include="Angular\Module.cs" />
@@ -56,6 +57,9 @@
   <ItemGroup>
     <Reference Include="mscorlib">
       <HintPath>$(SolutionDir)packages\Saltarelle.Runtime.2.4.0\tools\Assemblies\mscorlib.dll</HintPath>
+    </Reference>
+    <Reference Include="Saltarelle.Linq">
+      <HintPath>..\packages\Saltarelle.Linq.2.4.0\lib\Saltarelle.Linq.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" Condition="!Exists('$(SolutionDir)packages\Saltarelle.Compiler.2.4.0\tools\Saltarelle.Compiler.targets')" />
