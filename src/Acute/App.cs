@@ -13,7 +13,8 @@ namespace Acute
         {
            _module = new Module(this.GetType().FullName, "ngRoute" ); 
 
-            Provider<RouteProvider>();
+            //Provider<RouteProvider>();
+            RegisterRouteProvider();
 
             //register the config
             //var configFunc = typeof (App).GetFunction(ConfigMethodScriptName);
@@ -51,18 +52,26 @@ namespace Acute
              _module.Service(type.AsAngularServiceName(),functionArrayNotation);
         }
 
-        protected void Provider<T>()
+        private void RegisterRouteProvider()
         {
-             var type = typeof(T);
-            var functionArrayNotation = type.CreateFunctionArray(); 
-             _module.Provider(type.AsAngularServiceName(),functionArrayNotation);
+            var routeProviderType = typeof (RouteProvider);
+            var functionArrayNotation = routeProviderType.CreateFunctionArray(); 
+             _module.Provider("AcuteRoute",functionArrayNotation);
         }
+
+        //protected void Provider<T>()
+        //{
+        //     var type = typeof(T);
+        //    var functionArrayNotation = type.CreateFunctionArray(); 
+        //     _module.Provider(type.AsAngularServiceName(),functionArrayNotation);
+        //}
 
         //private void Config(RouteProvider _routeProvider)
         //{
         //   ConfigureRoutes(_routeProvider); 
         //}
 
+        [Reflectable]
         protected virtual void ConfigureRoutes(RouteProvider routeProvider)
         {}
 
@@ -93,8 +102,6 @@ namespace Acute
              {
                 body += String.Format("{2}.{1} = {0}.prototype.{1}.bind({2});\r\n",type.FullName,funcname,scopeVar);             
              }
-
-            body += String.Format("alert('called');\r\n");
 
              // put call at the end so that methods are defined first
              body+=String.Format("{0}.apply({1},arguments);\r\n",type.FullName,scopeVar);

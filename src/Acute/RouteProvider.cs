@@ -7,6 +7,7 @@ namespace Acute
     {
         private readonly Angular.RouteProvider _angularRouteProvider;
 
+        [Reflectable]
         internal RouteProvider(Angular.RouteProvider _routeProvider)
         {
             _angularRouteProvider = _routeProvider;

@@ -33,8 +33,8 @@
 		return $Acute_$ReflectionExtensions.$getFunction(type, 'constructor');
 	};
 	$Acute_$ReflectionExtensions.$asAngularServiceName = function(type) {
-		var angularServiceAttribute = Enumerable.from(ss.getAttributes(type, $Acute_Angular_$AngularServiceAttribute, false)).singleOrDefault(null, ss.getDefaultValue(Object));
-		return (ss.isValue(angularServiceAttribute) ? ss.cast(angularServiceAttribute, $Acute_Angular_$AngularServiceAttribute).get_$serviceName() : ss.replaceAllString(ss.getTypeFullName(type), '.', ''));
+		var angularServiceAttributes = ss.getAttributes(type, $Acute_Angular_$AngularServiceAttribute, false);
+		return ((angularServiceAttributes.length > 0) ? ss.cast(angularServiceAttributes[0], $Acute_Angular_$AngularServiceAttribute).get_$serviceName() : ss.replaceAllString(ss.getTypeFullName(type), '.', ''));
 	};
 	$Acute_$ReflectionExtensions.$getInstanceMethodNames = function(type) {
 		var result = [];
@@ -55,6 +55,7 @@
 	$Acute_$ReflectionExtensions.$createFunctionArray = function(type) {
 		var constructorInfo = ss.getMembers(type, 1, 28)[0];
 		//todo: assert only one constructor
+		//var constructorInfo = type.GetMember(null, BindingFlags.Default)[0];
 		return $Acute_$ReflectionExtensions.$createFunctionArray$1(type, constructorInfo);
 	};
 	$Acute_$ReflectionExtensions.$createFunctionArray$1 = function(type, method) {
@@ -73,7 +74,8 @@
 	var $Acute_App = function() {
 		this.$_module = null;
 		this.$_module = angular.module(ss.getTypeFullName(ss.getInstanceType(this)), ['ngRoute']);
-		this.provider($Acute_RouteProvider).call(this);
+		//Provider<RouteProvider>();
+		this.$registerRouteProvider();
 		//register the config
 		//var configFunc = typeof (App).GetFunction(ConfigMethodScriptName);
 		//var parameters = GlobalApi.Injector().Annotate(configFunc);
@@ -97,7 +99,6 @@
 			var funcname = $t1[$t2];
 			body += ss.formatString('{2}.{1} = {0}.prototype.{1}.bind({2});\r\n', ss.getTypeFullName(type), funcname, scopeVar);
 		}
-		body += ss.formatString("alert('called');\r\n");
 		// put call at the end so that methods are defined first
 		body += ss.formatString('{0}.apply({1},arguments);\r\n', ss.getTypeFullName(type), scopeVar);
 		//get the constructor parameters
@@ -158,6 +159,11 @@
 		this.set_$serviceName(serviceName);
 	};
 	$Acute_Angular_$AngularServiceAttribute.__typeName = 'Acute.Angular.$AngularServiceAttribute';
+	////////////////////////////////////////////////////////////////////////////////
+	// Acute.Angular.RouteProvider
+	var $Acute_Angular_$RouteProvider = function() {
+	};
+	$Acute_Angular_$RouteProvider.__typeName = 'Acute.Angular.$RouteProvider';
 	ss.initClass($Acute_$Bootstrapper, $asm, {});
 	ss.initClass($Acute_$ReflectionExtensions, $asm, {});
 	ss.initClass($Acute_App, $asm, {
@@ -177,12 +183,10 @@
 				this.$_module.service($Acute_$ReflectionExtensions.$asAngularServiceName(type), functionArrayNotation);
 			};
 		},
-		provider: function(T) {
-			return function() {
-				var type = T;
-				var functionArrayNotation = $Acute_$ReflectionExtensions.$createFunctionArray(type);
-				this.$_module.provider($Acute_$ReflectionExtensions.$asAngularServiceName(type), functionArrayNotation);
-			};
+		$registerRouteProvider: function() {
+			var routeProviderType = $Acute_RouteProvider;
+			var functionArrayNotation = $Acute_$ReflectionExtensions.$createFunctionArray(routeProviderType);
+			this.$_module.provider('AcuteRoute', functionArrayNotation);
 		},
 		configureRoutes: function(routeProvider) {
 		}
@@ -232,5 +236,9 @@
 			this.$2$ServiceNameField = value;
 		}
 	});
+	ss.initClass($Acute_Angular_$RouteProvider, $asm, {});
+	ss.setMetadata($Acute_App, { members: [{ name: 'ConfigureRoutes', type: 8, sname: 'configureRoutes', returnType: Object, params: [$Acute_RouteProvider] }] });
+	ss.setMetadata($Acute_RouteProvider, { members: [{ name: '.ctor', type: 1, params: [$Acute_Angular_$RouteProvider] }] });
+	ss.setMetadata($Acute_Angular_$RouteProvider, { attr: [new $Acute_Angular_$AngularServiceAttribute('$routeProvider')] });
 	$Acute_$Bootstrapper.$main();
 })();

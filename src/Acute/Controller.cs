@@ -1,4 +1,5 @@
-﻿namespace Acute
+﻿
+namespace Acute
 {
     public abstract class Controller
     {

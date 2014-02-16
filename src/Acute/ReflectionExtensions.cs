@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -22,11 +21,11 @@ namespace Acute
 
         public static string AsAngularServiceName(this Type type)
         {
-            var angularServiceAttribute = type.GetCustomAttributes(typeof (AngularServiceAttribute), false).SingleOrDefault();
+            var angularServiceAttributes = type.GetCustomAttributes(typeof (AngularServiceAttribute), false);
 
-            return angularServiceAttribute != null
-                       ? ((AngularServiceAttribute) angularServiceAttribute).ServiceName
-                       : type.FullName.Replace(".", "");
+            return angularServiceAttributes.Length > 0 
+                   ? ((AngularServiceAttribute) angularServiceAttributes[0]).ServiceName
+                   : type.FullName.Replace(".", "");
         }
 
         public static List<string> GetInstanceMethodNames(this Type type)
@@ -76,8 +75,9 @@ namespace Acute
         public static IList<object> CreateFunctionArray(this Type type)
         {
             var constructorInfo = type.GetConstructors()[0]; //todo: assert only one constructor
+            //var constructorInfo = type.GetMember(null, BindingFlags.Default)[0];
 
-            return type.CreateFunctionArray(constructorInfo);
+            return type.CreateFunctionArray((MethodBase)constructorInfo);
         }
 
         public static IList<object> CreateFunctionArray(this Type type, MethodBase method)

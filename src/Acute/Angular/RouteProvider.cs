@@ -2,7 +2,7 @@
 
 namespace Acute.Angular
 {
-    [Imported]
+    //[Imported]
     [AngularService("$routeProvider")]
     internal sealed class RouteProvider
     {

@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9586F22A-0361-48FC-B094-1C1E47E373CA}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Test.Scenarios.Generator</RootNamespace>
+    <AssemblyName>Test.Scenarios.Generator</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\submodules\saltarelle.compiler\Compiler\Saltarelle.Compiler\Saltarelle.Compiler.csproj">
+      <Project>{0b9db3a8-cc8d-40af-bc03-3d0bda71aa19}</Project>
+      <Name>Saltarelle.Compiler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\submodules\saltarelle.compiler\Compiler\SCExeWorker\SCExeWorker.csproj">
+      <Project>{7dfb28ee-5fde-40e1-9e60-465b6c034f8f}</Project>
+      <Name>SCExeWorker</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Acute.Compiler\Acute.Compiler.csproj">
+      <Project>{df634b2a-4692-4e94-9c8f-a04b1fe1b168}</Project>
+      <Name>Acute.Compiler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Acute\Acute.csproj">
+      <Project>{b7e3a9c4-8680-47c5-84be-3530eb587dd1}</Project>
+      <Name>Acute</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Test.Scenarios\Test.Scenarios.csproj">
+      <Project>{e03c0662-1760-4a3e-a868-1b0c2e1cedb1}</Project>
+      <Name>Test.Scenarios</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

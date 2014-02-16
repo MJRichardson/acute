@@ -71,4 +71,5 @@
 			routeProvider.when('/this/is/a/path', $t1);
 		}
 	}, Acute.App);
+	ss.setMetadata($Test_Scenarios_Controllers_Controller, { members: [{ name: '.ctor', type: 1, params: [] }] });
 })();

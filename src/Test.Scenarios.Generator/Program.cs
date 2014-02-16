@@ -7,7 +7,7 @@ using Acute;
 using Acute.Compiler;
 using Saltarelle.Compiler.SCExe;
 
-namespace Test.Scenarios
+namespace Test.Scenarios.Generator
 {
     class Program
     {
@@ -46,7 +46,6 @@ namespace Test.Scenarios
                                               Path.Combine(exeLocationPath, "scenarios.js")
 
                                               ), new ExecutableErrorReporter(Console.Out));
-
         }
     }
 }
