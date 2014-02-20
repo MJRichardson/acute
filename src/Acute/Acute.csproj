@@ -39,6 +39,7 @@
   <ItemGroup>
     <Compile Include="Angular\AngularServiceAttribute.cs" />
     <Compile Include="Angular\GlobalApi.cs" />
+    <Compile Include="Angular\Http.cs" />
     <Compile Include="Angular\Injector.cs" />
     <Compile Include="Angular\Module.cs" />
     <Compile Include="Angular\RouteConfig.cs" />
@@ -46,10 +47,15 @@
     <Compile Include="App.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Controller.cs" />
+    <Compile Include="Http\Http.cs" />
+    <Compile Include="System.Net.Http\HttpMethod.cs" />
+    <Compile Include="Http\HttpRequest.cs" />
+    <Compile Include="Http\HttpResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RouteConfig.cs" />
     <Compile Include="RouteProvider.cs" />
     <Compile Include="ReflectionExtensions.cs" />
+    <Compile Include="System.Net.Http\HttpStatusCode.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
