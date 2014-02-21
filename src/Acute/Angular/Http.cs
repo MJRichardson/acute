@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Acute.Angular
 {
-    [Imported]
+    [AngularService("$http")]
     internal class Http
     {
       [InlineCode("{this}.get({Url})")] 
@@ -36,19 +36,16 @@ namespace Acute.Angular
          return this;
       }
 
-      [ScriptName("then")]
        void IPromise.Then(Delegate fulfilledHandler)
       {
           this.Then(fulfilledHandler, null);
       }
 
-      [ScriptName("then")]
        void IPromise.Then(Delegate fulfilledHandler, Delegate errorHandler)
       {
           this.Then(fulfilledHandler, errorHandler);
       }
 
-      [ScriptName("then")]
        void IPromise.Then(Delegate fulfilledHandler, Delegate errorHandler, Delegate progressHandler)
       {
           this.Then(fulfilledHandler, errorHandler, progressHandler);

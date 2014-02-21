@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Acute.Angular;
+using Acute.Http;
 
 namespace Acute
 {
@@ -15,6 +16,7 @@ namespace Acute
 
             //Provider<RouteProvider>();
             RegisterRouteProvider();
+            Service<IHttp, HttpDefault>();
 
             //register the config
             //var configFunc = typeof (App).GetFunction(ConfigMethodScriptName);
@@ -47,9 +49,15 @@ namespace Acute
 
         protected void Service<T>()
         {
-             var type = typeof(T);
-            var functionArrayNotation = type.CreateFunctionArray(); 
-             _module.Service(type.AsAngularServiceName(),functionArrayNotation);
+            Service<T,T>();
+        }
+
+        protected void Service<TInterface, TImplementation>()
+        {
+             var implementation = typeof(TImplementation);
+            var contract = typeof (TInterface);
+            var functionArrayNotation = implementation.CreateFunctionArray(); 
+             _module.Service(contract.AsAngularServiceName(),functionArrayNotation);
         }
 
         private void RegisterRouteProvider()

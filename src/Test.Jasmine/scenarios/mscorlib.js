@@ -168,9 +168,10 @@ ss.staticEquals = function ss$staticEquals(a, b) {
 };
 
 ss.shallowCopy = function ss$shallowCopy(source, target) {
-	for (var p in source) {
-		if (source.hasOwnProperty(p))
-			target[p] = source[p];
+	var keys = Object.keys(source);
+	for (var i = 0, l = keys.length; i < l; i++) {
+		var k = keys[i];
+		target[k] = source[k];
 	}
 };
 

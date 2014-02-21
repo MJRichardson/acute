@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace Acute.Http
@@ -9,11 +10,12 @@ namespace Acute.Http
         Task<HttpResponse> GetAsync(string url);
     }
 
-    public class Http : IHttp
+    public class HttpDefault : IHttp
     {
         private readonly Angular.Http _angularHttp;
 
-        internal Http(Angular.Http _http)
+        [Reflectable]
+        internal HttpDefault(Angular.Http _http)
         {
             _angularHttp = _http;
         }
@@ -21,7 +23,8 @@ namespace Acute.Http
 
         public Task<HttpResponse> GetAsync(string url)
         {
-            return Task.FromPromise<string, int, HttpResponse>(_angularHttp.Get(url),
+            return Task.FromPromise<string, int, HttpResponse>(_angularHttp
+                .Get(url),
                                                                (data, status) =>
                                                                new HttpResponse((HttpStatusCode) status)); 
         }
