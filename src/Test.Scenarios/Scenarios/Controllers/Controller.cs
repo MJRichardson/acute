@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Net.Http;
+using System.Runtime.CompilerServices;
 using Acute.Http;
 
 namespace Test.Scenarios.Controllers
@@ -12,13 +13,16 @@ namespace Test.Scenarios.Controllers
         {
             _simpleString = "Yabba dabba doo!";
 
-            var result = http.GetAsync("http://foo.com/bar").Result;
+            http.GetAsync("http://foo.com/bar")
+                .ContinueWith(task => Status = task.Result.Status);
         }
 
         public string SimpleString()
         {
             return _simpleString;
         }
+
+        public HttpStatusCode Status { get; set; }
 
     }
 }

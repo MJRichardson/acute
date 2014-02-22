@@ -119,7 +119,7 @@ namespace Acute
 
             var functionArrayNotation = type.CreateFunctionArray(); 
             //and add $scope as a parameter
-            functionArrayNotation.Insert(functionArrayNotation.Count - 2, scopeVar );
+            functionArrayNotation.Insert(functionArrayNotation.Count - 1, scopeVar );
 
             //and add $scope as a parameter
             parameters.Add(scopeVar);

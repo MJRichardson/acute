@@ -19,10 +19,16 @@
 	global.Test.Scenarios.Controllers.App = $Test_Scenarios_Controllers_App;
 	////////////////////////////////////////////////////////////////////////////////
 	// Test.Scenarios.Controllers.Controller
-	var $Test_Scenarios_Controllers_Controller = function() {
+	var $Test_Scenarios_Controllers_Controller = function(http) {
 		this.$_simpleString = null;
+		this.$2$StatusField = 0;
 		Acute.Controller.call(this);
 		this.$_simpleString = 'Yabba dabba doo!';
+		http.getAsync('http://foo.com/bar').continueWith(ss.mkdel(this, function(task) {
+			var $t1 = task.getResult().get_status();
+			this.set_status($t1);
+			return $t1;
+		}));
 	};
 	$Test_Scenarios_Controllers_Controller.__typeName = 'Test.Scenarios.Controllers.Controller';
 	global.Test.Scenarios.Controllers.Controller = $Test_Scenarios_Controllers_Controller;
@@ -51,6 +57,12 @@
 	ss.initClass($Test_Scenarios_Controllers_Controller, $asm, {
 		simpleString: function() {
 			return this.$_simpleString;
+		},
+		get_status: function() {
+			return this.$2$StatusField;
+		},
+		set_status: function(value) {
+			this.$2$StatusField = value;
 		}
 	}, Acute.Controller);
 	ss.initClass($Test_Scenarios_RouteConfiguration_When_WithGenericController_App, $asm, {
@@ -71,5 +83,5 @@
 			routeProvider.when('/this/is/a/path', $t1);
 		}
 	}, Acute.App);
-	ss.setMetadata($Test_Scenarios_Controllers_Controller, { members: [{ name: '.ctor', type: 1, params: [] }] });
+	ss.setMetadata($Test_Scenarios_Controllers_Controller, { members: [{ name: '.ctor', type: 1, params: [Acute.Http.IHttp] }] });
 })();

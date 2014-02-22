@@ -110,7 +110,7 @@
 		var parameters = angular.injector().annotate($Acute_$ReflectionExtensions.$getConstructorFunction(type));
 		var functionArrayNotation = $Acute_$ReflectionExtensions.$createFunctionArray(type);
 		//and add $scope as a parameter
-		ss.insert(functionArrayNotation, ss.count(functionArrayNotation) - 2, scopeVar);
+		ss.insert(functionArrayNotation, ss.count(functionArrayNotation) - 1, scopeVar);
 		//and add $scope as a parameter
 		ss.add(parameters, scopeVar);
 		var modifiedFunc = new Function(parameters, body);
