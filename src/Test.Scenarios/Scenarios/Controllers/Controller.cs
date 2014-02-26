@@ -13,7 +13,7 @@ namespace Test.Scenarios.Controllers
         {
             _simpleString = "Yabba dabba doo!";
 
-            http.GetAsync("http://foo.com/bar")
+            http.GetAsync("/foo/bar")
                 .ContinueWith(task => Status = task.Result.Status);
         }
 

@@ -24,7 +24,7 @@
 		this.$2$StatusField = 0;
 		Acute.Controller.call(this);
 		this.$_simpleString = 'Yabba dabba doo!';
-		http.getAsync('http://foo.com/bar').continueWith(ss.mkdel(this, function(task) {
+		http.getAsync('/foo/bar').continueWith(ss.mkdel(this, function(task) {
 			var $t1 = task.getResult().get_status();
 			this.set_status($t1);
 			return $t1;

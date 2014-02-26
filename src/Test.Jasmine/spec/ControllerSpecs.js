@@ -9,22 +9,23 @@
     describe("with a simple string property", function() {
         var controller;
         var scope;
-        var angularHttp;
+        var $httpBackend;
 
-        beforeEach(inject(function($rootScope, $controller, $http ) {
+        beforeEach(inject(function ($rootScope, $controller, $injector) {
             scope = $rootScope.$new();
-            angularHttp = $http;
-            spyOn(angularHttp, 'get').and.callThrough();
-            http = new Acute.Http.HttpDefault(angularHttp);
-            controller = $controller('TestScenariosControllersController', { AcuteHttpIHttp: http, $scope: scope });
+            $httpBackend = $injector.get('$httpBackend');
+            controller = $controller('TestScenariosControllersController', { $scope: scope });
+            $httpBackend.when('GET', '/foo/bar').respond(200, {});
         }));
         
         it("the property should be added to the scope", function () {
+            $httpBackend.flush();
             expect(scope.simpleString()).toEqual('Yabba dabba doo!');
         });
 
         it("GET should be called on HTTP service", function () {
-            expect(angularHttp.get).toHaveBeenCalledWith("http://foo.com/bar");
+            $httpBackend.expectGET('/foo/bar');
+            $httpBackend.flush();
         });
     });
 });
