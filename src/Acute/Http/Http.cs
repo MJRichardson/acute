@@ -23,10 +23,18 @@ namespace Acute.Http
 
         public Task<HttpResponse> GetAsync(string url)
         {
-            return Task.FromPromise<string, int, HttpResponse>(_angularHttp
+            return Task.FromPromise<Angular.HttpResponse, HttpResponse>(_angularHttp
                 .Get(url),
-                                                               (data, status) =>
-                                                               new HttpResponse((HttpStatusCode) status)); 
+                                                               (response) =>
+                                                               new HttpResponse((HttpStatusCode) response.Status, response.Data)); 
+        }
+
+        public Task<HttpResponse> PostAsync(string url, object data)
+        {
+            return Task.FromPromise<string, int, HttpResponse>(_angularHttp
+                .Post(url, data),
+                                                               (responseData, status) =>
+                                                               new HttpResponse((HttpStatusCode) status, responseData)); 
         }
     }
 }

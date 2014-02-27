@@ -22,12 +22,12 @@
 	var $Test_Scenarios_Controllers_Controller = function(http) {
 		this.$_simpleString = null;
 		this.$2$StatusField = 0;
+		this.$2$BodyField = null;
 		Acute.Controller.call(this);
 		this.$_simpleString = 'Yabba dabba doo!';
 		http.getAsync('/foo/bar').continueWith(ss.mkdel(this, function(task) {
-			var $t1 = task.getResult().get_status();
-			this.set_status($t1);
-			return $t1;
+			this.set_status(task.getResult().get_status());
+			this.set_body(task.getResult().get_body());
 		}));
 	};
 	$Test_Scenarios_Controllers_Controller.__typeName = 'Test.Scenarios.Controllers.Controller';
@@ -63,6 +63,12 @@
 		},
 		set_status: function(value) {
 			this.$2$StatusField = value;
+		},
+		get_body: function() {
+			return this.$2$BodyField;
+		},
+		set_body: function(value) {
+			this.$2$BodyField = value;
 		}
 	}, Acute.Controller);
 	ss.initClass($Test_Scenarios_RouteConfiguration_When_WithGenericController_App, $asm, {

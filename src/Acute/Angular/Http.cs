@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
@@ -8,8 +9,11 @@ namespace Acute.Angular
     [AngularService("$http")]
     internal class Http
     {
-      [InlineCode("{this}.get({Url})")] 
-      public HttpPromise Get(string Url) { return null; }
+      [InlineCode("{this}.get({url})")] 
+      public HttpPromise Get(string url) { return null; }
+
+      [InlineCode("{this}.post({url},{data})")] 
+      public HttpPromise Post(string url, object data)                { return null; }
     }
 
    [Imported]
@@ -55,8 +59,8 @@ namespace Acute.Angular
    [Imported]
    internal class HttpResponse
    {
-      [ScriptName("data")]     public object Data;
-      [ScriptName("status")]   public int Status;
+      [ScriptName("data")]     public string Data;
+      [ScriptName("status")]   public HttpStatusCode Status;
       [ScriptName("headers")]  public HttpResponseHeaders Headers;
 
       [InlineCode("{this}.data")]

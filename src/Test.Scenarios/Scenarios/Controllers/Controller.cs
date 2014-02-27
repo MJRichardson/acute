@@ -14,7 +14,12 @@ namespace Test.Scenarios.Controllers
             _simpleString = "Yabba dabba doo!";
 
             http.GetAsync("/foo/bar")
-                .ContinueWith(task => Status = task.Result.Status);
+                .ContinueWith(task =>
+                    {
+                        Status = task.Result.Status;
+                        Body = task.Result.Body;
+
+                    });
         }
 
         public string SimpleString()
@@ -23,6 +28,7 @@ namespace Test.Scenarios.Controllers
         }
 
         public HttpStatusCode Status { get; set; }
+        public string Body { get; private set; }
 
     }
 }

@@ -15,7 +15,7 @@
             scope = $rootScope.$new();
             $httpBackend = $injector.get('$httpBackend');
             controller = $controller('TestScenariosControllersController', { $scope: scope });
-            $httpBackend.when('GET', '/foo/bar').respond(200, {});
+            $httpBackend.when('GET', '/foo/bar').respond(200, 'Hello World!');
         }));
         
         it("the property should be added to the scope", function () {
@@ -26,6 +26,8 @@
         it("GET should be called on HTTP service", function () {
             $httpBackend.expectGET('/foo/bar');
             $httpBackend.flush();
+            expect(scope.get_status()).toEqual(200);
+            expect(scope.get_body()).toEqual('Hello World!');
         });
     });
 });
