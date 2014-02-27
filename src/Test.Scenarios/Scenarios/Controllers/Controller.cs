@@ -9,26 +9,16 @@ namespace Test.Scenarios.Controllers
         private string _simpleString;
 
         [Reflectable]
-        public Controller(IHttp http)
+        public Controller()
         {
             _simpleString = "Yabba dabba doo!";
 
-            http.GetAsync("/foo/bar")
-                .ContinueWith(task =>
-                    {
-                        Status = task.Result.Status;
-                        Body = task.Result.Body;
-
-                    });
         }
 
         public string SimpleString()
         {
             return _simpleString;
         }
-
-        public HttpStatusCode Status { get; set; }
-        public string Body { get; private set; }
 
     }
 }

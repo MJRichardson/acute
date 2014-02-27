@@ -8,6 +8,7 @@ namespace Acute.Http
     public interface IHttp
     {
         Task<HttpResponse> GetAsync(string url);
+        Task<HttpResponse> PostAsync(string url, object data);
     }
 
     public class HttpDefault : IHttp
@@ -31,10 +32,10 @@ namespace Acute.Http
 
         public Task<HttpResponse> PostAsync(string url, object data)
         {
-            return Task.FromPromise<string, int, HttpResponse>(_angularHttp
+            return Task.FromPromise<Angular.HttpResponse, HttpResponse>(_angularHttp
                 .Post(url, data),
-                                                               (responseData, status) =>
-                                                               new HttpResponse((HttpStatusCode) status, responseData)); 
+                                                               (response ) =>
+                                                               new HttpResponse((HttpStatusCode)response.Status, response.Data)); 
         }
     }
 }

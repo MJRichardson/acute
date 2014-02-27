@@ -9,25 +9,14 @@
     describe("with a simple string property", function() {
         var controller;
         var scope;
-        var $httpBackend;
 
-        beforeEach(inject(function ($rootScope, $controller, $injector) {
+        beforeEach(inject(function ($rootScope, $controller) {
             scope = $rootScope.$new();
-            $httpBackend = $injector.get('$httpBackend');
             controller = $controller('TestScenariosControllersController', { $scope: scope });
-            $httpBackend.when('GET', '/foo/bar').respond(200, 'Hello World!');
         }));
         
         it("the property should be added to the scope", function () {
-            $httpBackend.flush();
             expect(scope.simpleString()).toEqual('Yabba dabba doo!');
-        });
-
-        it("GET should be called on HTTP service", function () {
-            $httpBackend.expectGET('/foo/bar');
-            $httpBackend.flush();
-            expect(scope.get_status()).toEqual(200);
-            expect(scope.get_body()).toEqual('Hello World!');
         });
     });
 });

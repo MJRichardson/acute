@@ -1,4 +1,5 @@
 ﻿using System.Net.Http;
+using System.Runtime.CompilerServices;
 
 namespace Acute.Http
 {
@@ -6,7 +7,15 @@ namespace Acute.Http
     {
         public HttpStatusCode Status { get; private set; }
 
-        public string Body { get; private set; }
+        public string Data { get; private set; }
+
+        [InlineCode("{this}.get_data()")]
+        public T DataAs<T>()
+        {
+            return default(T);
+        }
+
+        //todo: headers
 
         public HttpResponse(HttpStatusCode status) :this(status, null)
         {
@@ -15,7 +24,7 @@ namespace Acute.Http
         public HttpResponse(HttpStatusCode status, string body)
         {
             Status = status;
-            Body = body;
+            Data = body;
         }
     }
 }

@@ -200,9 +200,9 @@
 	$Acute_Http_HttpResponse.__typeName = 'Acute.Http.HttpResponse';
 	$Acute_Http_HttpResponse.$ctor1 = function(status, body) {
 		this.$1$StatusField = 0;
-		this.$1$BodyField = null;
+		this.$1$DataField = null;
 		this.set_status(status);
-		this.set_body(body);
+		this.set_data(body);
 	};
 	global.Acute.Http.HttpResponse = $Acute_Http_HttpResponse;
 	////////////////////////////////////////////////////////////////////////////////
@@ -343,7 +343,7 @@
 	});
 	ss.initClass($Acute_Angular_$Http, $asm, {});
 	ss.initClass($Acute_Angular_$RouteProvider, $asm, {});
-	ss.initInterface($Acute_Http_IHttp, $asm, { getAsync: null });
+	ss.initInterface($Acute_Http_IHttp, $asm, { getAsync: null, postAsync: null });
 	ss.initClass($Acute_Http_HttpDefault, $asm, {
 		getAsync: function(url) {
 			return ss.Task.fromPromise(this.$_angularHttp.get(url), function(response) {
@@ -351,8 +351,8 @@
 			});
 		},
 		postAsync: function(url, data) {
-			return ss.Task.fromPromise(this.$_angularHttp.post(url, data), function(responseData, status) {
-				return new $Acute_Http_HttpResponse.$ctor1(status, responseData);
+			return ss.Task.fromPromise(this.$_angularHttp.post(url, data), function(response) {
+				return new $Acute_Http_HttpResponse.$ctor1(response.status, response.data);
 			});
 		}
 	}, null, [$Acute_Http_IHttp]);
@@ -377,11 +377,11 @@
 		set_status: function(value) {
 			this.$1$StatusField = value;
 		},
-		get_body: function() {
-			return this.$1$BodyField;
+		get_data: function() {
+			return this.$1$DataField;
 		},
-		set_body: function(value) {
-			this.$1$BodyField = value;
+		set_data: function(value) {
+			this.$1$DataField = value;
 		}
 	});
 	$Acute_Http_HttpResponse.$ctor1.prototype = $Acute_Http_HttpResponse.prototype;
