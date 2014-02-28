@@ -1,6 +1,5 @@
 ﻿using System.Net.Http;
 using System.Runtime.CompilerServices;
-using Acute.Http;
 
 namespace Test.Scenarios.Controllers
 {

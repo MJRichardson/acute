@@ -38,9 +38,10 @@ namespace Test.Scenarios.Generator
                 };
 
             Acute.Compiler.Driver.Compile(new CompileOptions(
-                                              scenarioPaths.SelectMany(
-                                                  scenarioPath =>
-                                                  Directory.GetFiles(scenarioPath, "*.cs", SearchOption.AllDirectories)),
+                                             Directory.GetFiles(exeLocationPath, "*.cs", SearchOption.AllDirectories),
+                                              //scenarioPaths.SelectMany(
+                                              //    scenarioPath =>
+                                              //    Directory.GetFiles(scenarioPath, "*.cs", SearchOption.AllDirectories)),
                                               referencePaths,
                                               Path.Combine(exeLocationPath, "Scenarios.dll"),
                                               Path.Combine(exeLocationPath, "scenarios.js")

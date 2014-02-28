@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
 using System.Runtime.CompilerServices;
 
-namespace Acute.Http
+namespace Acute.Services
 {
     public class HttpResponse
     {

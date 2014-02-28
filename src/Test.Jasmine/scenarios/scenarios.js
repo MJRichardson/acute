@@ -11,6 +11,13 @@
 	global.Test.Scenarios.RouteConfiguration.When.WithTemplateUrl = global.Test.Scenarios.RouteConfiguration.When.WithTemplateUrl || {};
 	ss.initAssembly($asm, 'Scenarios');
 	////////////////////////////////////////////////////////////////////////////////
+	// Test.Scenarios.TestApp
+	var $Test_Scenarios_TestApp = function() {
+		Acute.App.call(this);
+	};
+	$Test_Scenarios_TestApp.__typeName = 'Test.Scenarios.TestApp';
+	global.Test.Scenarios.TestApp = $Test_Scenarios_TestApp;
+	////////////////////////////////////////////////////////////////////////////////
 	// Test.Scenarios.Controllers.App
 	var $Test_Scenarios_Controllers_App = function() {
 		Acute.App.call(this);
@@ -83,6 +90,7 @@
 	};
 	$Test_Scenarios_RouteConfiguration_When_WithTemplateUrl_App.__typeName = 'Test.Scenarios.RouteConfiguration.When.WithTemplateUrl.App';
 	global.Test.Scenarios.RouteConfiguration.When.WithTemplateUrl.App = $Test_Scenarios_RouteConfiguration_When_WithTemplateUrl_App;
+	ss.initClass($Test_Scenarios_TestApp, $asm, {}, Acute.App);
 	ss.initClass($Test_Scenarios_Controllers_App, $asm, {}, Acute.App);
 	ss.initClass($Test_Scenarios_Controllers_Controller, $asm, {
 		simpleString: function() {
@@ -143,5 +151,5 @@
 		}
 	}, Acute.App);
 	ss.setMetadata($Test_Scenarios_Controllers_Controller, { members: [{ name: '.ctor', type: 1, params: [] }] });
-	ss.setMetadata($Test_Scenarios_Http_HttpTestController, { members: [{ name: '.ctor', type: 1, params: [Acute.Http.IHttp] }] });
+	ss.setMetadata($Test_Scenarios_Http_HttpTestController, { members: [{ name: '.ctor', type: 1, params: [Acute.Services.IHttp] }] });
 })();

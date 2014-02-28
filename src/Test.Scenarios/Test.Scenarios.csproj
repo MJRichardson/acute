@@ -54,6 +54,8 @@
     <Compile Include="Scenarios\Http\HttpTestController.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Scenarios\Location\LocationTestApp.cs" />
+    <Compile Include="Scenarios\Location\LocationTestController.cs" />
     <Compile Include="Scenarios\RouteConfiguration\When\WithGenericController\App.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
@@ -61,6 +63,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Scenarios\RouteConfiguration\When\WithTemplateUrl\App.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="TestApp.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>

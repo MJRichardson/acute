@@ -1,6 +1,6 @@
 ﻿using System.Net.Http;
 using System.Runtime.CompilerServices;
-using Acute.Http;
+using Acute.Services;
 
 namespace Test.Scenarios.Http
 {

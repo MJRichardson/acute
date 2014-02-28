@@ -1,9 +1,8 @@
-﻿using System;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
-namespace Acute.Http
+namespace Acute.Services
 {
     public interface IHttp
     {
@@ -11,12 +10,12 @@ namespace Acute.Http
         Task<HttpResponse> PostAsync(string url, object data);
     }
 
-    public class HttpDefault : IHttp
+    public class Http : IHttp
     {
         private readonly Angular.Http _angularHttp;
 
         [Reflectable]
-        internal HttpDefault(Angular.Http _http)
+        internal Http(Angular.Http _http)
         {
             _angularHttp = _http;
         }

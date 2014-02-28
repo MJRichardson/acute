@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Acute.Angular;
-using Acute.Http;
+using Acute.Services;
 
 namespace Acute
 {
@@ -16,7 +16,8 @@ namespace Acute
 
             //Provider<RouteProvider>();
             RegisterRouteProvider();
-            Service<IHttp, HttpDefault>();
+            Service<IHttp, Acute.Services.Http>();
+            Service<ILocation, Acute.Services.Location>();
 
             //register the config
             //var configFunc = typeof (App).GetFunction(ConfigMethodScriptName);

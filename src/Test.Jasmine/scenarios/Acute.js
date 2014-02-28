@@ -2,7 +2,7 @@
 	'use strict';
 	var $asm = {};
 	global.Acute = global.Acute || {};
-	global.Acute.Http = global.Acute.Http || {};
+	global.Acute.Services = global.Acute.Services || {};
 	global.System = global.System || {};
 	global.System.Net = global.System.Net || {};
 	global.System.Net.Http = global.System.Net.Http || {};
@@ -80,7 +80,8 @@
 		this.$_module = angular.module(ss.getTypeFullName(ss.getInstanceType(this)), ['ngRoute']);
 		//Provider<RouteProvider>();
 		this.$registerRouteProvider();
-		this.service$1($Acute_Http_IHttp, $Acute_Http_HttpDefault).call(this);
+		this.service$1($Acute_Services_IHttp, $Acute_Services_Http).call(this);
+		this.service$1($Acute_Services_ILocation, $Acute_Services_Location).call(this);
 		//register the config
 		//var configFunc = typeof (App).GetFunction(ConfigMethodScriptName);
 		//var parameters = GlobalApi.Injector().Annotate(configFunc);
@@ -170,47 +171,66 @@
 	};
 	$Acute_Angular_$Http.__typeName = 'Acute.Angular.$Http';
 	////////////////////////////////////////////////////////////////////////////////
+	// Acute.Angular.Location
+	var $Acute_Angular_$Location = function() {
+	};
+	$Acute_Angular_$Location.__typeName = 'Acute.Angular.$Location';
+	////////////////////////////////////////////////////////////////////////////////
 	// Acute.Angular.RouteProvider
 	var $Acute_Angular_$RouteProvider = function() {
 	};
 	$Acute_Angular_$RouteProvider.__typeName = 'Acute.Angular.$RouteProvider';
 	////////////////////////////////////////////////////////////////////////////////
-	// Acute.Http.HttpDefault
-	var $Acute_Http_HttpDefault = function(_http) {
+	// Acute.Services.Http
+	var $Acute_Services_Http = function(_http) {
 		this.$_angularHttp = null;
 		this.$_angularHttp = _http;
 	};
-	$Acute_Http_HttpDefault.__typeName = 'Acute.Http.HttpDefault';
-	global.Acute.Http.HttpDefault = $Acute_Http_HttpDefault;
+	$Acute_Services_Http.__typeName = 'Acute.Services.Http';
+	global.Acute.Services.Http = $Acute_Services_Http;
 	////////////////////////////////////////////////////////////////////////////////
-	// Acute.Http.HttpRequest
-	var $Acute_Http_HttpRequest = function(httpMethod, url) {
+	// Acute.Services.HttpRequest
+	var $Acute_Services_HttpRequest = function(httpMethod, url) {
 		this.$1$HttpMethodField = null;
 		this.$1$UrlField = null;
 		this.set_httpMethod(httpMethod);
 		this.set_url(url);
 	};
-	$Acute_Http_HttpRequest.__typeName = 'Acute.Http.HttpRequest';
-	global.Acute.Http.HttpRequest = $Acute_Http_HttpRequest;
+	$Acute_Services_HttpRequest.__typeName = 'Acute.Services.HttpRequest';
+	global.Acute.Services.HttpRequest = $Acute_Services_HttpRequest;
 	////////////////////////////////////////////////////////////////////////////////
-	// Acute.Http.HttpResponse
-	var $Acute_Http_HttpResponse = function(status) {
-		$Acute_Http_HttpResponse.$ctor1.call(this, status, null);
+	// Acute.Services.HttpResponse
+	var $Acute_Services_HttpResponse = function(status) {
+		$Acute_Services_HttpResponse.$ctor1.call(this, status, null);
 	};
-	$Acute_Http_HttpResponse.__typeName = 'Acute.Http.HttpResponse';
-	$Acute_Http_HttpResponse.$ctor1 = function(status, body) {
+	$Acute_Services_HttpResponse.__typeName = 'Acute.Services.HttpResponse';
+	$Acute_Services_HttpResponse.$ctor1 = function(status, body) {
 		this.$1$StatusField = 0;
 		this.$1$DataField = null;
 		this.set_status(status);
 		this.set_data(body);
 	};
-	global.Acute.Http.HttpResponse = $Acute_Http_HttpResponse;
+	global.Acute.Services.HttpResponse = $Acute_Services_HttpResponse;
 	////////////////////////////////////////////////////////////////////////////////
-	// Acute.Http.IHttp
-	var $Acute_Http_IHttp = function() {
+	// Acute.Services.IHttp
+	var $Acute_Services_IHttp = function() {
 	};
-	$Acute_Http_IHttp.__typeName = 'Acute.Http.IHttp';
-	global.Acute.Http.IHttp = $Acute_Http_IHttp;
+	$Acute_Services_IHttp.__typeName = 'Acute.Services.IHttp';
+	global.Acute.Services.IHttp = $Acute_Services_IHttp;
+	////////////////////////////////////////////////////////////////////////////////
+	// Acute.Services.ILocation
+	var $Acute_Services_ILocation = function() {
+	};
+	$Acute_Services_ILocation.__typeName = 'Acute.Services.ILocation';
+	global.Acute.Services.ILocation = $Acute_Services_ILocation;
+	////////////////////////////////////////////////////////////////////////////////
+	// Acute.Services.Location
+	var $Acute_Services_Location = function(angularLocation) {
+		this.$_angularLocation = null;
+		this.$_angularLocation = angularLocation;
+	};
+	$Acute_Services_Location.__typeName = 'Acute.Services.Location';
+	global.Acute.Services.Location = $Acute_Services_Location;
 	////////////////////////////////////////////////////////////////////////////////
 	// System.Net.Http.HttpMethod
 	var $System_Net_Http_HttpMethod = function(method) {
@@ -342,21 +362,22 @@
 		}
 	});
 	ss.initClass($Acute_Angular_$Http, $asm, {});
+	ss.initClass($Acute_Angular_$Location, $asm, {});
 	ss.initClass($Acute_Angular_$RouteProvider, $asm, {});
-	ss.initInterface($Acute_Http_IHttp, $asm, { getAsync: null, postAsync: null });
-	ss.initClass($Acute_Http_HttpDefault, $asm, {
+	ss.initInterface($Acute_Services_IHttp, $asm, { getAsync: null, postAsync: null });
+	ss.initClass($Acute_Services_Http, $asm, {
 		getAsync: function(url) {
 			return ss.Task.fromPromise(this.$_angularHttp.get(url), function(response) {
-				return new $Acute_Http_HttpResponse.$ctor1(response.status, response.data);
+				return new $Acute_Services_HttpResponse.$ctor1(response.status, response.data);
 			});
 		},
 		postAsync: function(url, data) {
 			return ss.Task.fromPromise(this.$_angularHttp.post(url, data), function(response) {
-				return new $Acute_Http_HttpResponse.$ctor1(response.status, response.data);
+				return new $Acute_Services_HttpResponse.$ctor1(response.status, response.data);
 			});
 		}
-	}, null, [$Acute_Http_IHttp]);
-	ss.initClass($Acute_Http_HttpRequest, $asm, {
+	}, null, [$Acute_Services_IHttp]);
+	ss.initClass($Acute_Services_HttpRequest, $asm, {
 		get_httpMethod: function() {
 			return this.$1$HttpMethodField;
 		},
@@ -370,7 +391,7 @@
 			this.$1$UrlField = value;
 		}
 	});
-	ss.initClass($Acute_Http_HttpResponse, $asm, {
+	ss.initClass($Acute_Services_HttpResponse, $asm, {
 		get_status: function() {
 			return this.$1$StatusField;
 		},
@@ -384,7 +405,16 @@
 			this.$1$DataField = value;
 		}
 	});
-	$Acute_Http_HttpResponse.$ctor1.prototype = $Acute_Http_HttpResponse.prototype;
+	$Acute_Services_HttpResponse.$ctor1.prototype = $Acute_Services_HttpResponse.prototype;
+	ss.initInterface($Acute_Services_ILocation, $asm, { get_path: null, set_path: null });
+	ss.initClass($Acute_Services_Location, $asm, {
+		get_path: function() {
+			return this.$_angularLocation.path();
+		},
+		set_path: function(value) {
+			this.$_angularLocation.path(value);
+		}
+	});
 	ss.initClass($System_Net_Http_HttpMethod, $asm, {
 		get_method: function() {
 			return this.$_method;
@@ -412,8 +442,10 @@
 	ss.setMetadata($Acute_App, { members: [{ name: 'ConfigureRoutes', type: 8, sname: 'configureRoutes', returnType: Object, params: [$Acute_RouteProvider] }] });
 	ss.setMetadata($Acute_RouteProvider, { members: [{ name: '.ctor', type: 1, params: [$Acute_Angular_$RouteProvider] }] });
 	ss.setMetadata($Acute_Angular_$Http, { attr: [new $Acute_Angular_$AngularServiceAttribute('$http')] });
+	ss.setMetadata($Acute_Angular_$Location, { attr: [new $Acute_Angular_$AngularServiceAttribute('$location')] });
 	ss.setMetadata($Acute_Angular_$RouteProvider, { attr: [new $Acute_Angular_$AngularServiceAttribute('$routeProvider')] });
-	ss.setMetadata($Acute_Http_HttpDefault, { members: [{ name: '.ctor', type: 1, params: [$Acute_Angular_$Http] }] });
+	ss.setMetadata($Acute_Services_Http, { members: [{ name: '.ctor', type: 1, params: [$Acute_Angular_$Http] }] });
+	ss.setMetadata($Acute_Services_Location, { members: [{ name: '.ctor', type: 1, params: [$Acute_Angular_$Location] }] });
 	$System_Net_Http_HttpMethod.$getMethod = new $System_Net_Http_HttpMethod('GET');
 	$System_Net_Http_HttpMethod.$putMethod = new $System_Net_Http_HttpMethod('PUT');
 	$System_Net_Http_HttpMethod.$postMethod = new $System_Net_Http_HttpMethod('POST');

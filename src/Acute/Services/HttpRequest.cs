@@ -1,6 +1,6 @@
 ﻿using System.Net.Http;
 
-namespace Acute.Http
+namespace Acute.Services
 {
     public class HttpRequest
     {

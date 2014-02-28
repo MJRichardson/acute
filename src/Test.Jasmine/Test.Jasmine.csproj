@@ -75,6 +75,7 @@
     <Content Include="SpecRunner.html" />
     <Content Include="spec\ControllerSpecs.js" />
     <Content Include="spec\HttpSpecs.js" />
+    <Content Include="spec\LocationSpecs.js" />
     <Content Include="spec\PlayerSpec.js" />
     <Content Include="spec\RouteProviderSpecs.js" />
     <Content Include="spec\SpecHelper.js" />
