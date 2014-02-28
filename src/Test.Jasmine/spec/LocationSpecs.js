@@ -9,18 +9,24 @@
     describe('When getting Path', function () {
 
         var $location;
+        var path;
 
-        beforeEach(inject(function (_$location_, AcuteServicesILocation) {
+        beforeEach(inject(function ($rootScope, _$location_, AcuteServicesILocation) {
             
             $location = _$location_;
-            //$location.path('/foo/bar');
-            spyOn($location, 'path');
+            $location.path('/foo/bar');
+            $rootScope.$apply();
+            spyOn($location, 'path').and.callThrough();
 
-            AcuteServicesILocation.get_path();
+            path = AcuteServicesILocation.get_path();
         }));
         
         it("should call Angular Location service", function () {
             expect($location.path).toHaveBeenCalled();
+        });
+        
+        it("should return path", function () {
+            expect(path).toEqual('/foo/bar');
         });
 
     });
