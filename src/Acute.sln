@@ -32,6 +32,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saltarelle.Compiler.Tests",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Scenarios.Generator", "Test.Scenarios.Generator\Test.Scenarios.Generator.csproj", "{9586F22A-0361-48FC-B094-1C1E47E373CA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acute.Build", "Acute.Build\Acute.Build.csproj", "{83B5F201-90BD-4A25-8378-9D2A21A17942}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -142,6 +144,16 @@ Global
 		{9586F22A-0361-48FC-B094-1C1E47E373CA}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{9586F22A-0361-48FC-B094-1C1E47E373CA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{9586F22A-0361-48FC-B094-1C1E47E373CA}.Release|x86.ActiveCfg = Release|Any CPU
+		{83B5F201-90BD-4A25-8378-9D2A21A17942}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83B5F201-90BD-4A25-8378-9D2A21A17942}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83B5F201-90BD-4A25-8378-9D2A21A17942}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{83B5F201-90BD-4A25-8378-9D2A21A17942}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{83B5F201-90BD-4A25-8378-9D2A21A17942}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{83B5F201-90BD-4A25-8378-9D2A21A17942}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83B5F201-90BD-4A25-8378-9D2A21A17942}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83B5F201-90BD-4A25-8378-9D2A21A17942}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{83B5F201-90BD-4A25-8378-9D2A21A17942}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{83B5F201-90BD-4A25-8378-9D2A21A17942}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

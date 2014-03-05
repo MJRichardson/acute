@@ -1,3 +1,6 @@
 [submodule "submodules/saltarelle.compiler"]
 	path = submodules/saltarelle.compiler
 	url = https://github.com/mjrichardson/SaltarelleCompiler.git
+[submodule "submodules/angular.js"]
+	path = submodules/angular.js
+	url = https://github.com/mjrichardson/angular.js.git
