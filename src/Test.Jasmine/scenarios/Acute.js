@@ -408,11 +408,35 @@
 	$Acute_Services_HttpResponse.$ctor1.prototype = $Acute_Services_HttpResponse.prototype;
 	ss.initInterface($Acute_Services_ILocation, $asm, { get_path: null, set_path: null });
 	ss.initClass($Acute_Services_Location, $asm, {
+		get_absoluteUrl: function() {
+			return this.$_angularLocation.absUrl();
+		},
+		get_host: function() {
+			return this.$_angularLocation.host();
+		},
+		get_port: function() {
+			return this.$_angularLocation.port();
+		},
+		get_protocol: function() {
+			return this.$_angularLocation.protocol();
+		},
 		get_path: function() {
 			return this.$_angularLocation.path();
 		},
 		set_path: function(value) {
 			this.$_angularLocation.path(value);
+		},
+		get_hash: function() {
+			return this.$_angularLocation.hash();
+		},
+		set_hash: function(value) {
+			this.$_angularLocation.hash(value);
+		},
+		get_search: function() {
+			return this.$_angularLocation.search();
+		},
+		set_search: function(value) {
+			this.$_angularLocation.search(value);
 		}
 	});
 	ss.initClass($System_Net_Http_HttpMethod, $asm, {
