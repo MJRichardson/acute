@@ -1,0 +1,49 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
+	<UsingTask AssemblyFile="Acute.Build.dll" TaskName="AcuteCompileTask"/>
+  
+	<ItemGroup>
+		<IntermediateScript Include="$(IntermediateOutputPath)$(TargetName).js" Condition="'@(IntermediateScript)'==''"/>
+	</ItemGroup>
+
+  <Target Name="AcuteCompile" DependsOnTargets="CoreCompile"
+         Inputs="$(MSBuildAllProjects);
+                @(Compile);
+                @(ReferencePath);"
+          Outputs="@(DocFileItem);
+                   @(IntermediateScript);
+                   @(IntermediateAssembly);"
+          Returns="" >
+    
+    <AcuteCompileTask
+		        OutputAssembly="@(IntermediateAssembly)"
+		        OutputScript="@(IntermediateScript)"
+		        References="@(ReferencePath);@(ReferenceDependencyPaths)"
+		        Sources="@(Compile)"
+      />
+  </Target>
+
+  <Target Name="CopyFilesToOutputDirectory"
+	        DependsOnTargets="
+	             ComputeIntermediateSatelliteAssemblies;
+	             _CopyFilesMarkedCopyLocal;
+	             _CopySourceItemsToOutputDirectory;
+	             _CopyAppConfigFile;
+	             _CopyManifestFiles;
+	             _CheckForCompileOutputs;
+	             _SGenCheckForOutputs">
+    
+		<!-- Copy the generated script. -->
+		<Copy SourceFiles="@(IntermediateScript)"
+		      DestinationFolder="$(OutDir)"
+		      SkipUnchangedFiles="$(SkipCopyUnchangedFiles)"
+		      OverwriteReadOnlyFiles="$(OverwriteReadOnlyFiles)"
+		      Condition="'$(CopyBuildOutputToOutputDirectory)' == 'true' and '$(SkipCopyBuildProduct)' != 'true'"
+		      >
+			<Output TaskParameter="DestinationFiles" ItemName="MainScript"/>
+			<Output TaskParameter="DestinationFiles" ItemName="FileWrites"/>
+		</Copy>
+  </Target>
+
+</Project>
