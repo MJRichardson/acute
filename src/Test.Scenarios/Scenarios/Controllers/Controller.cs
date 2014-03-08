@@ -7,7 +7,6 @@ namespace Test.Scenarios.Controllers
     {
         private string _simpleString;
 
-        [Reflectable]
         public Controller()
         {
             _simpleString = "Yabba dabba doo!";

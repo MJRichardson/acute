@@ -8,7 +8,6 @@ namespace Test.Scenarios.Http
     {
         private readonly IHttp _http;
          
-        [Reflectable]
         public HttpTestController(IHttp http)
         {
             _http = http;

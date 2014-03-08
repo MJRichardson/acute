@@ -150,6 +150,13 @@
 			routeProvider.when('/this/is/a/path', $t1);
 		}
 	}, Acute.App);
+	ss.setMetadata($Test_Scenarios_TestApp, { members: [{ name: '.ctor', type: 1, params: [] }] });
+	ss.setMetadata($Test_Scenarios_Controllers_App, { members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Controllers_Controller, { members: [{ name: '.ctor', type: 1, params: [] }] });
+	ss.setMetadata($Test_Scenarios_Http_FooBar, { members: [{ name: '.ctor', type: 1, params: [], sname: '$ctor', sm: true }] });
+	ss.setMetadata($Test_Scenarios_Http_HttpTestApp, { members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Http_HttpTestController, { members: [{ name: '.ctor', type: 1, params: [Acute.Services.IHttp] }] });
+	ss.setMetadata($Test_Scenarios_RouteConfiguration_When_WithGenericController_App, { members: [{ name: '.ctor', type: 1, params: [] }] });
+	ss.setMetadata($Test_Scenarios_RouteConfiguration_When_WithGenericController_DefaultController, { members: [{ name: '.ctor', type: 1, params: [] }] });
+	ss.setMetadata($Test_Scenarios_RouteConfiguration_When_WithTemplateUrl_App, { members: [{ name: '.ctor', type: 1, params: [] }] });
 })();
