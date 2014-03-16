@@ -7,7 +7,7 @@
 		<IntermediateScript Include="$(IntermediateOutputPath)$(TargetName).js" Condition="'@(IntermediateScript)'==''"/>
 	</ItemGroup>
 
-  <Target Name="AcuteCompile" DependsOnTargets="CoreCompile"
+  <Target Name="AfterCompile" DependsOnTargets="CoreCompile"
          Inputs="$(MSBuildAllProjects);
                 @(Compile);
                 @(ReferencePath);"
