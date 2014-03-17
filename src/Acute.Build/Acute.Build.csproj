@@ -30,8 +30,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ICSharpCode.NRefactory, Version=5.0.0.0, Culture=neutral, PublicKeyToken=a4048e8fcc593f14, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\submodules\saltarelle.compiler\bin\extensibility\ICSharpCode.NRefactory.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="Microsoft.Build.Utilities.v4.0" />
+    <Reference Include="Saltarelle.Compiler, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\submodules\saltarelle.compiler\bin\extensibility\Saltarelle.Compiler.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,14 +54,6 @@
     <Compile Include="TaskErrorReporter.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\submodules\saltarelle.compiler\Compiler\NRefactory\ICSharpCode.NRefactory\ICSharpCode.NRefactory.csproj">
-      <Project>{3b2a5653-ec97-4001-bb9b-d90f1af2c371}</Project>
-      <Name>ICSharpCode.NRefactory</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\submodules\saltarelle.compiler\Compiler\Saltarelle.Compiler\Saltarelle.Compiler.csproj">
-      <Project>{0b9db3a8-cc8d-40af-bc03-3d0bda71aa19}</Project>
-      <Name>Saltarelle.Compiler</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Acute.Compiler\Acute.Compiler.csproj">
       <Project>{df634b2a-4692-4e94-9c8f-a04b1fe1b168}</Project>
       <Name>Acute.Compiler</Name>
@@ -66,8 +66,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy $(TargetDir)*.* $(SolutionDir)bin\ /y
-$(SolutionDir)..\submodules\saltarelle.compiler\build\EmbedAssemblies.exe /o $(SolutionDir)bin\$(TargetFileName) /a $(TargetDir)*.dll /a $(TargetDir)*.exe  $(TargetDir)$(TargetFileName)</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
