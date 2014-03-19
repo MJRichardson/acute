@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Acute</id>
+    <version>0.0.1-alpha</version>
+    <authors>MJ Richardson</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Build HTML/Javascript applications using C#</description>
+    <projectUrl>https://github.com/mjrichardson/acute</projectUrl>
+    <dependencies>
+      <dependency id="Acute.Library" version="0.0.1-alpha" />
+    </dependencies>
+  </metadata>
+</package>
