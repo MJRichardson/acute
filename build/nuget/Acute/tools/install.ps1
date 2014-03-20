@@ -11,9 +11,9 @@ $project.Object.References | ? { $_.Name.StartsWith("System.") } | % { try { $_.
 $project.Object.References | ? { $_.Name -eq "System" } | % { $_.Remove() }
 $project.Object.References | ? { $_.Name.StartsWith("Microsoft.") } | % { $_.Remove() }
 
-# Swap the import for Microsoft.CSharp.targets for Acute.Compiler.targets. Also remove any existing reference to Acute.Compiler.targets since we might be upgrading.
+# Swap the import for Microsoft.CSharp.targets for Acute.Compile.targets. Also remove any existing reference to Acute.Compiler.targets since we might be upgrading.
 # Ensure that the new import appears in the same place in the project file as the old one.
-$toRemove = $msbuild.Xml.Imports | ? { $_.Project.EndsWith("Acute.Compiler.targets") -or $_.Project.EndsWith("Microsoft.CSharp.targets") }
+$toRemove = $msbuild.Xml.Imports | ? { $_.Project.EndsWith("Acute.Compile.targets") -or $_.Project.EndsWith("Microsoft.CSharp.targets") }
 $newLocation = $toRemove | Select-Object -First 1
 if (-not $newLocation) {
 	$newLocation = $msbuild.Xml.Imports | Select-Object -First 1
@@ -21,7 +21,7 @@ if (-not $newLocation) {
 		$newLocation = $msbuild.Xml.Children | Select-Object -Last 1
 	}
 }
-$newImportPath = "`$(SolutionDir)$(MakeRelativePath -Origin $project.DTE.Solution.FullName -Target ([System.IO.Path]::Combine($toolsPath, ""Acute.Compiler.targets"")))"
+$newImportPath = "`$(SolutionDir)$(MakeRelativePath -Origin $project.DTE.Solution.FullName -Target ([System.IO.Path]::Combine($toolsPath, ""Acute.Compile.targets"")))"
 $newImport = $msbuild.Xml.CreateImportElement($newImportPath)
 $newImport.Condition = "Exists('$newImportPath')"
 $newImportCSharp = $msbuild.Xml.CreateImportElement("`$(MSBuildToolsPath)\Microsoft.CSharp.targets")

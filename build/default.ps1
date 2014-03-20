@@ -19,6 +19,10 @@ Task Build-Library -Depends Clean {
 	Exec { msbuild "$baseDir\src\library.sln" /verbosity:minimal /p:"Configuration=$configuration" }
 	copy "$baseDir\src\Acute\bin\$configuration\Acute.dll" "$outDir"  
 	copy "$baseDir\src\Acute\bin\$configuration\Acute.js" "$outDir"  
+	copy "$baseDir\src\Acute\bin\$configuration\mscorlib.dll" "$outDir"  
+	copy "$baseDir\src\Acute\bin\$configuration\mscorlib.xml" "$outDir"  
+	copy "$baseDir\src\Acute\bin\$configuration\Saltarelle.Linq.dll" "$outDir"  
+	copy "$baseDir\src\Acute\bin\$configuration\Saltarelle.Linq.xml" "$outDir"  
 }
 
 Task Build-Compiler -Depends Clean {
@@ -35,6 +39,8 @@ Task Nuget-Pack -Depends Nuget-Pack-Library, Nuget-Pack-Project {
 Task Nuget-Pack-Library -Depend Build-Library {
 	copy "$outDir\Acute.dll" "$baseDir\build\nuget\Acute.Library\lib" 
 	copy "$outDir\Acute.js" "$baseDir\build\nuget\Acute.Library\content" 
+	copy "$outDir\mscorlib.*" "$baseDir\build\nuget\Acute.Library\lib" 
+	copy "$outDir\Saltarelle.Linq.*" "$baseDir\build\nuget\Acute.Library\lib" 
 	Exec{ & "$baseDir\build\nuget\nuget.exe" pack "$baseDir\build\nuget\Acute.Library\Acute.Library.nuspec"  }
 }
 
