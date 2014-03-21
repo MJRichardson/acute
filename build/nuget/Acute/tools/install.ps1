@@ -51,3 +51,10 @@ $mscorlib = $msbuild.AddItem("Reference", "mscorlib") | Select-Object -First 1
 $mscorlib.SetMetadataValue("HintPath", "`$(SolutionDir)$(MakeRelativePath -Origin $project.DTE.Solution.FullName -Target ([System.IO.Path]::Combine($toolsPath, ""mscorlib.dll"")))")
 
 $project.Save()
+
+# comment ComVisible and Guid attributes from AssemblyInfo.cs
+$assemblyInfoPath = Join-Path -Path ([System.IO.FileInfo]$project.FullName).DirectoryName -ChildPath "Properties\AssemblyInfo.cs"
+(Get-Content $assemblyInfoPath) `
+	-replace '\[assembly: ComVisible', '//[assembly: ComVisible' `
+	-replace '\[assembly: Guid', '//[assembly: Guid' `
+	| Out-File $assemblyInfoPath 
