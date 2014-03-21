@@ -1,1 +1,0 @@
-﻿This file is safe to remove from the project, but NuGet requires a package to install something.

@@ -22,7 +22,10 @@ _ReSharper*/
 #build output
 /build/*.nupkg
 /build/nuget/Acute/tools/*.dll
+/build/nuget/Acute/content
+/build/nuget/Acute/lib
 /build/nuget/Acute/tools/*.exe
+/build/nuget/Acute/tools/*.xml
 /build/nuget/Acute/tools/*.targets
 /build/nuget/Acute.Library/content
 /build/nuget/Acute.Library/lib
