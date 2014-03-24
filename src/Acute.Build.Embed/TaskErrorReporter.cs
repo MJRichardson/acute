@@ -3,7 +3,7 @@ using ICSharpCode.NRefactory.TypeSystem;
 using Microsoft.Build.Utilities;
 using Saltarelle.Compiler;
 
-namespace Acute.Build
+namespace Acute.Build.Embed
 {
 	public class TaskErrorReporter : IErrorReporter {
 		private readonly TaskLoggingHelper _log;

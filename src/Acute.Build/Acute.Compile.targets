@@ -34,6 +34,23 @@
 	             _CheckForCompileOutputs;
 	             _SGenCheckForOutputs">
     
+		<PropertyGroup>
+			<CopyBuildOutputToOutputDirectory Condition="'$(CopyBuildOutputToOutputDirectory)'==''">true</CopyBuildOutputToOutputDirectory>
+		</PropertyGroup>
+    
+		<!-- Copy the build product (.dll or .exe). -->
+		<Copy SourceFiles="@(IntermediateAssembly)"
+		      DestinationFolder="$(OutDir)"
+		      SkipUnchangedFiles="$(SkipCopyUnchangedFiles)"
+		      OverwriteReadOnlyFiles="$(OverwriteReadOnlyFiles)"
+		      Condition="'$(CopyBuildOutputToOutputDirectory)' == 'true' and '$(SkipCopyBuildProduct)' != 'true'"
+		      >
+	
+			<Output TaskParameter="DestinationFiles" ItemName="MainAssembly"/>
+			<Output TaskParameter="DestinationFiles" ItemName="FileWrites"/>
+	
+		</Copy>
+    
 		<!-- Copy the generated script. -->
 		<Copy SourceFiles="@(IntermediateScript)"
 		      DestinationFolder="$(OutDir)"
