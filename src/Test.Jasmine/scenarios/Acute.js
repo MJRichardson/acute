@@ -77,11 +77,12 @@
 	// Acute.App
 	var $Acute_App = function() {
 		this.$_module = null;
-		this.$_module = angular.module(ss.getTypeFullName(ss.getInstanceType(this)), ['ngRoute']);
+		this.$_module = angular.module(ss.getTypeFullName(ss.getInstanceType(this)), ['ngRoute', 'ngCookies']);
 		//Provider<RouteProvider>();
 		this.$registerRouteProvider();
 		this.service$1($Acute_Services_IHttp, $Acute_Services_Http).call(this);
 		this.service$1($Acute_Services_ILocation, $Acute_Services_Location).call(this);
+		this.service$1($Acute_Services_ICookies, $Acute_Services_Cookies).call(this);
 		//register the config
 		//var configFunc = typeof (App).GetFunction(ConfigMethodScriptName);
 		//var parameters = GlobalApi.Injector().Annotate(configFunc);
@@ -166,6 +167,16 @@
 	};
 	$Acute_Angular_$AngularServiceAttribute.__typeName = 'Acute.Angular.$AngularServiceAttribute';
 	////////////////////////////////////////////////////////////////////////////////
+	// Acute.Angular.Cookies
+	var $Acute_Angular_$Cookies = function() {
+	};
+	$Acute_Angular_$Cookies.__typeName = 'Acute.Angular.$Cookies';
+	////////////////////////////////////////////////////////////////////////////////
+	// Acute.Angular.CookieStore
+	var $Acute_Angular_$CookieStore = function() {
+	};
+	$Acute_Angular_$CookieStore.__typeName = 'Acute.Angular.$CookieStore';
+	////////////////////////////////////////////////////////////////////////////////
 	// Acute.Angular.Http
 	var $Acute_Angular_$Http = function() {
 	};
@@ -181,6 +192,16 @@
 	};
 	$Acute_Angular_$RouteProvider.__typeName = 'Acute.Angular.$RouteProvider';
 	////////////////////////////////////////////////////////////////////////////////
+	// Acute.Services.Cookies
+	var $Acute_Services_Cookies = function(cookieStore, cookies) {
+		this.$_angularCookieStore = null;
+		this.$_angularCookies = null;
+		this.$_angularCookieStore = cookieStore;
+		this.$_angularCookies = cookies;
+	};
+	$Acute_Services_Cookies.__typeName = 'Acute.Services.Cookies';
+	global.Acute.Services.Cookies = $Acute_Services_Cookies;
+	////////////////////////////////////////////////////////////////////////////////
 	// Acute.Services.Http
 	var $Acute_Services_Http = function(_http) {
 		this.$_angularHttp = null;
@@ -193,8 +214,11 @@
 	var $Acute_Services_HttpRequest = function(httpMethod, url) {
 		this.$1$HttpMethodField = null;
 		this.$1$UrlField = null;
+		this.$1$DataField = null;
+		this.$1$ParametersField = null;
 		this.set_httpMethod(httpMethod);
 		this.set_url(url);
+		this.set_parameters({});
 	};
 	$Acute_Services_HttpRequest.__typeName = 'Acute.Services.HttpRequest';
 	global.Acute.Services.HttpRequest = $Acute_Services_HttpRequest;
@@ -211,6 +235,12 @@
 		this.set_data(body);
 	};
 	global.Acute.Services.HttpResponse = $Acute_Services_HttpResponse;
+	////////////////////////////////////////////////////////////////////////////////
+	// Acute.Services.ICookies
+	var $Acute_Services_ICookies = function() {
+	};
+	$Acute_Services_ICookies.__typeName = 'Acute.Services.ICookies';
+	global.Acute.Services.ICookies = $Acute_Services_ICookies;
 	////////////////////////////////////////////////////////////////////////////////
 	// Acute.Services.IHttp
 	var $Acute_Services_IHttp = function() {
@@ -361,11 +391,40 @@
 			this.$2$ServiceNameField = value;
 		}
 	});
+	ss.initClass($Acute_Angular_$Cookies, $asm, {});
+	ss.initClass($Acute_Angular_$CookieStore, $asm, {});
 	ss.initClass($Acute_Angular_$Http, $asm, {});
 	ss.initClass($Acute_Angular_$Location, $asm, {});
 	ss.initClass($Acute_Angular_$RouteProvider, $asm, {});
-	ss.initInterface($Acute_Services_IHttp, $asm, { getAsync: null, postAsync: null });
+	ss.initInterface($Acute_Services_ICookies, $asm, { get_item: null, set_item: null, get: null, put: null, remove: null });
+	ss.initClass($Acute_Services_Cookies, $asm, {
+		get_item: function(key) {
+			return this.$_angularCookies[key];
+		},
+		set_item: function(key, value) {
+			this.$_angularCookies[key] = value;
+		},
+		get: function(T) {
+			return function(key) {
+				return ss.cast(this.$_angularCookieStore.get(key), T);
+			};
+		},
+		put: function(T) {
+			return function(key, item) {
+				this.$_angularCookieStore.put(key, item);
+			};
+		},
+		remove: function(key) {
+			this.$_angularCookieStore.remove(key);
+		}
+	}, null, [$Acute_Services_ICookies]);
+	ss.initInterface($Acute_Services_IHttp, $asm, { requestAsync: null, getAsync: null, postAsync: null, putAsync: null, headAsync: null, deleteAsync: null });
 	ss.initClass($Acute_Services_Http, $asm, {
+		requestAsync: function(request) {
+			return ss.Task.fromPromise(this.$_angularHttp(request), function(response) {
+				return new $Acute_Services_HttpResponse.$ctor1(response.status, response.data);
+			});
+		},
 		getAsync: function(url) {
 			return ss.Task.fromPromise(this.$_angularHttp.get(url), function(response) {
 				return new $Acute_Services_HttpResponse.$ctor1(response.status, response.data);
@@ -373,6 +432,21 @@
 		},
 		postAsync: function(url, data) {
 			return ss.Task.fromPromise(this.$_angularHttp.post(url, data), function(response) {
+				return new $Acute_Services_HttpResponse.$ctor1(response.status, response.data);
+			});
+		},
+		putAsync: function(url, data) {
+			return ss.Task.fromPromise(this.$_angularHttp.put(url, data), function(response) {
+				return new $Acute_Services_HttpResponse.$ctor1(response.status, response.data);
+			});
+		},
+		headAsync: function(url) {
+			return ss.Task.fromPromise(this.$_angularHttp.head(url), function(response) {
+				return new $Acute_Services_HttpResponse.$ctor1(response.status, response.data);
+			});
+		},
+		deleteAsync: function(url) {
+			return ss.Task.fromPromise(this.$_angularHttp['delete'](url), function(response) {
 				return new $Acute_Services_HttpResponse.$ctor1(response.status, response.data);
 			});
 		}
@@ -389,6 +463,18 @@
 		},
 		set_url: function(value) {
 			this.$1$UrlField = value;
+		},
+		get_data: function() {
+			return this.$1$DataField;
+		},
+		set_data: function(value) {
+			this.$1$DataField = value;
+		},
+		get_parameters: function() {
+			return this.$1$ParametersField;
+		},
+		set_parameters: function(value) {
+			this.$1$ParametersField = value;
 		}
 	});
 	ss.initClass($Acute_Services_HttpResponse, $asm, {
@@ -465,9 +551,12 @@
 	ss.initEnum($System_Net_Http_HttpStatusCode, $asm, { continue$1: 100, switchingProtocols: 101, OK: 200, created: 201, accepted: 202, nonAuthoritativeInformation: 203, noContent: 204, resetContent: 205, partialContent: 206, ambiguous: 300, multipleChoices: 300, moved: 301, movedPermanently: 301, found: 302, redirect: 302, redirectMethod: 303, seeOther: 303, notModified: 304, useProxy: 305, unused: 306, redirectKeepVerb: 307, temporaryRedirect: 307, badRequest: 400, unauthorized: 401, paymentRequired: 402, forbidden: 403, notFound: 404, methodNotAllowed: 405, notAcceptable: 406, proxyAuthenticationRequired: 407, requestTimeout: 408, conflict: 409, gone: 410, lengthRequired: 411, preconditionFailed: 412, requestEntityTooLarge: 413, requestUriTooLong: 414, unsupportedMediaType: 415, requestedRangeNotSatisfiable: 416, expectationFailed: 417, upgradeRequired: 426, internalServerError: 500, notImplemented: 501, badGateway: 502, serviceUnavailable: 503, gatewayTimeout: 504, httpVersionNotSupported: 505 });
 	ss.setMetadata($Acute_App, { members: [{ name: 'ConfigureRoutes', type: 8, sname: 'configureRoutes', returnType: Object, params: [$Acute_RouteProvider] }] });
 	ss.setMetadata($Acute_RouteProvider, { members: [{ name: '.ctor', type: 1, params: [$Acute_Angular_$RouteProvider] }] });
+	ss.setMetadata($Acute_Angular_$Cookies, { attr: [new $Acute_Angular_$AngularServiceAttribute('$cookies')] });
+	ss.setMetadata($Acute_Angular_$CookieStore, { attr: [new $Acute_Angular_$AngularServiceAttribute('$cookieStore')] });
 	ss.setMetadata($Acute_Angular_$Http, { attr: [new $Acute_Angular_$AngularServiceAttribute('$http')] });
 	ss.setMetadata($Acute_Angular_$Location, { attr: [new $Acute_Angular_$AngularServiceAttribute('$location')] });
 	ss.setMetadata($Acute_Angular_$RouteProvider, { attr: [new $Acute_Angular_$AngularServiceAttribute('$routeProvider')] });
+	ss.setMetadata($Acute_Services_Cookies, { members: [{ name: '.ctor', type: 1, params: [$Acute_Angular_$CookieStore, $Acute_Angular_$Cookies] }] });
 	ss.setMetadata($Acute_Services_Http, { members: [{ name: '.ctor', type: 1, params: [$Acute_Angular_$Http] }] });
 	ss.setMetadata($Acute_Services_Location, { members: [{ name: '.ctor', type: 1, params: [$Acute_Angular_$Location] }] });
 	$System_Net_Http_HttpMethod.$getMethod = new $System_Net_Http_HttpMethod('GET');
@@ -477,5 +566,4 @@
 	$System_Net_Http_HttpMethod.$headMethod = new $System_Net_Http_HttpMethod('HEAD');
 	$System_Net_Http_HttpMethod.$optionsMethod = new $System_Net_Http_HttpMethod('OPTIONS');
 	$System_Net_Http_HttpMethod.$traceMethod = new $System_Net_Http_HttpMethod('TRACE');
-	$Acute_$Bootstrapper.$main();
 })();

@@ -12,12 +12,13 @@ namespace Acute
 
         protected App()
         {
-           _module = new Module(this.GetType().FullName, "ngRoute" ); 
+           _module = new Module(this.GetType().FullName, "ngRoute", "ngCookies" ); 
 
             //Provider<RouteProvider>();
             RegisterRouteProvider();
             Service<IHttp, Acute.Services.Http>();
             Service<ILocation, Acute.Services.Location>();
+            Service<ICookies, Acute.Services.Cookies>();
 
             //register the config
             //var configFunc = typeof (App).GetFunction(ConfigMethodScriptName);

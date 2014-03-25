@@ -67,6 +67,7 @@
     <Content Include="lib\jasmine-2.0.0\jasmine.js" />
     <Content Include="lib\jasmine-2.0.0\jasmine_favicon.png" />
     <Content Include="scenarios\Acute.js" />
+    <Content Include="scenarios\angular-cookies.js" />
     <Content Include="scenarios\angular-mocks.js" />
     <Content Include="scenarios\angular-route.js" />
     <Content Include="scenarios\angular.js" />
@@ -74,6 +75,7 @@
     <Content Include="scenarios\scenarios.js" />
     <Content Include="SpecRunner.html" />
     <Content Include="spec\ControllerSpecs.js" />
+    <Content Include="spec\CookiesSpec.js" />
     <Content Include="spec\HttpSpecs.js" />
     <Content Include="spec\LocationSpecs.js" />
     <Content Include="spec\PlayerSpec.js" />

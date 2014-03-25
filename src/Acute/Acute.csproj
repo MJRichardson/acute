@@ -41,6 +41,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Angular\AngularServiceAttribute.cs" />
+    <Compile Include="Angular\Cookies.cs" />
+    <Compile Include="Angular\CookieStore.cs" />
     <Compile Include="Angular\GlobalApi.cs" />
     <Compile Include="Angular\Http.cs" />
     <Compile Include="Angular\Injector.cs" />
@@ -51,6 +53,7 @@
     <Compile Include="App.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Controller.cs" />
+    <Compile Include="Services\Cookies.cs" />
     <Compile Include="Services\Http.cs" />
     <Compile Include="Services\Location.cs" />
     <Compile Include="System.Net.Http\HttpMethod.cs" />
