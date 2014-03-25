@@ -9,11 +9,23 @@ namespace Acute.Angular
     [AngularService("$http")]
     internal class Http
     {
+      [InlineCode("{this}({config})")] 
+      public HttpPromise Request(object config) { return null; }
+
       [InlineCode("{this}.get({url})")] 
       public HttpPromise Get(string url) { return null; }
 
       [InlineCode("{this}.post({url},{data})")] 
       public HttpPromise Post(string url, object data)                { return null; }
+
+      [InlineCode("{this}.put({url},{data})"         )] 
+      public HttpPromise Put(string url, object data)                { return null; }
+
+      [InlineCode("{this}.head({url})"         )] 
+      public HttpPromise Head(string url)                { return null; }
+
+      [InlineCode("{this}['delete']({url})         ")] 
+      public HttpPromise Delete(string url               ) { return null; }
     }
 
    [Imported]
