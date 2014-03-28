@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Acute : The ubiquity of HTML with the productivity of C#." />
+
+	<!-- twitter bootstrap -->
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<script src="acute-doc.js"></script>
+
+	<link rel="stylesheet" href="stylesheets/acute-doc.css">
+
+    <title>Setup - Acute</title>
+  </head>
+
+  <body> 
+	  <div id="navbar"></div>
+
+	  <div class="container">
+		  <div class="page-header">
+			  <h1>Setup</h1>
+		  </div>
+		  <p>The recommended approach is to create an ASP.NET project to serve your initial page (index.html, default.html, or whatever), and possibly to host your web services. Then create another project of type class-library, which will be your client-application project.</p>
+
+		  <p>The easiest way to install Acute into your solution is via  Nuget. </p>
+
+		  <p>Simply install the <a href="http://www.nuget.org/packages/Acute">Acute nuget package </a>into your client application project. This does a few things:</p>
+
+		  <ul>
+			  <li>A reference is added to Acute.dll, the assembly containing the Acute framework library (this is actually installed via the Acute.Library package, which is a dependency of the Acute package). </li>
+			  <li>All System.* and Microsoft.* references are removed, and and are replaced with custom mscorlib.dll and System.Linq.dll references. </li>
+			  <li>The .csproj file is modified to use a custom targets file. This will cause building the project to invoke the Acute compiler, which will produce javascript output (in addition to the DLL as usual).</li>
+		  </ul>
+
+		  <p>Now, when you build your project, in your output directory there will be a {Your.Project.Name}.js file. You will probably want to set a post-build event on your ASP.NET project to copy this file from your client-application-project's bin directory into your ASP.NET project.</p>
+
+		  <p>See the walk-through for step-by-step details on creating an Acute application.</p>
+	  </div>
+
+	  <script type="text/javascript">
+		  $(function(){
+			loadNavbar('setup');
+		  });
+	  </script>
+  </body>
+</html>

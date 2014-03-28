@@ -9,7 +9,9 @@
 	<!-- twitter bootstrap -->
 	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<script src="acute-doc.js"></script>
 
 	<link rel="stylesheet" href="stylesheets/acute-doc.css">
 
@@ -17,47 +19,30 @@
   </head>
 
   <body> 
+	  <div id="navbar"></div>
 
-    <!-- Fixed navbar -->
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Acute</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="install.html">Install</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Learn <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="walk-through.html">Walk-Through</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </div>
-	  <div class="jumbotron">
-		  <div class="container">
+	  <div class="container content">
+		  <div class="jumbotron">
 			  <h1>Acute</h1>
 			  <p>The ubiquity of HTML with the productivity of C#.</p>
 		  </div>
+
+		  <p>Acute is a framework for developing client-side HTML applications in C#.  </p>
+
+		  <p>Acute allows you to write MV* applications, using HTML for the views, and C# for the controllers, models, view-models, services, and whatever other components/patterns you desire. The C# portions are compiled into javascript, allowing your application to run in browsers everywhere.  </p>
+
+		  <p>Acute is inspired by <a href="http://angularjs.org">AngularJS</a> (and utilizes it for implementation). Acute aims to pair the industrial-grade concepts of AngularJS (templates, controllers, dependency-injection, etc) with an industrial-grade language (C#). </p>
+
+
 	  </div>
 
-	  <div class="container">
-	  </div>
+	  <script type="text/javascript" >
+
+		  $(function(){
+			loadNavbar('home');
+		  });
+
+
+	  </script>
   </body>
 </html>
