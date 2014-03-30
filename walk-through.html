@@ -30,6 +30,7 @@
 					  <ul  class="nav nav-pills nav-stacked">
 						  <li><a href="#create-solution">Create Solution</a></li>
 						  <li><a href="#create-web-project">Create Web Project</a></li>
+						  <li><a href="#create-acute-project">Create Acute Project</a></li>
 					  </ul>
 				  </div>
 			  </div>
@@ -39,12 +40,35 @@
 					  <h1>Walk-Through <small>Creating an Acute-powered application</small></h1>
 				  </div>
 
-				  <div id="create-solution">
-					  <p>blah blah blah</p>
+				  <div id="create-solution" class="walk-through-step">
+					  <h3>Create Solution</h3>
+					  <p>We'll begin by creating an empty solution in Visual Studio. The following instructions assume Visual Studio 2012, but other versions should be close enough.</p>
+					  <p><kbd>File</kbd> -> <kbd>New</kbd> -> <kbd>Project</kbd>.</p>
+					  <p>Choose <kbd>Templates</kbd> -> <kbd>Other Project Types</kbd> -> <kbd>Visual Studio Solutions</kbd>, and select <kbd>Blank Solution</kbd>.</p>
+					  <p>For the name, we'll use <kbd>Acme</kbd>.</p>
+					  <img src="images/walk-through-create-solution.png"/>
 				  </div>
 
-				  <div id="create-web-project">
-					  <p>blah blah blah</p>
+				  <div id="create-web-project" class="walk-through-step">
+					  <h3>Create Web Project</h3>
+					  <p>Now we need to create a web project to serve our content.</p>
+					  <p>Right Click on the solution.</p>
+					  <p><kbd>Add</kbd> --> <kbd>New Project</kbd></p>
+					  <p>Select <kbd>Visual C#</kbd> --> <kbd>Web</kbd></p>
+					  <p>We'll select <kbd>ASP.NET MVC 4 Web Application</kbd>.  For the moment, an empty project would suffice, but later we will add some services using Web API controllers. </p>
+					  <p>Name the project <kbd>Acme.Web</kbd></p>
+					  <img src="images/walk-through-create-web-project.png"/>
+					  <p>When Visual Studio prompts you to select a template, choose <kbd>Empty</kbd></p>
+					  <img src="images/walk-through-create-web-project.png"/>
+				  </div>
+
+				  <div id="create-acute-project" class="walk-through-step">
+					  <h3>Create Acute Project</h3>
+					  <p>OK, now we get to the interesting stuff. Let's create our dynamic client application, powered by Acute.</p>
+					  <p>Create a class-library project:</p>
+					  <p>Right Click on the solution.</p>
+					  <p><kbd>Add</kbd> --> <kbd>New Project</kbd></p>
+					  <p>Select <kbd>Visual C#</kbd> --> <kbd>Web</kbd></p>
 				  </div>
 			  </div>
 		  </div>
