@@ -30,7 +30,10 @@
 					  <ul  class="nav nav-pills nav-stacked">
 						  <li><a href="#create-solution">Create Solution</a></li>
 						  <li><a href="#create-web-project">Create Web Project</a></li>
+						  <li><a href="#add-static-html">Add Static HTML</a></li>
 						  <li><a href="#create-acute-project">Create Acute Project</a></li>
+						  <li><a href="#add-acute-nuget-package">Add Acute Nuget Package</a></li>
+						  <li><a href="#create-client-application">Create Client Application</a></li>
 					  </ul>
 				  </div>
 			  </div>
@@ -59,7 +62,36 @@
 					  <p>Name the project <kbd>Acme.Web</kbd></p>
 					  <img src="images/walk-through-create-web-project.png"/>
 					  <p>When Visual Studio prompts you to select a template, choose <kbd>Empty</kbd></p>
-					  <img src="images/walk-through-create-web-project.png"/>
+					  <img src="images/walk-through-create-web-project-2.png"/>
+				  </div>
+
+				  <div id="add-static-html" class="walk-through-step">
+					  <h3>Add Static HTML</h3>
+					  <p>To start, let's add a plain old static HTML page, called <kbd>index.html</kbd> to the Acme.Web project.</p>
+					  <pre>
+&lt;html&gt;
+    
+    &lt;head&gt;
+        &lt;title&gt;Products - Acme Corporation&lt;/title&gt;
+    &lt;/head&gt;
+
+    &lt;body&gt;
+        
+        &lt;h1&gt;Acme Corporation&lt;/h1&gt;
+        
+        &lt;h2&gt;Products&lt;/h2&gt;
+        
+        &lt;div&gt;
+            &lt;h3&gt;Giant Rubber-Band&lt;/h3&gt; 
+            &lt;p&gt;Perfect for tripping Road Runners&lt;/p&gt;
+        &lt;/div&gt; 
+
+    &lt;/body&gt;
+
+&lt;/html&gt;
+					  </pre>
+
+					  <p>We will progressively enhance this Acme product-catalog.</p>
 				  </div>
 
 				  <div id="create-acute-project" class="walk-through-step">
@@ -68,7 +100,35 @@
 					  <p>Create a class-library project:</p>
 					  <p>Right Click on the solution.</p>
 					  <p><kbd>Add</kbd> --> <kbd>New Project</kbd></p>
-					  <p>Select <kbd>Visual C#</kbd> --> <kbd>Web</kbd></p>
+					  <p>Select <kbd>Visual C#</kbd> --> <kbd>Class Library</kbd></p>
+					  <p>Name the project <kbd>Acme.Client</kbd></p>
+					  <img src="images/walk-through-create-client-project.png"/>
+					  <p>Remove the generated Class1.cs file from the project.</p>
+				  </div>
+
+				  <div id="add-acute-nuget-package" class="walk-through-step">
+					  <h3>Add Acute Nuget Package</h3>
+					  <p>Open the Package Manager Console (<kbd>Tools</kbd> -> <kbd>Library Package Manager</kbd> -> <kbd>Package Manager Console</kbd></p>
+					  <p>Enter <kbd>Install-Package Acute -Project Acme.Client</kbd> into the Package Manager Console</p>
+					  <p>This should successfully add the Acute and Acute.Library packages.</p>
+					  <p>This should successfully add the Acute and Acute.Library packages.</p>
+					  <p><span class="label label-warning">Important:</span> You now need to unload and reload the Acme.Web project. This is due to an issue relating to replacing the mscorlib.dll. This will be resolved in a future release.</p>
+				  </div>
+
+				  <div id="create-client-application" class="walk-through-step">
+					  <h3>Create Client Application</h3>
+					  <p>Now we will create the class that represents our application.</p>
+					  <p>Add a new class named <kbd>App</kbd> to the project.</p>
+					  <pre>
+namespace Acme.Client
+{
+    public class App : Acute.App
+    {
+    }
+}
+					  </pre>
+					  <p>Inheriting from <code>Acute.App</code> marks this class as being the application.</p>
+
 				  </div>
 			  </div>
 		  </div>
