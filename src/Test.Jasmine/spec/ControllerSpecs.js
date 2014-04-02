@@ -1,6 +1,6 @@
 ﻿describe("When creating a controller", function () {
 
-    var app = new Test.Scenarios.Controllers.App();
+    //var app = new Test.Scenarios.Controllers.App();
     
     beforeEach(function () {
         module('Test.Scenarios.Controllers.App', 'ngRoute');
@@ -12,7 +12,7 @@
 
         beforeEach(inject(function ($rootScope, $controller) {
             scope = $rootScope.$new();
-            controller = $controller('TestScenariosControllersController', { $scope: scope });
+            controller = $controller('Test.Scenarios.Controllers.Controller', { $scope: scope });
         }));
         
         it("the property should be added to the scope", function () {

@@ -23,9 +23,9 @@ namespace Acute
         {
             var angularServiceAttributes = type.GetCustomAttributes(typeof (AngularServiceAttribute), false);
 
-            return angularServiceAttributes.Length > 0 
-                   ? ((AngularServiceAttribute) angularServiceAttributes[0]).ServiceName
-                   : type.FullName.Replace(".", "");
+            return angularServiceAttributes.Length > 0
+                ? ((AngularServiceAttribute) angularServiceAttributes[0]).ServiceName
+                : type.FullName;
         }
 
         public static List<string> GetInstanceMethodNames(this Type type)

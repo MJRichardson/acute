@@ -66,7 +66,7 @@ namespace Acute
         {
             var routeProviderType = typeof (RouteProvider);
             var functionArrayNotation = routeProviderType.CreateFunctionArray(); 
-             _module.Provider("AcuteRoute",functionArrayNotation);
+             _module.Provider("Acute.Route",functionArrayNotation);
         }
 
         //protected void Provider<T>()

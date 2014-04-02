@@ -1,6 +1,6 @@
 ﻿describe("Cookies service", function () {
 
-    var app = new Test.Scenarios.TestApp();
+    //var app = new Test.Scenarios.TestApp();
     
     beforeEach(function () {
         module('ngCookies', 'Test.Scenarios.TestApp');

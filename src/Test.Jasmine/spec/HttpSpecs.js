@@ -1,7 +1,7 @@
 ﻿describe("HTTP service", function () {
 
-    var app = new Test.Scenarios.Http.HttpTestApp();
-    
+    //var app = new Test.Scenarios.Http.HttpTestApp();
+
     beforeEach(function () {
         module('Test.Scenarios.Http.HttpTestApp', 'ngRoute');
     });
@@ -14,7 +14,7 @@
         beforeEach(inject(function ($rootScope, $controller, $injector) {
             scope = $rootScope.$new();
             $httpBackend = $injector.get('$httpBackend');
-            controller = $controller('TestScenariosHttpHttpTestController', { $scope: scope });
+            controller = $controller('Test.Scenarios.Http.HttpTestController', { $scope: scope });
         }));
 
         describe("and string data is returned", function () {

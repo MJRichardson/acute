@@ -9,20 +9,17 @@
 	ss.initAssembly($asm, 'Acute');
 	////////////////////////////////////////////////////////////////////////////////
 	// Acute.Bootstrapper
-	var $Acute_$Bootstrapper = function() {
-	};
-	$Acute_$Bootstrapper.__typeName = 'Acute.$Bootstrapper';
-	$Acute_$Bootstrapper.$main = function() {
-		$Acute_$Bootstrapper.$init();
-	};
-	$Acute_$Bootstrapper.$init = function() {
-		var $t1 = ss.getAssemblyTypes($asm);
+	Acute.Bootstrap = function() {
+		var $t1 = ss.getAssemblies();
 		for (var $t2 = 0; $t2 < $t1.length; $t2++) {
-			var type = $t1[$t2];
-			if (type.prototype instanceof $Acute_App === false) {
-				continue;
+			var assembly = $t1[$t2];
+			var $t3 = ss.getAssemblyTypes(assembly);
+			for (var $t4 = 0; $t4 < $t3.length; $t4++) {
+				var type = $t3[$t4];
+				if (type.prototype instanceof $Acute_App) {
+					ss.createInstance(type);
+				}
 			}
-			ss.createInstance(type);
 		}
 	};
 	////////////////////////////////////////////////////////////////////////////////
@@ -38,7 +35,7 @@
 	};
 	$Acute_$ReflectionExtensions.$asAngularServiceName = function(type) {
 		var angularServiceAttributes = ss.getAttributes(type, $Acute_Angular_$AngularServiceAttribute, false);
-		return ((angularServiceAttributes.length > 0) ? ss.cast(angularServiceAttributes[0], $Acute_Angular_$AngularServiceAttribute).get_$serviceName() : ss.replaceAllString(ss.getTypeFullName(type), '.', ''));
+		return ((angularServiceAttributes.length > 0) ? ss.cast(angularServiceAttributes[0], $Acute_Angular_$AngularServiceAttribute).get_$serviceName() : ss.getTypeFullName(type));
 	};
 	$Acute_$ReflectionExtensions.$getInstanceMethodNames = function(type) {
 		var result = [];
@@ -313,7 +310,6 @@
 	};
 	$System_Net_Http_HttpStatusCode.__typeName = 'System.Net.Http.HttpStatusCode';
 	global.System.Net.Http.HttpStatusCode = $System_Net_Http_HttpStatusCode;
-	ss.initClass($Acute_$Bootstrapper, $asm, {});
 	ss.initClass($Acute_$ReflectionExtensions, $asm, {});
 	ss.initClass($Acute_App, $asm, {
 		controller: function(T) {
@@ -341,7 +337,7 @@
 		$registerRouteProvider: function() {
 			var routeProviderType = $Acute_RouteProvider;
 			var functionArrayNotation = $Acute_$ReflectionExtensions.$createFunctionArray(routeProviderType);
-			this.$_module.provider('AcuteRoute', functionArrayNotation);
+			this.$_module.provider('Acute.Route', functionArrayNotation);
 		},
 		configureRoutes: function(routeProvider) {
 		}
