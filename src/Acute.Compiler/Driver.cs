@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 using Saltarelle.Compiler;
 using Saltarelle.Compiler.Driver;
 
@@ -20,7 +21,17 @@ namespace Acute.Compiler
             if (saltarelleDriver.Compile(saltarelleOptions) == false)
                 return false;
 
+            AppendBootstrapScript(options.OutputScriptPath);
+
             return true;
         }
+
+        private static void AppendBootstrapScript(string outputScriptPath)
+        {
+             const string bootstrapScript = "Acute.Bootstrap();";
+            File.AppendAllText(outputScriptPath, bootstrapScript);
+            
+        }
+
     }
 }

@@ -1,25 +1,23 @@
 ﻿using System;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace Acute
 {
-    internal class Bootstrapper
+    [Mixin("Acute")]
+    internal static class Bootstrapper
     {
-        public static void Main()
+        [ScriptName("Bootstrap")]
+        public static void Bootstrap()
         {
-           Init(); 
-        }
-
-        private static void Init()
-        {
-           foreach (var type in Assembly.GetExecutingAssembly().GetTypes())
-           {
-               if (type.IsSubclassOf(typeof (App)) == false)
-                   continue;
-
-               Activator.CreateInstance(type);
-
-           }
+            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                foreach (var type in assembly.GetTypes())
+                {
+                   if (type.IsSubclassOf(typeof(Acute.App))) 
+                       Activator.CreateInstance(type);
+                }
+            }
         }
     }
 }
