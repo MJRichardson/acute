@@ -81,7 +81,10 @@
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy $(SolutionDir)packages\Saltarelle.Runtime.2.4.0\mscorlib.min.js $(TargetDir) /y
-xcopy $(SolutionDir)packages\Saltarelle.Linq.2.4.0\linq.min.js $(TargetDir) /y</PostBuildEvent>
+xcopy $(SolutionDir)packages\Saltarelle.Runtime.2.4.0\mscorlib.js $(TargetDir) /y
+xcopy $(SolutionDir)packages\Saltarelle.Linq.2.4.0\linq.js $(TargetDir) /y
+xcopy $(SolutionDir)packages\Saltarelle.Linq.2.4.0\linq.min.js $(TargetDir) /y
+</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

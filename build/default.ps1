@@ -23,7 +23,7 @@ Task Build-Library -Depends Clean {
 	copy "$projectTargetDir\mscorlib.xml" "$outDir"  
 	copy "$projectTargetDir\Saltarelle.Linq.dll" "$outDir"  
 	copy "$projectTargetDir\Saltarelle.Linq.xml" "$outDir"  
-	Get-Content "$projectTargetDir\mscorlib.min.js","$projectTargetDir\linq.min.js","$baseDir\submodules\angular.js\build\angular.js", "$baseDir\submodules\angular.js\build\angular-route.js",  "$baseDir\submodules\angular.js\build\angular-cookies.js", "$projectTargetDir\Acute.js" | Set-Content "$outDir\acute.js" 
+	Get-Content "$projectTargetDir\mscorlib.js","$projectTargetDir\linq.js","$baseDir\submodules\angular.js\build\angular.js", "$baseDir\submodules\angular.js\build\angular-route.js",  "$baseDir\submodules\angular.js\build\angular-cookies.js", "$projectTargetDir\Acute.js" | Set-Content "$outDir\acute.js" 
 }
 
 Task Build-Compiler -Depends Clean {
