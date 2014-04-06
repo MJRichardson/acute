@@ -22,7 +22,7 @@ namespace Test.Scenarios.Controllers
         public override void Control(dynamic scope)
         {
             var simpleStringFunc = new Func<string>(() => _simpleString);
-            scope.SimpleString = () => _simpleString;
+            scope.SimpleString = simpleStringFunc;
         }
     }
 }

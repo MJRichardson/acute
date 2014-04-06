@@ -16,7 +16,7 @@
         }));
         
         it("the property should be added to the scope", function () {
-            expect(scope.simpleString()).toEqual('Yabba dabba doo!');
+            expect(scope.SimpleString()).toEqual('Yabba dabba doo!');
         });
     });
 });

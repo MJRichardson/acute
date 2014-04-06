@@ -1,5 +1,4 @@
-﻿using System.Net.Http;
-using System.Runtime.CompilerServices;
+﻿using System;
 using Acute.Services;
 
 namespace Test.Scenarios.Http
@@ -13,30 +12,24 @@ namespace Test.Scenarios.Http
             _http = http;
         }
 
-        public HttpStatusCode Status { get; private set; }
-        public string Data { get; private set; }
 
-        public int DataObjectId { get; set; } 
-
-        public void GetStringData()
+        public override void Control(dynamic scope)
         {
+            scope.getStringData = (Action)(() => _http.GetAsync("/foo/bar")
+                                                      .ContinueWith(task =>
+                                                          {
+                                                              scope.status = task.Result.Status;
+                                                              scope.data = task.Result.Data;
+                                                          }));
+
+            scope.getObjectData = (Action) (() =>  
              _http.GetAsync("/foo/bar")
                         .ContinueWith(task =>
                             {
-                                Status = task.Result.Status;
-                                Data = task.Result.Data;
-                            });
-        }
-
-        public void GetObjectData()
-        {
-             _http.GetAsync("/foo/bar")
-                        .ContinueWith(task =>
-                            {
-                                Status = task.Result.Status;
+                                scope.status = task.Result.Status;
                                 var dataObject = task.Result.DataAs<FooBar>();
-                                DataObjectId = dataObject.Id;
-                            });
+                                scope.dataObjectId = dataObject.Id;
+                            }));
         }
     }
 }

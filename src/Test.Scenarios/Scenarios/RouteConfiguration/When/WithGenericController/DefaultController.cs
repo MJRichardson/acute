@@ -2,6 +2,8 @@
 {
     public class DefaultController : Acute.Controller
     {
-         
+        public override void Control(dynamic scope)
+        {
+        }
     }
 }

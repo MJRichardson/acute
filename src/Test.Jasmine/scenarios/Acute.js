@@ -94,19 +94,18 @@
 		this.$_module.config($Acute_$ReflectionExtensions.$createFunctionArray$1(appType, configMethod));
 	};
 	$Acute_App.__typeName = 'Acute.App';
-	$Acute_App.$buildControllerFunction = function(type) {
-		var body = '';
+	global.Acute.App = $Acute_App;
+	////////////////////////////////////////////////////////////////////////////////
+	// Acute.Controller
+	var $Acute_Controller = function() {
+	};
+	$Acute_Controller.__typeName = 'Acute.Controller';
+	$Acute_Controller.$buildControllerFunction = function(type) {
 		var scopeVar = '$scope';
-		// takes method into $scope, binding "$scope" to "this"                 
-		var $t1 = $Acute_$ReflectionExtensions.$getInstanceMethodNames(type);
-		for (var $t2 = 0; $t2 < $t1.length; $t2++) {
-			var funcname = $t1[$t2];
-			body += ss.formatString('{2}.{1} = {0}.prototype.{1}.bind({2});\r\n', ss.getTypeFullName(type), funcname, scopeVar);
-		}
-		// put call at the end so that methods are defined first
-		body += ss.formatString('{0}.apply({1},arguments);\r\n', ss.getTypeFullName(type), scopeVar);
 		//get the constructor parameters
 		var parameters = angular.injector().annotate($Acute_$ReflectionExtensions.$getConstructorFunction(type));
+		var body = ss.formatString('var controller = new {0}({1});\n', ss.getTypeFullName(type), ss.arrayFromEnumerable(parameters).join(','));
+		body += ss.formatString('controller.{0}({1});\n', $Acute_Controller.$controlScriptName, scopeVar);
 		var functionArrayNotation = $Acute_$ReflectionExtensions.$createFunctionArray(type);
 		//and add $scope as a parameter
 		ss.insert(functionArrayNotation, ss.count(functionArrayNotation) - 1, scopeVar);
@@ -115,13 +114,61 @@
 		var modifiedFunc = new Function(parameters, body);
 		ss.setItem(functionArrayNotation, parameters.length, modifiedFunc);
 		return functionArrayNotation;
+		//
+		//             string body = "";
+		//
+		//             const string scopeVar = "$scope";
+		//
+		//             
+		//
+		//             
+		//
+		//             // takes method into $scope, binding "$scope" to "this"
+		//
+		//             foreach(string funcname in type.GetInstanceMethodNames())
+		//
+		//             {
+		//
+		//             body += String.Format("{2}.{1} = {0}.prototype.{1}.bind({2});\r\n",type.FullName,funcname,scopeVar);
+		//
+		//             }
+		//
+		//             
+		//
+		//             // put call at the end so that methods are defined first
+		//
+		//             body+=String.Format("{0}.apply({1},arguments);\r\n",type.FullName,scopeVar);
+		//
+		//             
+		//
+		//             //get the constructor parameters
+		//
+		//             var parameters = GlobalApi.Injector().Annotate(type.GetConstructorFunction());
+		//
+		//             
+		//
+		//             var functionArrayNotation = type.CreateFunctionArray();
+		//
+		//             //and add $scope as a parameter
+		//
+		//             functionArrayNotation.Insert(functionArrayNotation.Count - 1, scopeVar );
+		//
+		//             
+		//
+		//             //and add $scope as a parameter
+		//
+		//             parameters.Add(scopeVar);
+		//
+		//             
+		//
+		//             var modifiedFunc = ReflectionExtensions.CreateNewFunction(parameters,body);
+		//
+		//             functionArrayNotation[parameters.Count] = modifiedFunc;
+		//
+		//             
+		//
+		//             return functionArrayNotation;
 	};
-	global.Acute.App = $Acute_App;
-	////////////////////////////////////////////////////////////////////////////////
-	// Acute.Controller
-	var $Acute_Controller = function() {
-	};
-	$Acute_Controller.__typeName = 'Acute.Controller';
 	global.Acute.Controller = $Acute_Controller;
 	////////////////////////////////////////////////////////////////////////////////
 	// Acute.RouteConfig
@@ -318,7 +365,7 @@
 			};
 		},
 		controller$1: function(controllerType) {
-			var func = $Acute_App.$buildControllerFunction(controllerType);
+			var func = $Acute_Controller.$buildControllerFunction(controllerType);
 			this.$_module.controller($Acute_$ReflectionExtensions.$asAngularServiceName(controllerType), func);
 		},
 		service: function(T) {
@@ -342,7 +389,7 @@
 		configureRoutes: function(routeProvider) {
 		}
 	});
-	ss.initClass($Acute_Controller, $asm, {});
+	ss.initClass($Acute_Controller, $asm, { control: null });
 	ss.initClass($Acute_RouteConfig, $asm, {
 		get_templateUrl: function() {
 			return this.$1$TemplateUrlField;
@@ -555,6 +602,7 @@
 	ss.setMetadata($Acute_Services_Cookies, { members: [{ name: '.ctor', type: 1, params: [$Acute_Angular_$CookieStore, $Acute_Angular_$Cookies] }] });
 	ss.setMetadata($Acute_Services_Http, { members: [{ name: '.ctor', type: 1, params: [$Acute_Angular_$Http] }] });
 	ss.setMetadata($Acute_Services_Location, { members: [{ name: '.ctor', type: 1, params: [$Acute_Angular_$Location] }] });
+	$Acute_Controller.$controlScriptName = 'control';
 	$System_Net_Http_HttpMethod.$getMethod = new $System_Net_Http_HttpMethod('GET');
 	$System_Net_Http_HttpMethod.$putMethod = new $System_Net_Http_HttpMethod('PUT');
 	$System_Net_Http_HttpMethod.$postMethod = new $System_Net_Http_HttpMethod('POST');

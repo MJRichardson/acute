@@ -31,12 +31,12 @@
             
             it("status should be returned", function () {
                 $httpBackend.flush();
-                expect(scope.get_status()).toEqual(200);
+                expect(scope.status).toEqual(200);
             });
             
             it("data should be returned", function () {
                 $httpBackend.flush();
-                expect(scope.get_data()).toEqual('Hello World!');
+                expect(scope.data).toEqual('Hello World!');
             });
 
 
@@ -51,7 +51,7 @@
 
             it("data should be returned strongly typed", function () {
                 $httpBackend.flush();
-                expect(scope.get_dataObjectId()).toEqual(123);
+                expect(scope.dataObjectId).toEqual(123);
             });
 
 
