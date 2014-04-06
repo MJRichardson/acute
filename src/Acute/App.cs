@@ -103,6 +103,27 @@ namespace Acute
 
         private static IList<object> BuildControllerFunction(Type type)
         {
+             const string scopeVar = "$scope";  
+
+            //get the constructor parameters
+             var parameters = GlobalApi.Injector().Annotate(type.GetConstructorFunction());
+            string body = String.Format("var controller = new {0}({1});\n", type.FullName, string.Join(",", parameters));
+            body += String.Format("controller.Control({0});\n", scopeVar);
+
+
+            var functionArrayNotation = type.CreateFunctionArray(); 
+            //and add $scope as a parameter
+            functionArrayNotation.Insert(functionArrayNotation.Count - 1, scopeVar );
+
+            //and add $scope as a parameter
+            parameters.Add(scopeVar);
+
+            var modifiedFunc = ReflectionExtensions.CreateNewFunction(parameters,body);
+            functionArrayNotation[parameters.Count] = modifiedFunc;
+
+            return functionArrayNotation;
+
+            /*
              string body = "";
              const string scopeVar = "$scope";  
 
@@ -130,6 +151,7 @@ namespace Acute
             functionArrayNotation[parameters.Count] = modifiedFunc;
 
             return functionArrayNotation;
+             */
         }
 
           //private void Config<T>()
