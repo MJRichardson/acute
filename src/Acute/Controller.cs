@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using Acute.Angular;
 
@@ -17,13 +18,16 @@ namespace Acute
         {
              const string scopeVar = "$scope";  
 
+            var functionArrayNotation = type.CreateFunctionArray();
+            var parameters = functionArrayNotation.TakeExceptLast().Cast<string>().Select(x => x.Replace(".", "_")).ToList();
+
             //get the constructor parameters
-             var parameters = GlobalApi.Injector().Annotate(type.GetConstructorFunction());
+             //var parameters = GlobalApi.Injector().Annotate(type.GetConstructorFunction());
+           
             string body = String.Format("var controller = new {0}({1});\n", type.FullName, string.Join(",", parameters));
             body += String.Format("controller.{0}({1});\n", Acute.Controller.ControlScriptName, scopeVar);
 
 
-            var functionArrayNotation = type.CreateFunctionArray(); 
             //and add $scope as a parameter
             functionArrayNotation.Insert(functionArrayNotation.Count - 1, scopeVar );
 

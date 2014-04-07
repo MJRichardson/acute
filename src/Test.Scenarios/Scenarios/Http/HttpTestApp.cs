@@ -5,7 +5,6 @@ namespace Test.Scenarios.Http
     {
         public HttpTestApp()
         {
-           Controller<HttpTestController>();
         }
     }
 }

@@ -80,6 +80,17 @@
 		this.service$1($Acute_Services_IHttp, $Acute_Services_Http).call(this);
 		this.service$1($Acute_Services_ILocation, $Acute_Services_Location).call(this);
 		this.service$1($Acute_Services_ICookies, $Acute_Services_Cookies).call(this);
+		var $t1 = ss.getAssemblies();
+		for (var $t2 = 0; $t2 < $t1.length; $t2++) {
+			var assembly = $t1[$t2];
+			var $t3 = ss.getAssemblyTypes(assembly);
+			for (var $t4 = 0; $t4 < $t3.length; $t4++) {
+				var type = $t3[$t4];
+				if (type.prototype instanceof $Acute_Controller) {
+					this.controller$1(type);
+				}
+			}
+		}
 		//register the config
 		//var configFunc = typeof (App).GetFunction(ConfigMethodScriptName);
 		//var parameters = GlobalApi.Injector().Annotate(configFunc);
@@ -102,11 +113,16 @@
 	$Acute_Controller.__typeName = 'Acute.Controller';
 	$Acute_Controller.$buildControllerFunction = function(type) {
 		var scopeVar = '$scope';
+		var functionArrayNotation = $Acute_$ReflectionExtensions.$createFunctionArray(type);
+		var parameters = Enumerable.from(functionArrayNotation).takeExceptLast().select(function(x) {
+			return ss.cast(x, String);
+		}).select(function(x) {
+			return ss.replaceAllString(x, '.', '_');
+		}).toArray();
 		//get the constructor parameters
-		var parameters = angular.injector().annotate($Acute_$ReflectionExtensions.$getConstructorFunction(type));
+		//var parameters = GlobalApi.Injector().Annotate(type.GetConstructorFunction());
 		var body = ss.formatString('var controller = new {0}({1});\n', ss.getTypeFullName(type), ss.arrayFromEnumerable(parameters).join(','));
 		body += ss.formatString('controller.{0}({1});\n', $Acute_Controller.$controlScriptName, scopeVar);
-		var functionArrayNotation = $Acute_$ReflectionExtensions.$createFunctionArray(type);
 		//and add $scope as a parameter
 		ss.insert(functionArrayNotation, ss.count(functionArrayNotation) - 1, scopeVar);
 		//and add $scope as a parameter

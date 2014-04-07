@@ -4,7 +4,6 @@
     {
         public App()
         {
-           Controller<Controller>(); 
         }
     }
 }

@@ -9,7 +9,9 @@
 	global.Test.Scenarios.RouteConfiguration.When = global.Test.Scenarios.RouteConfiguration.When || {};
 	global.Test.Scenarios.RouteConfiguration.When.WithGenericController = global.Test.Scenarios.RouteConfiguration.When.WithGenericController || {};
 	global.Test.Scenarios.RouteConfiguration.When.WithTemplateUrl = global.Test.Scenarios.RouteConfiguration.When.WithTemplateUrl || {};
-	ss.initAssembly($asm, 'Scenarios');
+	global.Test.Scenarios.Scenarios = global.Test.Scenarios.Scenarios || {};
+	global.Test.Scenarios.Scenarios.Location = global.Test.Scenarios.Scenarios.Location || {};
+	ss.initAssembly($asm, 'Test.Scenarios');
 	////////////////////////////////////////////////////////////////////////////////
 	// Test.Scenarios.TestApp
 	var $Test_Scenarios_TestApp = function() {
@@ -21,7 +23,6 @@
 	// Test.Scenarios.Controllers.App
 	var $Test_Scenarios_Controllers_App = function() {
 		Acute.App.call(this);
-		this.controller($Test_Scenarios_Controllers_Controller).call(this);
 	};
 	$Test_Scenarios_Controllers_App.__typeName = 'Test.Scenarios.Controllers.App';
 	global.Test.Scenarios.Controllers.App = $Test_Scenarios_Controllers_App;
@@ -53,7 +54,6 @@
 	// Test.Scenarios.Http.HttpTestApp
 	var $Test_Scenarios_Http_HttpTestApp = function() {
 		Acute.App.call(this);
-		this.controller($Test_Scenarios_Http_HttpTestController).call(this);
 	};
 	$Test_Scenarios_Http_HttpTestApp.__typeName = 'Test.Scenarios.Http.HttpTestApp';
 	global.Test.Scenarios.Http.HttpTestApp = $Test_Scenarios_Http_HttpTestApp;
@@ -87,6 +87,22 @@
 	};
 	$Test_Scenarios_RouteConfiguration_When_WithTemplateUrl_App.__typeName = 'Test.Scenarios.RouteConfiguration.When.WithTemplateUrl.App';
 	global.Test.Scenarios.RouteConfiguration.When.WithTemplateUrl.App = $Test_Scenarios_RouteConfiguration_When_WithTemplateUrl_App;
+	////////////////////////////////////////////////////////////////////////////////
+	// Test.Scenarios.Scenarios.Location.LocationTestApp
+	var $Test_Scenarios_Scenarios_Location_LocationTestApp = function() {
+		Acute.App.call(this);
+	};
+	$Test_Scenarios_Scenarios_Location_LocationTestApp.__typeName = 'Test.Scenarios.Scenarios.Location.LocationTestApp';
+	global.Test.Scenarios.Scenarios.Location.LocationTestApp = $Test_Scenarios_Scenarios_Location_LocationTestApp;
+	////////////////////////////////////////////////////////////////////////////////
+	// Test.Scenarios.Scenarios.Location.LocationTestController
+	var $Test_Scenarios_Scenarios_Location_LocationTestController = function(location) {
+		this.$_location = null;
+		Acute.Controller.call(this);
+		this.$_location = location;
+	};
+	$Test_Scenarios_Scenarios_Location_LocationTestController.__typeName = 'Test.Scenarios.Scenarios.Location.LocationTestController';
+	global.Test.Scenarios.Scenarios.Location.LocationTestController = $Test_Scenarios_Scenarios_Location_LocationTestController;
 	ss.initClass($Test_Scenarios_TestApp, $asm, {}, Acute.App);
 	ss.initClass($Test_Scenarios_Controllers_App, $asm, {}, Acute.App);
 	ss.initClass($Test_Scenarios_Controllers_Controller, $asm, {
@@ -140,6 +156,11 @@
 			routeProvider.when('/this/is/a/path', $t1);
 		}
 	}, Acute.App);
+	ss.initClass($Test_Scenarios_Scenarios_Location_LocationTestApp, $asm, {}, Acute.App);
+	ss.initClass($Test_Scenarios_Scenarios_Location_LocationTestController, $asm, {
+		control: function(scope) {
+		}
+	}, Acute.Controller);
 	ss.setMetadata($Test_Scenarios_TestApp, { members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Controllers_App, { members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Controllers_Controller, { members: [{ name: '.ctor', type: 1, params: [] }] });
@@ -149,5 +170,7 @@
 	ss.setMetadata($Test_Scenarios_RouteConfiguration_When_WithGenericController_App, { members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_RouteConfiguration_When_WithGenericController_DefaultController, { members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_RouteConfiguration_When_WithTemplateUrl_App, { members: [{ name: '.ctor', type: 1, params: [] }] });
+	ss.setMetadata($Test_Scenarios_Scenarios_Location_LocationTestApp, { members: [{ name: '.ctor', type: 1, params: [] }] });
+	ss.setMetadata($Test_Scenarios_Scenarios_Location_LocationTestController, { members: [{ name: '.ctor', type: 1, params: [Acute.Services.Location] }] });
 })();
 Acute.Bootstrap();

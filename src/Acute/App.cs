@@ -20,6 +20,15 @@ namespace Acute
             Service<ILocation, Acute.Services.Location>();
             Service<ICookies, Acute.Services.Cookies>();
 
+            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                foreach (var type in assembly.GetTypes())
+                {
+                   if (type.IsSubclassOf(typeof(Acute.Controller))) 
+                       Controller(type);
+                }
+            }
+
             //register the config
             //var configFunc = typeof (App).GetFunction(ConfigMethodScriptName);
             //var parameters = GlobalApi.Injector().Annotate(configFunc);

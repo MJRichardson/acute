@@ -71,8 +71,9 @@
     <Content Include="scenarios\angular-mocks.js" />
     <Content Include="scenarios\angular-route.js" />
     <Content Include="scenarios\angular.js" />
+    <Content Include="scenarios\linq.js" />
     <Content Include="scenarios\mscorlib.js" />
-    <Content Include="scenarios\scenarios.js" />
+    <Content Include="scenarios\Test.Scenarios.js" />
     <Content Include="SpecRunner.html" />
     <Content Include="spec\ControllerSpecs.js" />
     <Content Include="spec\CookiesSpec.js" />
@@ -81,12 +82,6 @@
     <Content Include="spec\PlayerSpec.js" />
     <Content Include="spec\RouteProviderSpecs.js" />
     <Content Include="spec\SpecHelper.js" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Test.Scenarios.Generator\Test.Scenarios.Generator.csproj">
-      <Project>{9586f22a-0361-48fc-b094-1c1e47e373ca}</Project>
-      <Name>Test.Scenarios.Generator</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -114,8 +109,8 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>$(ProjectDir)..\Test.Scenarios.Generator\bin\$(ConfigurationName)\scenarios.exe
-xcopy $(ProjectDir)..\Test.Scenarios.Generator\bin\$(ConfigurationName)\scenarios.js $(ProjectDir)scenarios /Y
+    <PostBuildEvent>
+xcopy $(ProjectDir)..\Test.Scenarios\bin\$(ConfigurationName)\Test.Scenarios.js $(ProjectDir)scenarios /Y
 xcopy $(ProjectDir)..\Acute\bin\$(ConfigurationName)\acute.js $(ProjectDir)scenarios /Y
 xcopy $(ProjectDir)..\..\submodules\saltarelle.compiler\Runtime\CoreLib.Script\bin\mscorlib.js $(ProjectDir)scenarios /Y</PostBuildEvent>
   </PropertyGroup>
