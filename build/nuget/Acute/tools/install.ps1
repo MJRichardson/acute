@@ -58,3 +58,21 @@ $assemblyInfoPath = Join-Path -Path ([System.IO.FileInfo]$project.FullName).Dire
 	-replace '\[assembly: ComVisible', '//[assembly: ComVisible' `
 	-replace '\[assembly: Guid', '//[assembly: Guid' `
 	| Out-File $assemblyInfoPath 
+
+
+# Copy some strings (unloading the project empties $project)
+$projectName = $dte.Solution.Properties.Item("Name").Value + "\" + $project.Name
+$projectUniqueName = $project.UniqueName
+
+$window = $dte.Windows.Item([EnvDTE.Constants]::vsWindowKindSolutionExplorer)
+
+Write-Host ("Unloading " + $projectUniqueName)
+$window.Activate()
+$window.Object.GetItem($projectName).Select([EnvDTE.vsUISelectionType]::vsUISelectionTypeSelect)
+$dte.ExecuteCommand("Project.UnloadProject", "")
+
+
+Write-Host ("Reloading " + $projectUniqueName)
+$window.Activate()
+$window.Object.GetItem($projectName).Select([EnvDTE.vsUISelectionType]::vsUISelectionTypeSelect)
+$dte.ExecuteCommand("Project.ReloadProject", "")
