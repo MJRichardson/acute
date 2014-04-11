@@ -114,6 +114,13 @@
 				return this.$_simpleString;
 			});
 			scope.SimpleString = simpleStringFunc;
+			var $t2 = scope.FromObjectInitializer;
+			var $t1 = [];
+			ss.add($t1, 'Eenie');
+			null;
+			ss.add($t1, 'Meenie');
+			null;
+			$t2 = $t1;
 		}
 	}, Acute.Controller);
 	ss.initClass($Test_Scenarios_Http_FooBar, $asm, {});

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
 
@@ -23,6 +24,8 @@ namespace Test.Scenarios.Controllers
         {
             var simpleStringFunc = new Func<string>(() => _simpleString);
             scope.SimpleString = simpleStringFunc;
+
+            scope.FromObjectInitializer = new List<string> {"Eenie", "Meenie"};
         }
     }
 }
