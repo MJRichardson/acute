@@ -34,6 +34,7 @@
 						  <li><a href="#create-acute-project">Create Acute Project</a></li>
 						  <li><a href="#add-acute-nuget-package">Add Acute Nuget Package</a></li>
 						  <li><a href="#create-client-application">Create Client Application</a></li>
+						  <li><a href="#create-controller">Create Controller</a></li>
 					  </ul>
 				  </div>
 			  </div>
@@ -129,7 +130,35 @@ namespace Acme.Client
 
 				  </div>
 
-				  <!-- todo: create-controller (inc create product class);  -->
+				  <div id="create-controller" class="walk-through-step">
+					  <h3>Create Controller</h3>
+					  <p>It's time for our static-HTML-content caterpillar to metamorphose into a template butterfly.</p>
+					  <p>First, we need to something for it to bind to. And for that, we need a controller.</p>
+					  <p>See <a href="concepts.html#controllers">Concepts - Controllers</a> for an understanding of the role controllers play in an Acute application.</p>
+					  <p>Create a class, <kbd>Product</kbd>  (because we're C# folks, and we like types). </p>
+					  <pre>
+namespace Acme.Client
+{
+	public class Product
+	{
+		public int Id { get; set; }
+		public string Name { get; set; }
+		public string Description { get; set; }
+		public decimal Price { get; set; }
+	}
+}
+					  </pre>
+					  <p>And a class for our controller, <kbd>ProductsController</kbd>.</p>
+					  <pre>
+namespace Acme.Client
+{
+    public class App : Acute.App
+    {
+    }
+}
+					  </pre>
+
+				  </div>
 
 			  </div>
 		  </div>
