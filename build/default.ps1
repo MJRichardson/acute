@@ -19,8 +19,6 @@ Task Build-Library -Depends Clean {
 	$projectTargetDir = "$baseDir\src\Acute\bin\$configuration"
 	Exec { msbuild "$baseDir\src\library.sln" /verbosity:minimal /p:"Configuration=$configuration" }
 	copy "$projectTargetDir\Acute.dll" "$outDir"  
-	copy "$projectTargetDir\mscorlib.dll" "$outDir"  
-	copy "$projectTargetDir\mscorlib.xml" "$outDir"  
 	copy "$projectTargetDir\Saltarelle.Linq.dll" "$outDir"  
 	copy "$projectTargetDir\Saltarelle.Linq.xml" "$outDir"  
 	Get-Content "$projectTargetDir\mscorlib.js","$projectTargetDir\linq.js","$baseDir\submodules\angular.js\build\angular.js", "$baseDir\submodules\angular.js\build\angular-route.js",  "$baseDir\submodules\angular.js\build\angular-cookies.js", "$projectTargetDir\Acute.js" | Set-Content "$outDir\acute.js" 
@@ -31,6 +29,8 @@ Task Build-Compiler -Depends Clean {
 	$msBuildProjectTargetFileName = "Acute.Build.dll"
 	Exec { msbuild "$baseDir\src\compiler.sln" /verbosity:minimal /p:"Configuration=$configuration" }
 	copy $msBuildProjectTargetDir*.* "$outDir"  
+	copy "$baseDir\submodules\saltarelle.compiler\Runtime\CoreLib\bin\mscorlib.dll" "$outDir"  
+	copy "$baseDir\submodules\saltarelle.compiler\Runtime\CoreLib\bin\mscorlib.xml" "$outDir"  
 	Exec { & "$baseDir\submodules\saltarelle.compiler\build\EmbedAssemblies.exe" /o "$outDir\$msBuildProjectTargetFileName" /a "$msBuildProjectTargetDir*.dll" /a "$msBuildProjectTargetDir*.exe"  $msBuildProjectTargetDir$msBuildProjectTargetFileName}
 }
 
