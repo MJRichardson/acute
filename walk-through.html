@@ -132,9 +132,56 @@ namespace Acme.Client
 
 				  <div id="create-controller" class="walk-through-step">
 					  <h3>Create Controller</h3>
+					  <p>It's time to put the <em>C</em> in <em>MVC</em>.</p>
+					  <p>See <a href="concepts.html#controllers">Concepts - Controllers</a> for an understanding of the role controllers play in an Acute application.</p>
+					  <p>Create a class, <kbd>ProductsController</kbd>.</p>
+					  <pre>
+using Acute;
+
+namespace Acme.Client
+{
+    public class ProductsController : Controller
+    {
+        public override void Control(dynamic scope)
+        {
+        }
+    }
+}
+					  </pre>
+
+					  <p>At this point our controller is bringing anything to the party. But we'll wire it up anyway.</p>
+					  <p>Modify index.html like so:</p>
+					  <pre>
+<html acute-app="Acme.Client.App">
+    
+    <head>
+        <title>Products - Acme Corporation</title>
+        
+        <script type="text/javascript" src="acute.js"></script>
+        <script type="text/javascript" src="Acme.Client.js"></script>
+    </head>
+
+    <body acute-controller="Acme.Client.ProductsController">
+        
+        <h1>Acme Corporation</h1>
+        
+        <h2>Products</h2>
+        
+        <div>
+            <h3>Giant Rubber-Band</h3> 
+            <p>Perfect for tripping Road Runners</p>
+        </div> 
+
+    </body>
+
+</html>
+					  </pre>
+
+					  <p>Note that we've added the <code>acute-controller</code> attribute to <code>body</code>.</p>
+					  <p>This is a <a href="concept.html#directives">directive</a>. We'll see more of them later. The important thing to know for now is that this attaches the controller to the view.</p>
+					  
 					  <p>It's time for our static-HTML-content caterpillar to metamorphose into a template butterfly.</p>
 					  <p>First, we need to something for it to bind to. And for that, we need a controller.</p>
-					  <p>See <a href="concepts.html#controllers">Concepts - Controllers</a> for an understanding of the role controllers play in an Acute application.</p>
 					  <p>Create a class, <kbd>Product</kbd>  (because we're C# folks, and we like types). </p>
 					  <pre>
 namespace Acme.Client
@@ -146,15 +193,6 @@ namespace Acme.Client
 		public string Description { get; set; }
 		public decimal Price { get; set; }
 	}
-}
-					  </pre>
-					  <p>And a class for our controller, <kbd>ProductsController</kbd>.</p>
-					  <pre>
-namespace Acme.Client
-{
-    public class App : Acute.App
-    {
-    }
 }
 					  </pre>
 

@@ -15,7 +15,7 @@
 
 	<link rel="stylesheet" href="stylesheets/acute-doc.css">
 
-    <title>Concepts - Acute</title>
+    <title>Library - Acute</title>
   </head>
 
   <body> 
@@ -28,37 +28,40 @@
 			  <div class="col-md-3">
 				  <div id="contents-menu">
 					  <ul  class="nav nav-pills nav-stacked">
-						  <li><a href="#controllers">Controllers</a></li>
-						  <li><a href="#templates">Templates</a></li>
-						  <li><a href="#directives">Directives</a></li>
+						  <li><a href="#services"><strong>Services</strong></a></li>
+						  <li><a href="#directives"><strong>Directives</strong></a></li>
 					  </ul>
 				  </div>
 			  </div>
 
 			  <div class="col-md-9">
 				  <div id="page-header" class="page-header">
-					  <h1>Concepts</h1>
+					  <h1>Library</h1>
 				  </div>
 
 
-				  <div id="controllers" class="concept">
-					  <h3>Controllers</h3>
+				  <div id="services" class="library-area">
+					  <h2>Services</h2>
 				  </div>
 
-				  <div id="templates" class="concept">
-					  <h3>Templates</h3>
+				  <div id="directives" class="library-area">
+					  <h2>Directives</h2>
+
+					  <div id="repeat-directive" class="library-item">
+						  <h3>Repeat</h3>
+						  <p class="lead">
+						  The <strong>Repeat</strong> directive instantiates a template once per item from a collection. Each template instance gets its own scope, where the given loop variable is set to the current collection item.
+						  </p>
+					  </div>
 				  </div>
 
-				  <div id="directives" class="concept">
-					  <h3>Directives</h3>
-				  </div>
 			 </div>
 		 </div>
 	 </div>
 
 	  <script type="text/javascript">
 		  $(function(){
-			loadNavbar('learn');
+			loadNavbar('library');
 			$('body').scrollspy({target: '#contents-menu' });
 			$('#contents-menu').affix();
 		  });
