@@ -49,9 +49,17 @@
 
 					  <div id="repeat-directive" class="library-item">
 						  <h3>Repeat</h3>
-						  <p class="lead">
-						  The <strong>Repeat</strong> directive instantiates a template once per item from a collection. Each template instance gets its own scope, where the given loop variable is set to the current collection item.
-						  </p>
+						  <p class="lead">The <strong>Repeat</strong> directive instantiates a template once per item from a collection. Each template instance gets its own scope, where the given loop variable is set to the current collection item. </p>
+
+						  <h4>Usage</h4>
+						  <pre>
+&lt;ANY acute-repeat="expression"&gt;
+&lt;/ANY&gt;
+						  </pre>
+
+						  <h5>Expression</h5>
+						  <p><code>variable in collection</code> - where variable is the user defined loop variable and expression is a scope expression giving the collection to enumerate.</p>
+						  <p>For example, <code>artist in Album.Artists</code> . </p>
 					  </div>
 				  </div>
 
