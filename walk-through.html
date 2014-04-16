@@ -36,6 +36,8 @@
 						  <li><a href="#create-client-application">Create Client Application</a></li>
 						  <li><a href="#create-controller">Create Controller</a></li>
 						  <li><a href="#create-template">Create Template</a></li>
+						  <li><a href="#navigation">Navigation</a></li>
+						  <li><a href="#event-handling">Event Handling</a></li>
 					  </ul>
 				  </div>
 			  </div>
@@ -247,6 +249,78 @@ namespace Acme.Client
 					  <p>We've replaced the static-content with a <a href="concepts.html#templates">template</a>, and use the <a href="">repeat directive</a> to bind the template to the products list created by our controller.</p>
 					  <p ><span class="label label-info">Information:</span> <code>{{product.Price | current}}</code> is an example of a <a href="concepts.html#filters">filter</a>.</p>
 
+				  </div>
+
+				  <div id="navigation" class="walk-through-step">
+					  <h3>Navigation</h3>
+					  <p>Next, let us explore the uncharted territories of our application, by harnessing navigation.</p>
+					  <p>Every good e-commerce site needs a shopping-cart.</p>
+					  <p>Add a new file to the Acme.Web project: <code>cart.html</code>:</p>
+					  <pre>
+&lt;h2&gt;Shopping Cart&lt;/h2&gt;
+
+&lt;p&gt;You have nothing in your cart...&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="#/products"&gt;Continue shopping&lt;/a&gt;&lt;/p&gt;
+					  </pre>
+					  <p>And add another file: <code>products.html</code>:</p>
+					  <pre>
+&lt;h2&gt;Products&lt;/h2&gt;  
+
+&lt;div acute-repeat="product in Products"&gt;
+    &lt;h3&gt;{{product.Name}} - {{product.Price | currency}}&lt;/h3&gt; 
+    &lt;p&gt;{{product.Description}}&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;a href="#/cart"&gt;Shopping-Cart&lt;/a&gt;&lt;/p&gt;
+					  </pre>
+					  <p>Modify <code>index.html</code>:</p>
+					  <pre>
+&lt;html acute-app="Acme.Client.App"&gt;
+    
+    &lt;head&gt;
+        &lt;title&gt;Products - Acme Corporation&lt;/title&gt;
+        
+        &lt;script type="text/javascript" src="acute.js"&gt;&lt;/script&gt;
+        &lt;script type="text/javascript" src="Acme.Client.js"&gt;&lt;/script&gt;
+    &lt;/head&gt;
+
+    &lt;body acute-controller="Acme.Client.ProductsController"&gt;
+        
+        &lt;h1&gt;Acme Corporation&lt;/h1&gt;
+        
+        &lt;div acute-view&gt;&lt;/div&gt;
+
+    &lt;/body&gt;
+
+&lt;/html&gt;
+
+					  </pre>
+					  <p>Note the <code>acute-view</code> directive we have added. This allows the content for that element to be loaded dynamically.</p>
+					  <p>The final step is to configure our <a href="concepts.html#routing">routes</a>. Modify <code>app.cs</code>:</p>
+					  <pre>
+using Acute;
+
+namespace Acme.Client
+{
+    public class App : Acute.App
+    {
+        protected override void ConfigureRoutes(RouteProvider routeProvider)
+        {
+            routeProvider.When("/cart", new RouteConfig {TemplateUrl = "cart.html"});
+            routeProvider.Otherwise(new RouteConfig&lt;ProductsController&gt; {TemplateUrl = "products.html"});
+        }
+    }
+}
+					  </pre>
+					  <!-- todo: link to routeprovider docs -->
+					  <p>We have implemented the <code>ConfigureRoutes</code> method, where we use the <code>RouteProvider</code> to configure the routes.</p>
+				  </div>
+
+				  <div id="event-handling" class="walk-through-step">
+					  <h3>Event Handling</h3>
+					  <p>Our store won't be very successful if customers can't buy our products. Let's change that.</p>
+					  <p>We will add a buy button t</p>
 				  </div>
 
 			  </div>
