@@ -37,7 +37,7 @@
 						  <li><a href="#create-controller">Create Controller</a></li>
 						  <li><a href="#create-template">Create Template</a></li>
 						  <li><a href="#navigation">Navigation</a></li>
-						  <li><a href="#event-handling">Event Handling</a></li>
+						  <li><a href="#add-service">Add a Service</a></li>
 					  </ul>
 				  </div>
 			  </div>
@@ -137,20 +137,24 @@ namespace Acme.Client
 					  <h3>Create Controller</h3>
 					  <p>It's time to put the <em>C</em> in <em>MVC</em>.</p>
 					  <p>See <a href="concepts.html#controllers">Concepts - Controllers</a> for an understanding of the role controllers play in an Acute application.</p>
-					  <p>But before that, let's create a class <kbd>Product</kbd> (because we're C# folks, and we like types). </p>
+					  <p>But before that, let's create a class <code>Product</code> (because we're C# folks, and we like types). </p>
 					  <pre>
 namespace Acme.Client
 {
-	public class Product
-	{
-		public int Id { get; set; }
-		public string Name { get; set; }
-		public string Description { get; set; }
-		public decimal Price { get; set; }
-	}
+    [Serializable]
+    public class Product
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public decimal Price { get; set; }
+        public Product Blah { get; set; }
+
+    }
 }
 					  </pre>
-					  <p>Now create a <kbd>ProductsController</kbd> class.</p>
+					  <p><span class="label label-info">Information:</span> The reason for the <code>Serializable</code> attribute will be explained later.</p>
+					  <p>Now create a <code>ProductsController</code> class.</p>
 					  <pre>
 using Acute;
 
@@ -317,8 +321,8 @@ namespace Acme.Client
 					  <p>We have implemented the <code>ConfigureRoutes</code> method, where we use the <code>RouteProvider</code> to configure the routes.</p>
 				  </div>
 
-				  <div id="event-handling" class="walk-through-step">
-					  <h3>Event Handling</h3>
+				  <div id="add-service" class="walk-through-step">
+					  <h3>Add a Service</h3>
 					  <p>Our store won't be very successful if customers can't buy our products. Let's change that.</p>
 					  <p>We will add a buy button t</p>
 				  </div>
