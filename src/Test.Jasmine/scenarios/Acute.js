@@ -425,7 +425,7 @@
 				angularRouteConfig.templateUrl = this.get_templateUrl();
 			}
 			if (ss.isValue(this.get_controller())) {
-				angularRouteConfig.controller = this.get_controller();
+				angularRouteConfig.controller = $Acute_$ReflectionExtensions.$asAngularServiceName(this.get_controller());
 			}
 			return angularRouteConfig;
 		}

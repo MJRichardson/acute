@@ -16,7 +16,7 @@ namespace Acute
                 angularRouteConfig.TemplateUrl = TemplateUrl;
 
             if (Controller != null)
-                angularRouteConfig.Controller = Controller.ToFunction() ;
+                angularRouteConfig.Controller = Controller.AsAngularServiceName() ;
 
             return angularRouteConfig;
         }

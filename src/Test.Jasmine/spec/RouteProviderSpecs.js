@@ -39,13 +39,13 @@
         });
 
         it("configures the angular routeProvider with the controller", function () {
-            expect(angularRouteProvider.when).toHaveBeenCalledWith(pathConfiguredWithRouteConfigWithNoInitializers, { controller: Test.Scenarios.RouteConfiguration.When.WithGenericController.DefaultController });
+            expect(angularRouteProvider.when).toHaveBeenCalledWith(pathConfiguredWithRouteConfigWithNoInitializers, { controller: "Test.Scenarios.RouteConfiguration.When.WithGenericController.DefaultController" });
         });
         
         it("configures the angular routeProvider with the controller and the template-url", function () {
             expect(angularRouteProvider.when).toHaveBeenCalledWith(pathConfiguredWithRouteConfigWithInitializer,
                 {
-                    controller: Test.Scenarios.RouteConfiguration.When.WithGenericController.DefaultController,
+                    controller: "Test.Scenarios.RouteConfiguration.When.WithGenericController.DefaultController",
                     templateUrl: templateUrl
                 });
         });
