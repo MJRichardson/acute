@@ -8,3 +8,15 @@ function loadNavbar(activeItem){
 		  $("ul.nav > li#" + activeItem).toggleClass('active', true);
 	  });
 }
+
+function scrollSpy(menuSelector, offset){
+			$('body').scrollspy({target: menuSelector, offset: offset });
+
+			$(menuSelector + ' li a').click(function(event){
+				event.preventDefault();
+				$($(this).attr('href'))[0].scrollIntoView();
+				scrollBy(0, -offset);
+			});
+
+			$(menuSelector).affix();
+}

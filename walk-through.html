@@ -661,10 +661,11 @@ namespace Acme.Client
 			  </div>
 		  </div>
 	  <script type="text/javascript">
+		  var scrollOffset = 80;
+
 		  $(function(){
 			loadNavbar('learn');
-			$('body').scrollspy({target: '#contents-menu' });
-			$('#contents-menu').affix();
+			scrollSpy('#contents-menu', 80);
 		  });
 	  </script>
   </body>
