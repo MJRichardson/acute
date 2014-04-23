@@ -34,22 +34,7 @@ Task Build-Compiler -Depends Clean {
 	Exec { & "$baseDir\submodules\saltarelle.compiler\build\EmbedAssemblies.exe" /o "$outDir\$msBuildProjectTargetFileName" /a "$msBuildProjectTargetDir*.dll" /a "$msBuildProjectTargetDir*.exe"  $msBuildProjectTargetDir$msBuildProjectTargetFileName}
 }
 
-Task Nuget-Pack -Depends Nuget-Pack-Library, Nuget-Pack-Project {
-} 
-
-Task Nuget-Pack-Library -Depend Build-Library {
-	$libDir = "$baseDir\build\nuget\Acute.Library\lib"
-
-	if (Test-Path $libDir) {
-		rm -Recurse -Force "$libDir" >$null
-	}
-	md $libDir >$null
-
-	copy "$outDir\Acute.dll" $libDir 
-	Exec{ & "$baseDir\build\nuget\nuget.exe" pack "$baseDir\build\nuget\Acute.Library\Acute.Library.nuspec"  }
-}
-
-Task Nuget-Pack-Project -Depend Build-Compiler, Build-Library {
+Task Nuget-Pack -Depends Build-Library, Build-Compiler {
 	$contentDir = "$baseDir\build\nuget\Acute\content"
 	$libDir = "$baseDir\build\nuget\Acute\lib"
 
@@ -78,6 +63,8 @@ Task Nuget-Pack-Project -Depend Build-Compiler, Build-Library {
 	copy "$outDir\Saltarelle.Compiler.JSModel.dll" "$baseDir\build\nuget\Acute\tools" 
 	copy "$outDir\acute.js" "$baseDir\build\nuget\Acute\content\" 
 	copy "$outDir\mscorlib.*" "$baseDir\build\nuget\Acute\tools" 
-	copy "$outDir\Saltarelle.Linq.*" "$baseDir\build\nuget\Acute\lib" 
+	copy "$outDir\Acute.dll" $libDir 
+	copy "$outDir\Saltarelle.Linq.*" $libDir 
 	Exec{ & "$baseDir\build\nuget\nuget.exe" pack "$baseDir\build\nuget\Acute\Acute.nuspec" -NoPackageAnalysis}
-}
+} 
+
