@@ -38,6 +38,7 @@
 						  <li><a href="#create-template">Create Template</a></li>
 						  <li><a href="#navigation">Navigation</a></li>
 						  <li><a href="#add-service">Add a Service</a></li>
+						  <li><a href="#http">Get data via HTTP</a></li>
 					  </ul>
 				  </div>
 			  </div>
@@ -324,7 +325,337 @@ namespace Acme.Client
 				  <div id="add-service" class="walk-through-step">
 					  <h3>Add a Service</h3>
 					  <p>Our store won't be very successful if customers can't buy our products. Let's change that.</p>
-					  <p>We will add a buy button t</p>
+					  <p>Add a new class to the <code>Acme.Client</code> project named <code>CartService.cs</code>:</p>
+
+					  <pre>
+using System.Collections.Generic;
+
+namespace Acme.Client
+{
+    public class CartService
+    {
+        private readonly Dictionary&lt;string, int&gt; _productQuantities = new Dictionary&lt;string, int&gt;(); 
+
+        public void AddToCart(string productName)
+        {
+            //if the dictionary does not contain the product
+            if (!_productQuantities.ContainsKey(productName))
+            {
+                //then add with a quantity of 1
+                _productQuantities.Add(productName, 1);
+                return;
+            }
+
+            //otherwise increment the quantity
+            _productQuantities[productName] = _productQuantities[productName] + 1;
+
+        }
+
+        public IDictionary&lt;string, int&gt; ProductsInCart { get { return _productQuantities; }} 
+    }
+}
+					  </pre>
+
+					  <p>This service will represent our 'shopping-cart'.</p>
+
+					  <p>We will add a 'buy' button to our products.</p>
+
+					  <pre>
+&lt;h2&gt;Products&lt;/h2&gt;  
+
+&lt;div acute-repeat="product in Products"&gt;
+    &lt;h3&gt;{{product.Name}} - {{product.Price | currency}}&lt;/h3&gt; 
+    &lt;p&gt;{{product.Description}}&lt;/p&gt;
+    &lt;p&gt;&lt;input type="button" value="Buy" acute-click="AddToCart(product.Name)"/&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;a href="#/cart"&gt;Shopping-Cart&lt;/a&gt;&lt;/p&gt;
+					  </pre>
+
+					  <p>Note the <a href="directives.html#click">acute-click</a> directive on the button. When the button is clicked, this will cause the <code>AddToCart()</code> function to be called on the 
+					  scope. So let's take a look at the modified <code>ProductsController.cs</code>.</p>
+
+					  <pre>
+using System;
+
+namespace Acme.Client
+{
+    public class ProductsController : Acute.Controller
+    {
+        private readonly CartService _cartService;
+
+        public ProductsController(CartService cartService)
+        {
+            _cartService = cartService;
+        }
+
+        public override void Control(dynamic scope)
+        {
+            scope.Products = new Product[]
+            {
+                new Product
+                {
+                    Id = 1,
+                    Name = "Giant Rubber-Band",
+                    Description = "Perfect for tripping Road Runners",
+                    Price = 0.99m
+                },
+                new Product
+                {
+                    Id = 2,
+                    Name = "Earthquake Pills",
+                    Description = "Why wait? Make your own earthquakes - loads of fun!",
+                    Price = 10.00m
+                }
+            };
+
+            scope.AddToCart = (Action&lt;string&gt;)(productName =&gt; _cartService.AddToCart(productName));
+
+        }
+    }
+}
+					  </pre>
+
+					  <p>The changes are:</p>
+					  <ul>
+						  <li>The constructor now accepts a <code>CartService</code>.</li>
+						  <li>The last line of the <code>Control()</code> method assigns an action the the scope named <code>AddToCart</code>.</li>
+					  </ul>
+
+					  <p>Since there is little value in adding items to our cart if we can't view them, we will make <code>cart.html</code> dynamic. Create a new controller, <code>CartController.cs</code>.</p>
+
+					  <pre>
+using System.Linq;
+
+namespace Acme.Client
+{
+    public class CartController : Acute.Controller
+    {
+        private readonly CartService _cartService;
+
+        public CartController(CartService cartService)
+        {
+            _cartService = cartService;
+        }
+
+        public override void Control(dynamic scope)
+        {
+            scope.CartIsEmpty = !_cartService.ProductsInCart.Any(); 
+
+            scope.ProductQuantities = _cartService.ProductsInCart
+                .Select(x =&gt; new {Name = x.Key, Quantity = x.Value})
+                .ToList();
+
+        }
+
+    }
+}
+					  </pre>
+
+					  <p>The <code>CartController</code> also accepts a <code>CartService</code> in it's constructor, and it uses it to provide <code>CartIsEmpty</code> and <code>ProductQuantities</code> members to the scope.</p>
+					  <p><span class="label label-info">Interesting:</span> The use of an anonymous-type in for the <code>ProductQuantities</code>. When it is only the HTML-template (which gives you no compile-time type-verification anyway), anonymous types can be a very handy way to reduce 'class-pollution'. </p>
+
+					  <p><code>cart.html</code> will be modified as so:</p>
+
+					  <pre>
+
+&lt;h2&gt;Shopping Cart&lt;/h2&gt;
+
+&lt;div acute-repeat="productQuantity in ProductQuantities"&gt;
+    &lt;p&gt;{{productQuantity.Quantity}} x {{productQuantity.Name}}&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div acute-show="CartIsEmpty"&gt;
+    &lt;p&gt;You have nothing in your cart...&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;a href="#/products"&gt;Continue shopping&lt;/a&gt;
+					  </pre>
+
+					  <p>This now uses the <code>acute-repeat</code> directive to bind to the ProductQuantities collection (using the <code>Quantity</code> and <code>Name</code> properties of the anonymous-type used in the controller.</p>
+					  <p>It also introduces the <a href="directives.html#show">acute-show</a> directive.</p>
+
+					  <p>The final step is to modify <code>App.cs</code> to register the <code>CartService</code> and associate the <code>CartController</code> with the appropriate route:</p>
+
+					  <pre>
+using Acute;
+
+namespace Acme.Client
+{
+    public class App : Acute.App
+    {
+        public App()
+        {
+           Service&lt;CartService&gt;(); 
+        }
+
+        protected override void ConfigureRoutes(RouteProvider routeProvider)
+        {
+            routeProvider.When("/cart", new RouteConfig&lt;CartController&gt; {TemplateUrl = "cart.html"});
+            routeProvider.Otherwise(new RouteConfig&lt;ProductsController&gt; {TemplateUrl = "products.html"});
+        }
+    }
+}
+					  </pre>
+
+				  </div>
+
+				  <div id="http" class="walk-through-step">
+					  <h3>Get data via HTTP</h3>
+
+					  <p>While useful for demos, generally we don't just create our data on the client. We would usually make a request to the server. This is where the <code>IHttpService</code> comes into play.</p>
+
+					  <p>We will create a web-service which our client will consume. We will use Microsoft's <a href="http://www.asp.net/web-api">Web API</a>.</p>
+
+					  <p>Create a new class in the <code>Acme.Web</code> project (under the Controllers folder) named <code>ProductsController</code> (yes, we have a ProductsController on both the client and the server. I think that's OK.)</p>
+
+					  <pre>
+using System.Collections.Generic;
+using System.Web.Http;
+using Acme.Web.Models;
+
+namespace Acme.Web.Controllers
+{
+    public class ProductsController : ApiController
+    {
+
+        [HttpGet]
+        public IEnumerable&lt;Product&gt; GetAllProducts()
+        {
+            return new[]
+            {
+                new Product
+                {
+                    Id = 1,
+                    Name = "Giant Rubber-Band",
+                    Description = "Perfect for tripping Road Runners",
+                    Price = 0.99m
+                },
+                new Product
+                {
+                    Id = 2,
+                    Name = "Earthquake Pills",
+                    Description = "Why wait? Make your own earthquakes - loads of fun!",
+                    Price = 10.00m
+                }
+            };
+        }
+    }
+}
+					  </pre>
+
+					  <p>The only other thing we have to modify in the web project, is to modify <code>WebApiConfig.cs</code>: </p>
+
+					  <pre>
+
+using System.Net.Http.Headers;
+using System.Web.Http;
+
+namespace Acme.Web
+{
+    public static class WebApiConfig
+    {
+        public static void Register(HttpConfiguration config)
+        {
+            //return json by default
+            config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html") );
+
+            config.Routes.MapHttpRoute(
+                name: "DefaultApi",
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+            );
+        }
+    }
+}
+</pre>
+
+					  <p>We added the line commented with 'return json by default'. And it does just that. Without it, XML serialization would be used unless specified by the request.</p>
+
+					  <p>Now we have a web-service. To consume it, we create a class <code>ProductService</code> in the <code>Acme.Client</code> project.</p>
+
+					  <pre>
+
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Acute.Services;
+
+namespace Acme.Client
+{
+    public class ProductService
+    {
+        private readonly IHttp _http;
+
+        public ProductService(IHttp http)
+        {
+            _http = http;
+        }
+
+        public Task&lt;IEnumerable&lt;Product&gt;&gt; GetAllProducts()
+        {
+            return _http.GetAsync("/api/products")
+                .ContinueWith(result =&gt; result.Result.DataAs&lt;IEnumerable&lt;Product&gt;&gt;());
+        }
+    }
+}
+					  </pre>
+
+					  <p>The <code>ProductService</code> accepts an <a href="services.html#http">IHttp</a> as a constructor parameter.</p> 
+
+					  <p><span class="label label-info">Interesting:</span> The invocation of the <code>IHttp.GetAsync()</code> method in <code>GetAllProducts()</code> is an example of making an asynchronous call.  <code>GetAsync()</code> returns a <a href="http://msdn.microsoft.com/en-us/library/vstudio/system.threading.tasks.task">Task</a>.</p>
+
+					  <p>The final step is to make the <code>ProductsController</code> (the client-side one) consume the <code>ProductService</code>.</p>
+
+<pre>
+using System;
+
+namespace Acme.Client
+{
+    public class ProductsController : Acute.Controller
+    {
+        private readonly CartService _cartService;
+        private readonly ProductService _productService;
+
+        public ProductsController(CartService cartService, ProductService productService)
+        {
+            _cartService = cartService;
+            _productService = productService;
+        }
+
+        public override void Control(dynamic scope)
+        {
+            _productService.GetAllProducts()
+                .ContinueWith(task =&gt; scope.Products = task.Result);
+
+            scope.AddToCart = (Action&lt;string&gt;)(productName =&gt; _cartService.AddToCart(productName));
+
+        }
+    }
+}
+</pre>
+
+					  <p>And to register the <code>ProductService</code> in <code>App</code>.</p>
+<pre>
+using Acute;
+
+namespace Acme.Client
+{
+    public class App : Acute.App
+    {
+        public App()
+        {
+           Service&lt;CartService&gt;(); 
+           Service&lt;ProductService&gt;(); 
+        }
+
+        protected override void ConfigureRoutes(RouteProvider routeProvider)
+        {
+            routeProvider.When("/cart", new RouteConfig&lt;CartController&gt; {TemplateUrl = "cart.html"});
+            routeProvider.Otherwise(new RouteConfig&lt;ProductsController&gt; {TemplateUrl = "products.html"});
+        }
+    }
+}
+</pre>
 				  </div>
 
 			  </div>
