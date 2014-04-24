@@ -15,6 +15,10 @@
 
 	<link rel="stylesheet" href="stylesheets/acute-doc.css">
 
+	<!-- google pretty-print -->
+	<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+	<link rel="stylesheet" href="http://google-code-prettify.googlecode.com/svn/trunk/src/prettify.css">
+
     <title>Concepts - Acute</title>
   </head>
 
@@ -31,7 +35,9 @@
 						  <li><a href="#controllers">Controllers</a></li>
 						  <li><a href="#templates">Templates</a></li>
 						  <li><a href="#directives">Directives</a></li>
+						  <li><a href="#expressions">Expressions</a></li>
 						  <li><a href="#filters">Filters</a></li>
+						  <li><a href="#forms">Forms</a></li>
 						  <li><a href="#filters">Routing</a></li>
 					  </ul>
 				  </div>
@@ -57,14 +63,71 @@
 
 				  <div id="templates" class="concept">
 					  <h3>Templates</h3>
+					  <p>In Acute, templates are HTML.</p>
+
+					  <p>Acute combines the template with the model to render the view to the browser.</p>
+
+					  <p>When writing a template, you interact with the model using:</p>
+					  <ul>
+						  <li><a href="#directives">Directives</a></li>
+						  <li><a href="#expressions">Expressions</a></li>
+						  <li><a href="#filters">Filters</a></li>
+						  <li><a href="#forms">Forms</a></li>
+					  </ul>
+					<p>The following snippet shows a template using directives and expressions:</p>
+
+<pre class="prettyprint">
+&lt;html acute-app="Smurfs.App"&gt;
+    
+    &lt;!-- Body tag augmented with controller directive  --&gt;
+    &lt;body acute-controller="Smurfs.SmurfController"&gt;
+        
+        &lt;!--repeat directive--&gt;
+        &lt;div acute-repeat="smurf in Smurfs"&gt;
+            &lt;!-- expression using '{{}}' markup --&gt;
+            &lt;p&gt;{{smurf.Name}}&lt;/p&gt; 
+        &lt;/div&gt;
+
+        &lt;script src="acute.js"&gt;&lt;/script&gt;
+        &lt;script src="Smurfs.js"&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</pre>
 				  </div>
 
 				  <div id="directives" class="concept">
 					  <h3>Directives</h3>
+
+					  <p>Directives are attributes on a DOM element that tell Acute's HTML compiler to attach a specified behaviour, or even transform the element and its children.</p>
+
+					  <p>See the <a href="library-directives.html">Directives library</a> documentation for a list of the available directives.</p>
+				  </div>
+
+				  <div id="expressions" class="concept">
+					  <h3>Expressions</h3>
+
+					  <p>Expressions are code snippets used in templates to expose values from the model. They are placed inside braces, i.e. <code>{{ expression }}</code>.  </p>
+
 				  </div>
 
 				  <div id="filters" class="concept">
 					  <h3>Filters</h3>
+
+					  <p>Filters are used in templates to format the value of an expression for display to the user.</p>
+
+					  <p>For example, the markup <code>{{86 | currency}}</code> formats the number 86 as a currency. The resulting value displayed is <code>$86.00</code>.</p>
+
+					  <p>Filters can be applied to the result of another filter. This is called "chaining" and uses the following syntax:</p>
+					  <pre>{{ expression | filter1 | filter2 | ... }}</pre>
+
+					  <p>Filters may have arguments. The syntax for this is</p>
+					  <pre>{{ expression | filter:argument1:argument2:... }}</pre>
+
+					  <p>See the <a href="library-filters.html">Filters library</a> documention for a list of available filters.</p>
+				  </div>
+
+				  <div id="forms" class="concept">
+					  <h3>Forms</h3>
 				  </div>
 
 				  <div id="filters" class="concept">
@@ -77,8 +140,7 @@
 	  <script type="text/javascript">
 		  $(function(){
 			loadNavbar('learn');
-			$('body').scrollspy({target: '#contents-menu' });
-			$('#contents-menu').affix();
+			scrollSpy('#contents-menu', 80);
 		  });
 	  </script>
  </body>

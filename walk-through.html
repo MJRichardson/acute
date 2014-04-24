@@ -13,6 +13,10 @@
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 	<script src="acute-doc.js"></script>
 
+	<!-- google pretty-print -->
+	<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+	<link rel="stylesheet" href="http://google-code-prettify.googlecode.com/svn/trunk/src/prettify.css">
+
 	<link rel="stylesheet" href="stylesheets/acute-doc.css">
 
     <title>WalkThrough - Acute</title>
@@ -73,7 +77,7 @@
 				  <div id="add-static-html" class="walk-through-step">
 					  <h3>Add Static HTML</h3>
 					  <p>To start, let's add a plain old static HTML page, called <kbd>index.html</kbd> to the Acme.Web project.</p>
-					  <pre>
+					  <pre class="prettyprint">
 &lt;html&gt;
     
     &lt;head&gt;
@@ -122,7 +126,7 @@
 					  <h3>Create Client Application</h3>
 					  <p>Now we will create the class that represents our application.</p>
 					  <p>Add a new class named <kbd>App</kbd> to the project.</p>
-					  <pre>
+					  <pre class="prettyprint">
 namespace Acme.Client
 {
     public class App : Acute.App
@@ -139,7 +143,7 @@ namespace Acme.Client
 					  <p>It's time to put the <em>C</em> in <em>MVC</em>.</p>
 					  <p>See <a href="concepts.html#controllers">Concepts - Controllers</a> for an understanding of the role controllers play in an Acute application.</p>
 					  <p>But before that, let's create a class <code>Product</code> (because we're C# folks, and we like types). </p>
-					  <pre>
+					  <pre class="prettyprint">
 namespace Acme.Client
 {
     [Serializable]
@@ -156,7 +160,7 @@ namespace Acme.Client
 					  </pre>
 					  <p><span class="label label-info">Information:</span> The reason for the <code>Serializable</code> attribute will be explained later.</p>
 					  <p>Now create a <code>ProductsController</code> class.</p>
-					  <pre>
+					  <pre class="prettyprint">
 using Acute;
 
 namespace Acme.Client
@@ -191,7 +195,7 @@ namespace Acme.Client
 					  </pre>
 
 					  <p>Modify index.html like so:</p>
-					  <pre>
+					  <pre class="prettyprint">
 &lt;html acute-app="Acme.Client.App"&gt;
     
     &lt;head&gt;
@@ -226,7 +230,7 @@ namespace Acme.Client
 					  <p>It's time for our static-HTML-content caterpillar to metamorphose into a template butterfly.</p>
 					  <p>So let's put the <em>V</em> in <em>MVC</em>.</p>
 					  <p>Modify index.html like so:</p>
-					  <pre>
+					  <pre class="prettyprint">
 &lt;html acute-app="Acme.Client.App"&gt;
     
     &lt;head&gt;
@@ -261,7 +265,7 @@ namespace Acme.Client
 					  <p>Next, let us explore the uncharted territories of our application, by harnessing navigation.</p>
 					  <p>Every good e-commerce site needs a shopping-cart.</p>
 					  <p>Add a new file to the Acme.Web project: <code>cart.html</code>:</p>
-					  <pre>
+					  <pre class="prettyprint">
 &lt;h2&gt;Shopping Cart&lt;/h2&gt;
 
 &lt;p&gt;You have nothing in your cart...&lt;/p&gt;
@@ -269,7 +273,7 @@ namespace Acme.Client
 &lt;p&gt;&lt;a href="#/products"&gt;Continue shopping&lt;/a&gt;&lt;/p&gt;
 					  </pre>
 					  <p>And add another file: <code>products.html</code>:</p>
-					  <pre>
+					  <pre class="prettyprint">
 &lt;h2&gt;Products&lt;/h2&gt;  
 
 &lt;div acute-repeat="product in Products"&gt;
@@ -280,7 +284,7 @@ namespace Acme.Client
 &lt;p&gt;&lt;a href="#/cart"&gt;Shopping-Cart&lt;/a&gt;&lt;/p&gt;
 					  </pre>
 					  <p>Modify <code>index.html</code>:</p>
-					  <pre>
+					  <pre class="prettyprint">
 &lt;html acute-app="Acme.Client.App"&gt;
     
     &lt;head&gt;
@@ -303,7 +307,7 @@ namespace Acme.Client
 					  </pre>
 					  <p>Note the <code>acute-view</code> directive we have added. This allows the content for that element to be loaded dynamically.</p>
 					  <p>The final step is to configure our <a href="concepts.html#routing">routes</a>. Modify <code>app.cs</code>:</p>
-					  <pre>
+					  <pre class="prettyprint">
 using Acute;
 
 namespace Acme.Client
@@ -327,7 +331,7 @@ namespace Acme.Client
 					  <p>Our store won't be very successful if customers can't buy our products. Let's change that.</p>
 					  <p>Add a new class to the <code>Acme.Client</code> project named <code>CartService.cs</code>:</p>
 
-					  <pre>
+					  <pre class="prettyprint">
 using System.Collections.Generic;
 
 namespace Acme.Client
@@ -360,7 +364,7 @@ namespace Acme.Client
 
 					  <p>We will add a 'buy' button to our products.</p>
 
-					  <pre>
+					  <pre class="prettyprint">
 &lt;h2&gt;Products&lt;/h2&gt;  
 
 &lt;div acute-repeat="product in Products"&gt;
@@ -375,7 +379,7 @@ namespace Acme.Client
 					  <p>Note the <a href="directives.html#click">acute-click</a> directive on the button. When the button is clicked, this will cause the <code>AddToCart()</code> function to be called on the 
 					  scope. So let's take a look at the modified <code>ProductsController.cs</code>.</p>
 
-					  <pre>
+					  <pre class="prettyprint">
 using System;
 
 namespace Acme.Client
@@ -424,7 +428,7 @@ namespace Acme.Client
 
 					  <p>Since there is little value in adding items to our cart if we can't view them, we will make <code>cart.html</code> dynamic. Create a new controller, <code>CartController.cs</code>.</p>
 
-					  <pre>
+					  <pre class="prettyprint">
 using System.Linq;
 
 namespace Acme.Client
@@ -457,7 +461,7 @@ namespace Acme.Client
 
 					  <p><code>cart.html</code> will be modified as so:</p>
 
-					  <pre>
+					  <pre class="prettyprint">
 
 &lt;h2&gt;Shopping Cart&lt;/h2&gt;
 
@@ -477,7 +481,7 @@ namespace Acme.Client
 
 					  <p>The final step is to modify <code>App.cs</code> to register the <code>CartService</code> and associate the <code>CartController</code> with the appropriate route:</p>
 
-					  <pre>
+					  <pre class="prettyprint">
 using Acute;
 
 namespace Acme.Client
@@ -509,7 +513,7 @@ namespace Acme.Client
 
 					  <p>Create a new class in the <code>Acme.Web</code> project (under the Controllers folder) named <code>ProductsController</code> (yes, we have a ProductsController on both the client and the server. I think that's OK.)</p>
 
-					  <pre>
+					  <pre class="prettyprint">
 using System.Collections.Generic;
 using System.Web.Http;
 using Acme.Web.Models;
@@ -546,7 +550,7 @@ namespace Acme.Web.Controllers
 
 					  <p>The only other thing we have to modify in the web project, is to modify <code>WebApiConfig.cs</code>: </p>
 
-					  <pre>
+					  <pre class="prettyprint">
 
 using System.Net.Http.Headers;
 using System.Web.Http;
@@ -574,7 +578,7 @@ namespace Acme.Web
 
 					  <p>Now we have a web-service. To consume it, we create a class <code>ProductService</code> in the <code>Acme.Client</code> project.</p>
 
-					  <pre>
+					  <pre class="prettyprint">
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -606,7 +610,7 @@ namespace Acme.Client
 
 					  <p>The final step is to make the <code>ProductsController</code> (the client-side one) consume the <code>ProductService</code>.</p>
 
-<pre>
+<pre class="prettyprint">
 using System;
 
 namespace Acme.Client
@@ -635,7 +639,7 @@ namespace Acme.Client
 </pre>
 
 					  <p>And to register the <code>ProductService</code> in <code>App</code>.</p>
-<pre>
+<pre class="prettyprint">
 using Acute;
 
 namespace Acme.Client
