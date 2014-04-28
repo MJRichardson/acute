@@ -19,59 +19,22 @@
   </head>
 
   <body> 
-	  <div id="navbar"></div>
 
 	  <div class="container">
 
 		  <div class="row">
-			  <!-- scrollspy nav -->
-			  <div class="col-md-3">
-				  <div id="contents-menu">
-					  <ul  class="nav nav-pills nav-stacked">
-						  <li><a href="#services"><strong>Services</strong></a></li>
-						  <li><a href="#directives"><strong>Directives</strong></a></li>
-					  </ul>
-				  </div>
-			  </div>
 
-			  <div class="col-md-9">
-				  <div id="page-header" class="page-header">
-					  <h1>Library</h1>
-				  </div>
+			  <ul>
+				  <li><a href="services.html">Services</a></li>
+				  <li><a href="directives.html">Directives</a></li>
+			  </ul>
 
-
-				  <div id="services" class="library-area">
-					  <h2>Services</h2>
-				  </div>
-
-				  <div id="directives" class="library-area">
-					  <h2>Directives</h2>
-
-					  <div id="repeat-directive" class="library-item">
-						  <h3>Repeat</h3>
-						  <p class="lead">The <strong>Repeat</strong> directive instantiates a template once per item from a collection. Each template instance gets its own scope, where the given loop variable is set to the current collection item. </p>
-
-						  <h4>Usage</h4>
-						  <pre>
-&lt;ANY acute-repeat="expression"&gt;
-&lt;/ANY&gt;
-						  </pre>
-
-						  <h5>Expression</h5>
-						  <p><code>variable in collection</code> - where variable is the user defined loop variable and expression is a scope expression giving the collection to enumerate.</p>
-						  <p>For example, <code>artist in Album.Artists</code> . </p>
-					  </div>
-				  </div>
-
-			 </div>
 		 </div>
 	 </div>
 
 	  <script type="text/javascript">
 		  $(function(){
 			loadNavbar('library');
-			$('body').scrollspy({target: '#contents-menu' });
-			$('#contents-menu').affix();
 		  });
 	  </script>
  </body>
