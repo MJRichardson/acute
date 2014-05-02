@@ -15,26 +15,34 @@ Task Clean {
 	md "$outDir" >$null
 }
 
-Task Build-Library -Depends Clean {
-	$projectTargetDir = "$baseDir\src\Acute\bin\$configuration"
-	Exec { msbuild "$baseDir\src\library.sln" /verbosity:minimal /p:"Configuration=$configuration" }
-	copy "$projectTargetDir\Acute.dll" "$outDir"  
-	copy "$projectTargetDir\Saltarelle.Linq.dll" "$outDir"  
-	copy "$projectTargetDir\Saltarelle.Linq.xml" "$outDir"  
-	Get-Content "$projectTargetDir\mscorlib.js","$projectTargetDir\linq.js","$baseDir\submodules\angular.js\build\angular.js", "$baseDir\submodules\angular.js\build\angular-route.js",  "$baseDir\submodules\angular.js\build\angular-cookies.js", "$projectTargetDir\Acute.js" | Set-Content "$outDir\acute.js" 
+Task Compile -Depends Clean {
+	Exec { msbuild "$baseDir\src\acute.sln" /verbosity:minimal /p:"Configuration=$configuration" }
 }
 
-Task Build-Compiler -Depends Clean {
+Task Output-Binaries -Depends Compile {
+	$acuteProjectTargetDir = "$baseDir\src\Acute\bin\$configuration"
 	$msBuildProjectTargetDir = "$baseDir\src\Acute.Build\bin\$configuration\"
 	$msBuildProjectTargetFileName = "Acute.Build.dll"
-	Exec { msbuild "$baseDir\src\compiler.sln" /verbosity:minimal /p:"Configuration=$configuration" }
-	copy $msBuildProjectTargetDir*.* "$outDir"  
+	copy "$acuteProjectTargetDir\Acute.dll" "$outDir"  
+	copy "$acuteProjectTargetDir\Saltarelle.Linq.dll" "$outDir"  
+	copy "$acuteProjectTargetDir\Saltarelle.Linq.xml" "$outDir"  
 	copy "$baseDir\submodules\saltarelle.compiler\Runtime\CoreLib\bin\mscorlib.dll" "$outDir"  
 	copy "$baseDir\submodules\saltarelle.compiler\Runtime\CoreLib\bin\mscorlib.xml" "$outDir"  
+	copy $msBuildProjectTargetDir*.* "$outDir"  
 	Exec { & "$baseDir\submodules\saltarelle.compiler\build\EmbedAssemblies.exe" /o "$outDir\$msBuildProjectTargetFileName" /a "$msBuildProjectTargetDir*.dll" /a "$msBuildProjectTargetDir*.exe"  $msBuildProjectTargetDir$msBuildProjectTargetFileName}
 }
 
-Task Nuget-Pack -Depends Build-Library, Build-Compiler {
+Task Output-Script -Depends Compile {
+	$projectTargetDir = "$baseDir\src\Acute\bin\$configuration"
+	$packagesDir = "$baseDir\src\Packages"
+
+	#combine js file (no minification)
+	Get-Content "$packagesDir\Saltarelle.Runtime.2.5.0\mscorlib.js","$packagesDir\Saltarelle.Linq.2.4.0\linq.js","$baseDir\submodules\angular.js\build\angular.js", "$baseDir\submodules\angular.js\build\angular-route.js",  "$baseDir\submodules\angular.js\build\angular-cookies.js", "$projectTargetDir\Acute.js" | Set-Content "$outDir\acute.js" 
+	#use uglifyjs to minify js files
+	Exec { uglifyjs "$packagesDir\Saltarelle.Runtime.2.5.0\mscorlib.js" "$packagesDir\Saltarelle.Linq.2.4.0\linq.js" "$baseDir\submodules\angular.js\build\angular.js" "$baseDir\submodules\angular.js\build\angular-route.js" "$baseDir\submodules\angular.js\build\angular-cookies.js" "$projectTargetDir\Acute.js" --output "$outDir\acute.min.js" --compress}
+}
+
+Task Nuget-Pack -Depends Output-Binaries, Output-Script {
 	$contentDir = "$baseDir\build\nuget\Acute\content"
 	$libDir = "$baseDir\build\nuget\Acute\lib"
 
@@ -61,7 +69,8 @@ Task Nuget-Pack -Depends Build-Library, Build-Compiler {
 	copy "$outDir\JavaScriptParser.dll" "$baseDir\build\nuget\Acute\tools" 
 	copy "$outDir\Saltarelle.Compiler.dll" "$baseDir\build\nuget\Acute\tools" 
 	copy "$outDir\Saltarelle.Compiler.JSModel.dll" "$baseDir\build\nuget\Acute\tools" 
-	copy "$outDir\acute.js" "$baseDir\build\nuget\Acute\content\" 
+	copy "$outDir\acute.js" "$baseDir\build\nuget\Acute\" 
+	copy "$outDir\acute.min.js" "$baseDir\build\nuget\Acute\content\" 
 	copy "$outDir\mscorlib.*" "$baseDir\build\nuget\Acute\tools" 
 	copy "$outDir\Acute.dll" $libDir 
 	copy "$outDir\Saltarelle.Linq.*" $libDir 

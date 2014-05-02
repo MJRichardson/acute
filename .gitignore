@@ -24,6 +24,7 @@ _ReSharper*/
 /build/nuget/Acute/tools/*.dll
 /build/nuget/Acute/content
 /build/nuget/Acute/lib
+/build/nuget/Acute/acute.js
 /build/nuget/Acute/tools/*.exe
 /build/nuget/Acute/tools/*.xml
 /build/nuget/Acute/tools/*.targets

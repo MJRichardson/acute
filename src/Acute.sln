@@ -10,12 +10,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{2B0FDC
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{68344715-AA51-4898-AB1C-53A72456FB3E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Scenarios", "Test.Scenarios\Test.Scenarios.csproj", "{E03C0662-1760-4A3E-A868-1B0C2E1CEDB1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Jasmine", "Test.Jasmine\Test.Jasmine.csproj", "{0E319A42-1CFD-4557-8034-99ED1992CFEB}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acute.Compiler", "Acute.Compiler\Acute.Compiler.csproj", "{DF634B2A-4692-4E94-9C8F-A04B1FE1B168}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Saltarelle", "Saltarelle", "{12399114-C04B-42F7-88B1-146D2758D939}"
@@ -72,46 +66,6 @@ Global
 		{B7E3A9C4-8680-47C5-84BE-3530EB587DD1}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{B7E3A9C4-8680-47C5-84BE-3530EB587DD1}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{B7E3A9C4-8680-47C5-84BE-3530EB587DD1}.Release|x86.ActiveCfg = Release|Any CPU
-		{E03C0662-1760-4A3E-A868-1B0C2E1CEDB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E03C0662-1760-4A3E-A868-1B0C2E1CEDB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E03C0662-1760-4A3E-A868-1B0C2E1CEDB1}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{E03C0662-1760-4A3E-A868-1B0C2E1CEDB1}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{E03C0662-1760-4A3E-A868-1B0C2E1CEDB1}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{E03C0662-1760-4A3E-A868-1B0C2E1CEDB1}.net_4_5_Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E03C0662-1760-4A3E-A868-1B0C2E1CEDB1}.net_4_5_Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E03C0662-1760-4A3E-A868-1B0C2E1CEDB1}.net_4_5_Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{E03C0662-1760-4A3E-A868-1B0C2E1CEDB1}.net_4_5_Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{E03C0662-1760-4A3E-A868-1B0C2E1CEDB1}.net_4_5_Debug|x86.ActiveCfg = Debug|Any CPU
-		{E03C0662-1760-4A3E-A868-1B0C2E1CEDB1}.net_4_5_Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E03C0662-1760-4A3E-A868-1B0C2E1CEDB1}.net_4_5_Release|Any CPU.Build.0 = Release|Any CPU
-		{E03C0662-1760-4A3E-A868-1B0C2E1CEDB1}.net_4_5_Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{E03C0662-1760-4A3E-A868-1B0C2E1CEDB1}.net_4_5_Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{E03C0662-1760-4A3E-A868-1B0C2E1CEDB1}.net_4_5_Release|x86.ActiveCfg = Release|Any CPU
-		{E03C0662-1760-4A3E-A868-1B0C2E1CEDB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E03C0662-1760-4A3E-A868-1B0C2E1CEDB1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E03C0662-1760-4A3E-A868-1B0C2E1CEDB1}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{E03C0662-1760-4A3E-A868-1B0C2E1CEDB1}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{E03C0662-1760-4A3E-A868-1B0C2E1CEDB1}.Release|x86.ActiveCfg = Release|Any CPU
-		{0E319A42-1CFD-4557-8034-99ED1992CFEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0E319A42-1CFD-4557-8034-99ED1992CFEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0E319A42-1CFD-4557-8034-99ED1992CFEB}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{0E319A42-1CFD-4557-8034-99ED1992CFEB}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{0E319A42-1CFD-4557-8034-99ED1992CFEB}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{0E319A42-1CFD-4557-8034-99ED1992CFEB}.net_4_5_Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0E319A42-1CFD-4557-8034-99ED1992CFEB}.net_4_5_Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0E319A42-1CFD-4557-8034-99ED1992CFEB}.net_4_5_Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{0E319A42-1CFD-4557-8034-99ED1992CFEB}.net_4_5_Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{0E319A42-1CFD-4557-8034-99ED1992CFEB}.net_4_5_Debug|x86.ActiveCfg = Debug|Any CPU
-		{0E319A42-1CFD-4557-8034-99ED1992CFEB}.net_4_5_Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0E319A42-1CFD-4557-8034-99ED1992CFEB}.net_4_5_Release|Any CPU.Build.0 = Release|Any CPU
-		{0E319A42-1CFD-4557-8034-99ED1992CFEB}.net_4_5_Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{0E319A42-1CFD-4557-8034-99ED1992CFEB}.net_4_5_Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{0E319A42-1CFD-4557-8034-99ED1992CFEB}.net_4_5_Release|x86.ActiveCfg = Release|Any CPU
-		{0E319A42-1CFD-4557-8034-99ED1992CFEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0E319A42-1CFD-4557-8034-99ED1992CFEB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0E319A42-1CFD-4557-8034-99ED1992CFEB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{0E319A42-1CFD-4557-8034-99ED1992CFEB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{0E319A42-1CFD-4557-8034-99ED1992CFEB}.Release|x86.ActiveCfg = Release|Any CPU
 		{DF634B2A-4692-4E94-9C8F-A04B1FE1B168}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DF634B2A-4692-4E94-9C8F-A04B1FE1B168}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF634B2A-4692-4E94-9C8F-A04B1FE1B168}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -297,8 +251,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{E03C0662-1760-4A3E-A868-1B0C2E1CEDB1} = {68344715-AA51-4898-AB1C-53A72456FB3E}
-		{0E319A42-1CFD-4557-8034-99ED1992CFEB} = {68344715-AA51-4898-AB1C-53A72456FB3E}
 		{0B9DB3A8-CC8D-40AF-BC03-3D0BDA71AA19} = {12399114-C04B-42F7-88B1-146D2758D939}
 		{7DFB28EE-5FDE-40E1-9E60-465B6C034F8F} = {12399114-C04B-42F7-88B1-146D2758D939}
 		{36D4B098-A21C-4725-ACD3-400922885F38} = {12399114-C04B-42F7-88B1-146D2758D939}
