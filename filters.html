@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Acute : The ubiquity of HTML with the productivity of C#." />
+
+	<!-- twitter bootstrap -->
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<script src="acute-doc.js"></script>
+
+	<link rel="stylesheet" href="stylesheets/acute-doc.css">
+
+	<!-- google pretty-print -->
+	<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+	<link rel="stylesheet" href="http://google-code-prettify.googlecode.com/svn/trunk/src/prettify.css">
+
+    <title>Filters - Acute</title>
+  </head>
+
+  <body> 
+	  <div id="navbar"></div>
+
+	  <div class="container">
+
+		  <div class="row">
+			  <!-- scrollspy nav -->
+			  <div class="col-md-3">
+				  <div id="contents-menu">
+					  <ul  class="nav nav-pills nav-stacked">
+						  <li><a href="#currency">Currency</a></li>
+					  </ul>
+				  </div>
+			  </div>
+
+			  <div class="col-md-9">
+				  <div id="page-header" class="page-header">
+					  <h1>Filters</h1>
+				  </div>
+
+
+				  <div id="currency" class="service">
+					  <h3>currency</h3>
+
+					  <p class="lead">Formats a number as a currency (ie $1,234.56). When no currency symbol is provided, default symbol for current locale is used.</p>
+
+					  <h4>Usage</h4>
+					  <pre>{{ currency_expression | currency : symbol}}</pre>
+				  </div>
+
+		 </div>
+	 </div>
+
+	  <script type="text/javascript">
+		  $(function(){
+			loadNavbar('library');
+			scrollSpy('#contents-menu', 80);
+		  });
+	  </script>
+ </body>
+</html>
