@@ -32,7 +32,9 @@
 			  <div class="col-md-3">
 				  <div id="contents-menu">
 					  <ul  class="nav nav-pills nav-stacked">
-						  <li><a href="#currency">Currency</a></li>
+						  <li><a href="#currency">currency</a></li>
+						  <li><a href="#lowercase">lowercase</a></li>
+						  <li><a href="#uppercase">uppercase</a></li>
 					  </ul>
 				  </div>
 			  </div>
@@ -42,14 +44,60 @@
 					  <h1>Filters</h1>
 				  </div>
 
+				  <p><span class="label label-info">Information:</span> Technically any of the <a href="https://docs.angularjs.org/api/ng/filter">AngularJS filters</a> are available.<p/>
 
-				  <div id="currency" class="service">
-					  <h3>currency</h3>
+
+				  <div id="currency" class="filter">
+					  <h2>currency</h2>
 
 					  <p class="lead">Formats a number as a currency (ie $1,234.56). When no currency symbol is provided, default symbol for current locale is used.</p>
 
-					  <h4>Usage</h4>
-					  <pre>{{ currency_expression | currency : symbol}}</pre>
+					  <h3>Usage</h3>
+					  <pre>{{ target_expression | currency : symbol}}</pre>
+
+					  <h4>Arguments</h4>
+
+					  <table class="table table-striped">
+						  <thead>
+							  <tr>
+								  <td>Param</td>
+								  <td>Type</td>
+								  <td>Details</td>
+							  </tr>
+						  </thead>
+
+						  <tr>
+							  <td>amount</td>
+							  <td>number</td>
+							  <td>input to filter</td>
+						  </tr>
+
+						  <tr>
+							  <td>symbol <em>(optional)</em></td>
+							  <td>string</td>
+							  <td>Currency symbol or identifier to be displayed</td>
+						  </tr>
+					  </table>
+				  </div>
+
+				  <div id="lowercase" class="filter">
+					  <h2>lowercase</h2>
+
+					  <p class="lead">Converts string to lowercase.</p>
+
+					  <h3>Usage</h3>
+					  <pre>{{ target_expression | lowercase}}</pre>
+
+				  </div>
+
+				  <div id="uppercase" class="filter">
+					  <h2>uppercase</h2>
+
+					  <p class="lead">Converts string to uppercase.</p>
+
+					  <h3>Usage</h3>
+					  <pre>{{ target_expression | uppercase}}</pre>
+
 				  </div>
 
 		 </div>
