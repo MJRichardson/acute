@@ -19,6 +19,14 @@
 	<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
 	<link rel="stylesheet" href="http://google-code-prettify.googlecode.com/svn/trunk/src/prettify.css">
 
+	<style>
+		div.service .method {
+			padding-bottom: 20px;
+		}
+
+		div.service .method code.methodSignature {font-size:20px; }
+	</style>
+
     <title>Services - Acute</title>
   </head>
 
@@ -33,6 +41,8 @@
 				  <div id="contents-menu">
 					  <ul  class="nav nav-pills nav-stacked">
 						  <li><a href="#http">HTTP</a></li>
+						  <li><a href="#location">Location</a></li>
+						  <li><a href="#cookies">Cookies</a></li>
 					  </ul>
 				  </div>
 			  </div>
@@ -51,7 +61,32 @@
 					  <h3>Methods</h3>
 
 					  <div class="method">
-						  <p class="methodSignature">GetAsync(string url)</p>
+						  <code class="methodSignature prettyprint">Task&lt;HttpResponse&gt; RequestAsync(HttpRequest request)</code>
+						  <p>General method to perform an asynchronous HTTP request.</p>
+
+						  <h4>Parameters</h4>
+
+						  <table class="table table-striped">
+							  <thead>
+								  <tr>
+									  <td>Param</td>
+									  <td>Type</td>
+									  <td>Details</td>
+								  </tr>
+							  </thead>
+
+							  <tr>
+								  <td>request</td>
+								  <td>HttpRequest</td>
+								  <td>Relative or absolute URL specifying the destination of the request</td>
+							  </tr>
+
+						  </table>
+
+					  </div>
+
+					  <div class="method">
+						  <code class="methodSignature prettyprint">Task&lt;HttpResponse&gt; GetAsync(string url)</code>
 						  <p>Shortcut method to perform GET request.</p>
 
 						  <h4>Parameters</h4>
@@ -79,7 +114,7 @@
 					  </div>
 
 					  <div class="method">
-						  <p class="methodSignature">PostAsync(string url, object data)</p>
+						  <code class="methodSignature prettyprint">Task&lt;HttpResponse&gt; PostAsync(string url, object data)</code>
 						  <p>Shortcut method to perform POST request.</p>
 
 						  <h4>Parameters</h4>
@@ -107,13 +142,10 @@
 
 						  </table>
 
-						  <h4>Returns</h4>
-
-						  <code>Task&lt;HttpResponse&gt;</code>
 					  </div>
 
 					  <div class="method">
-						  <p class="methodSignature">PutAsync(string url, object data)</p>
+						  <code class="methodSignature prettyprint">Task&lt;HttpResponse&gt; PutAsync(string url, object data)</code>
 						  <p>Shortcut method to perform PUT request.</p>
 
 						  <h4>Parameters</h4>
@@ -141,13 +173,10 @@
 
 						  </table>
 
-						  <h4>Returns</h4>
-
-						  <code>Task&lt;HttpResponse&gt;</code>
 					  </div>
 
 					  <div class="method">
-						  <p class="methodSignature">HeadAsync(string url)</p>
+						  <code class="methodSignature prettyprint">Task&lt;HttpResponse&gt; HeadAsync(string url)</code>
 						  <p>Shortcut method to perform HEAD request.</p>
 
 						  <h4>Parameters</h4>
@@ -169,13 +198,10 @@
 
 						  </table>
 
-						  <h4>Returns</h4>
-
-						  <code>Task&lt;HttpResponse&gt;</code>
 					  </div>
 
 					  <div class="method">
-						  <p class="methodSignature">DeleteAsync(string url)</p>
+						  <code class="methodSignature prettyprint">Task&lt;HttpResponse&gt; DeleteAsync(string url)</code>
 						  <p>Shortcut method to perform DELETE request.</p>
 
 						  <h4>Parameters</h4>
@@ -196,13 +222,81 @@
 							  </tr>
 
 						  </table>
+					  </div>
 
-						  <h4>Returns</h4>
+				  </div>
 
-						  <code>Task&lt;HttpResponse&gt;</code>
+				  <div id="location" class="service">
+					  <h2>Location<small><code>Acute.Services.ILocation</code></small></h2>
+
+					  <p class="lead">Provides two-way binding to the browser's URL. Changes to the URL in the address bar are reflected in the Location service, and changes to  <code>Acute.Services.ILocation</code> are reflected in the browser address bar. </p>
+
+					  <h3>Properties</h3>
+					  <div class="method">
+						  <code class="methodSignature prettyprint">string AbsoluteUrl { get; }</code>
+						  <p>Gets the full URL representation with all segments encoded according to rules specified in <a href="http://www.ietf.org/rfc/rfc3986.txt">RFC 3986</a>.</p>
+					  </div>
+
+					  <div class="method">
+						  <code class="methodSignature prettyprint">string Host { get; }</code>
+						  <p>Gets host portion of the current URL.</p>
+					  </div>
+
+					  <div class="method">
+						  <code class="methodSignature prettyprint">int Port { get; }</code>
+						  <p>Gets the port of the current URL.</p>
+					  </div>
+
+					  <div class="method">
+						  <code class="methodSignature prettyprint">string Protocol { get; }</code>
+						  <p>Gets the protocol of the current URL.</p>
+					  </div>
+
+					  <div class="method">
+						  <code class="methodSignature prettyprint">string Path { get; set; }</code>
+						  <p>Gets or sets the path of the current URL.</p>
+						  <p>Path will always begin with a forward-slash (/). It will be added if not present when setting.</p>
+					  </div>
+
+					  <div class="method">
+						  <code class="methodSignature prettyprint">string Hash { get; set; }</code>
+						  <p>Gets or sets the hash fragment of the current URL.</p>
+					  </div>
+
+					  <div class="method">
+						  <code class="methodSignature prettyprint">JSDictionary&lt;string, string&gt; Search { get; set; }</code>
+						  <p>Gets or sets the search (query string) keys and values.</p>
 					  </div>
 				  </div>
 
+				  <div id="cookies" class="service">
+					  <h2>Cookies<small><code>Acute.Services.ICookies</code></small></h2>
+
+					  <p class="lead">Provides key-values storage backed by the browser's session cookies.</p>
+
+					  <h3>Properties</h3>
+					  <div class="method">
+						  <code class="methodSignature prettyprint">string this[string key] { get; set; }</code>
+						  <p>Gets or sets the value of the cookie with the given name.</p>
+					  </div>
+
+					  <h3>Methods</h3>
+					  <div class="method">
+						  <code class="methodSignature prettyprint">T Get<T>(string key)</code>
+						  <p>Gets the value of the cookie with the given name. The cookie value will be deserialized into an object of type <code>T</code>.</p>
+					  </div>
+
+					  <div class="method">
+						  <code class="methodSignature prettyprint">T Put<T>(string key, T item)</code>
+						  <p>Sets the value of the cookie with the given name. The object will be serialized as JSON into the cookie value.</p>
+					  </div>
+
+					  <div class="method">
+						  <code class="methodSignature prettyprint">void Remove(string key)</code>
+						  <p>Removes the specified cookie.</p>
+					  </div>
+
+				  </div>
 		 </div>
 	 </div>
 
