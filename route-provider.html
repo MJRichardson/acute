@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Acute : The ubiquity of HTML with the productivity of C#." />
+
+	<!-- twitter bootstrap -->
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<script src="acute-doc.js"></script>
+
+	<link rel="stylesheet" href="stylesheets/acute-doc.css">
+
+	<!-- google pretty-print -->
+	<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+	<link rel="stylesheet" href="http://google-code-prettify.googlecode.com/svn/trunk/src/prettify.css">
+
+	<style>
+		div.method {
+			padding-bottom: 20px;
+		}
+
+		div.method code.methodSignature {font-size:20px; }
+	</style>
+
+    <title>RouteProvider - Acute</title>
+  </head>
+
+  <body> 
+	  <div id="navbar"></div>
+
+	  <div class="container">
+		  <div class="col-md-9 col-md-offset-2">
+			  <div id="page-header" class="page-header">
+				  <h1>RouteProvider <small>Acute.RouteProvider</small></h1>
+			  </div> <!-- page-header -->
+
+			  <p class="lead">Allows a view and/or controller to be configured for a URL.</p>
+
+			  <p>RouteProvider is used in conjuction with the <a href="directives.html#view">view directive</a>.</p>
+
+			  <p>RouteProvider is only accessible as the argument to the <code>ConfigureRoutes()</code> method on the <code>Acute.App</code> class. It can not be injected as a dependency to services.</p>
+
+			  <h2>Methods</h2>
+
+				  <div class="method">
+					  <code class="methodSignature prettyprint">RouteProvider When(string path, RouteConfig routeConfig)</code>
+
+					  <p>Configures a new route.</p>
+
+					  <h4>Parameters</h4>
+
+					  <table class="table table-striped">
+						  <thead>
+							  <tr>
+								  <td>Param</td>
+								  <td>Type</td>
+								  <td>Details</td>
+							  </tr>
+						  </thead>
+
+						  <tr>
+							  <td>path</td>
+							  <td>string</td>
+							  <td>The route path to be matched against <code>ILocation.Path</code>. If <code>ILocation.Path</code> contains redundant trailing slash or is missing one, the route will still match and the <code>ILocation.Path</code> will be updated to add or drop the trailing slash to exactly match the route definition.
+							  </td>
+						  </tr>
+
+						  <tr>
+							  <td>routeConfig</td>
+							  <td><a href="#routeconfig">Acute.RouteConfig</a></td>
+							  <td>Route configuration details. </td>
+						  </tr>
+
+					  </table>
+				  </div> <!-- method -->
+
+				  <div class="method">
+					  <code class="methodSignature prettyprint">RouteProvider Otherwise(RouteConfig routeConfig)</code>
+
+					  <p>Sets the route definition that will be used on route change when no other route definition is matched.</p>
+
+					  <h4>Parameters</h4>
+
+					  <table class="table table-striped">
+						  <thead>
+							  <tr>
+								  <td>Param</td>
+								  <td>Type</td>
+								  <td>Details</td>
+							  </tr>
+						  </thead>
+
+						  <tr>
+							  <td>routeConfig</td>
+							  <td><a href="#routeconfig">Acute.RouteConfig</a></td>
+							  <td>Route configuration details. </td>
+						  </tr>
+
+					  </table>
+				  </div> <!-- method -->
+
+				  <h2>RouteConfig <small>Acute.RouteConfig</small></h2>
+
+				  <p class="lead">Contains the route-mapping configuration information. </p>
+
+				  <h3>Properties</h3>
+
+				  <div class="method">
+					  <code class="methodSignature prettyprint">string TemplateUrl { get; set; }</code>
+
+					  <p>Path to the HTML template to be used by the <a href="directives.html#view">view directive</a>.</p>
+
+				  <div class="method">
+					  <code class="methodSignature prettyprint">Type Controller { get; set; }</code>
+
+					  <p>The controller type to be associated with the URL.</p>
+					  <p><span class="label label-info">Tip:</span> Use the generic <code class="prettyprint">RouteConfig&lt;TController&gt;</code> rather than having to set the <code>Controller</code> property.</p>
+
+
+
+		  </div>
+	  </div> <!-- container --> 
+
+	  <script type="text/javascript">
+		  $(function(){
+			loadNavbar('library');
+		  });
+	  </script>
+  </body>
+</html>
