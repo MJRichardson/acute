@@ -100,7 +100,7 @@
 
 					  <p>Directives are attributes on a DOM element that tell Acute's HTML compiler to attach a specified behaviour, or even transform the element and its children.</p>
 
-					  <p>See the <a href="library-directives.html">Directives library</a> documentation for a list of the available directives.</p>
+					  <p>See the <a href="directives.html">Directives library</a> documentation for a list of the available directives.</p>
 				  </div>
 
 				  <div id="expressions" class="concept">
@@ -123,7 +123,7 @@
 					  <p>Filters may have arguments. The syntax for this is</p>
 					  <pre>{{ expression | filter:argument1:argument2:... }}</pre>
 
-					  <p>See the <a href="library-filters.html">Filters library</a> documention for a list of available filters.</p>
+					  <p>See the <a href="filters.html">Filters library</a> documention for a list of available filters.</p>
 				  </div>
 
 				  <div id="forms" class="concept">
@@ -131,13 +131,49 @@
 					  <p>A HTML form is a way of grouping related user-input (<code>&lt;input&gt;</code>, <code>&lt;select&gt;</code>, etc) controls.</p>
 
 					  <h4>Binding</h4>
-					  <p>The key directive in data-binding for forms is <a href="library-bind.html">acute-bind</a>. It provides the two-way data-binding by synchronizing the model to the view, as well as view to the model.</p>
+					  <p>The key directive in data-binding for forms is <a href="directives.html#bind">acute-bind</a>. It provides the two-way data-binding by synchronizing the model to the view, as well as view to the model.</p>
 
 					  <h4>Validation</h4>
+					  <p>Acute provides some basic validation directives for common HTML5 input types (text, number, url, email, radio, checkbox): required, pattern, minlength, maxlength, min, max.  </p>
+
+					  <h3>CSS Classes</h3>
+					  <p>To allow styling, the following classes are added to forms and input controls: </p>
+					  <ul>
+						  <li>acute-valid</li>
+						  <li>acute-invalid</li>
+						  <li>acute-pristine</li>
+						  <li>acute-dirty</li>
+					  </ul>
+
+					  <h3>Example</h3>
+					  <p>The following example uses the CSS classes to display the validity of each form control. Both <code>User.Name</code> and <code>User.Email</code> are required, but are rendered with a red background only when they are dirty and invalid. This ensures that the user is not distracted with an error until after interacting with the control, and failing to satisfy its validity.   </p>
+<pre class="prettyprint">
+&lt;div acute-controller="Namespace.Controller"&gt;
+  &lt;form novalidate class="css-form"&gt;
+    Name:
+      &lt;input type="text" acute-bind="User.Name" required /&gt;&lt;br /&gt;
+    E-mail: &lt;input type="email" acute-bind="User.Email" required /&gt;&lt;br /&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+
+&lt;style type="text/css"&gt;
+  .css-form input.acute-invalid.acute-dirty {
+    background-color: #FA787E;
+  }
+
+  .css-form input.acute-valid.acute-dirty {
+    background-color: #78FA89;
+  }
+&lt;/style&gt;
+</pre>
 				  </div>
 
 				  <div id="filters" class="concept">
 					  <h3>Routing</h3>
+					  <p>Routing is used to link URL's to controllers and views. </p>
+					  <p>Routes are configured by overriding the <code>ConfigureRoutes()</code> method of <code>Acute.App</code>. See <a href="route-provider.html">RouteProvider</a> for details of configuring routes.</p>
+					  
+
 				  </div>
 			 </div>
 		 </div>
