@@ -31,18 +31,18 @@
 			  <!-- scrollspy nav -->
 			  <div class="col-md-3">
 				  <div id="contents-menu">
-					  <ul  class="nav nav-pills nav-stacked">
-						  <li><a href="#create-solution">Create Solution</a></li>
-						  <li><a href="#create-web-project">Create Web Project</a></li>
-						  <li><a href="#add-static-html">Add Static HTML</a></li>
-						  <li><a href="#create-acute-project">Create Acute Project</a></li>
-						  <li><a href="#add-acute-nuget-package">Add Acute Nuget Package</a></li>
-						  <li><a href="#create-client-application">Create Client Application</a></li>
-						  <li><a href="#create-controller">Create Controller</a></li>
-						  <li><a href="#create-template">Create Template</a></li>
-						  <li><a href="#navigation">Navigation</a></li>
-						  <li><a href="#add-service">Add a Service</a></li>
-						  <li><a href="#http">Get data via HTTP</a></li>
+					  <ul   class="nav nav-pills nav-stacked">
+						  <li><a href="#create-solution">1 - Create Solution</a></li>
+						  <li><a href="#create-web-project">2 - Create Web Project</a></li>
+						  <li><a href="#add-static-html">3 - Add Static HTML</a></li>
+						  <li><a href="#create-acute-project">4 - Create Acute Project</a></li>
+						  <li><a href="#add-acute-nuget-package">5 - Add Acute Nuget Package</a></li>
+						  <li><a href="#create-client-application">6 - Create Client Application</a></li>
+						  <li><a href="#create-controller">7 - Create Controller</a></li>
+						  <li><a href="#create-template">8 - Create Template</a></li>
+						  <li><a href="#navigation">9 - Navigation</a></li>
+						  <li><a href="#add-service">10 - Add a Service</a></li>
+						  <li><a href="#http">11 - Get data via HTTP</a></li>
 					  </ul>
 				  </div>
 			  </div>
@@ -119,17 +119,17 @@
 					  <h3>Add Acute Nuget Package</h3>
 					  <p>Open the Package Manager Console (<kbd>Tools</kbd> -> <kbd>Library Package Manager</kbd> -> <kbd>Package Manager Console</kbd></p>
 					  <p>Enter <kbd>Install-Package Acute -Project Acme.Client</kbd> into the Package Manager Console</p>
-					  <p>This should successfully add the Acute and Acute.Library packages.</p>
+					  <p>Once the package is installed, you need to unload and reload the Acute.Client project. This is due to a glitch with Visual Studio when mscorlib.dll is replaced with a custom version.</p>
 				  </div>
 
 				  <div id="create-client-application" class="walk-through-step">
 					  <h3>Create Client Application</h3>
 					  <p>Now we will create the class that represents our application.</p>
-					  <p>Add a new class named <kbd>App</kbd> to the project.</p>
+					  <p>Add a new class named <kbd>AcmeApp</kbd> to the project.</p>
 					  <pre class="prettyprint">
 namespace Acme.Client
 {
-    public class App : Acute.App
+    public class AcmeApp : Acute.App
     {
     }
 }
@@ -196,7 +196,7 @@ namespace Acme.Client
 
 					  <p>Modify index.html like so:</p>
 					  <pre class="prettyprint">
-&lt;html acute-app="Acme.Client.App"&gt;
+&lt;html acute-app="Acme.Client.AcmeApp"&gt;
     
     &lt;head&gt;
         &lt;title&gt;Products - Acme Corporation&lt;/title&gt;
@@ -227,11 +227,10 @@ namespace Acme.Client
 					  
 				  <div id="create-template" class="walk-through-step">
 					  <h3>Create Template</h3>
-					  <p>It's time for our static-HTML-content caterpillar to metamorphose into a template butterfly.</p>
-					  <p>So let's put the <em>V</em> in <em>MVC</em>.</p>
+					  <p>It's time for our static-HTML-content caterpillar to metamorphose into a <a href="concepts.html#templates">template</a> butterfly. And put the <em>V</em> in <em>MVC</em>.</p>
 					  <p>Modify index.html like so:</p>
 					  <pre class="prettyprint">
-&lt;html acute-app="Acme.Client.App"&gt;
+&lt;html acute-app="Acme.Client.AcmeApp"&gt;
     
     &lt;head&gt;
         &lt;title&gt;Products - Acme Corporation&lt;/title&gt;
@@ -255,7 +254,7 @@ namespace Acme.Client
 
 &lt;/html&gt;
 					  </pre>
-					  <p>We've replaced the static-content with a <a href="concepts.html#templates">template</a>, and use the <a href="">repeat directive</a> to bind the template to the products list created by our controller.</p>
+					  <p>We've replaced the static-content with a <a href="directives.html#repeat">repeat directive</a> bound to the products list created by our controller.</p>
 					  <p ><span class="label label-info">Information:</span> <code>{{product.Price | current}}</code> is an example of a <a href="concepts.html#filters">filter</a>.</p>
 
 				  </div>
@@ -285,7 +284,7 @@ namespace Acme.Client
 					  </pre>
 					  <p>Modify <code>index.html</code>:</p>
 					  <pre class="prettyprint">
-&lt;html acute-app="Acme.Client.App"&gt;
+&lt;html acute-app="Acme.Client.AcmeApp"&gt;
     
     &lt;head&gt;
         &lt;title&gt;Products - Acme Corporation&lt;/title&gt;
@@ -306,13 +305,13 @@ namespace Acme.Client
 
 					  </pre>
 					  <p>Note the <code>acute-view</code> directive we have added. This allows the content for that element to be loaded dynamically.</p>
-					  <p>The final step is to configure our <a href="concepts.html#routing">routes</a>. Modify <code>app.cs</code>:</p>
+					  <p>The final step is to configure our <a href="concepts.html#routing">routes</a>. Modify <code>AcmeApp.cs</code>:</p>
 					  <pre class="prettyprint">
 using Acute;
 
 namespace Acme.Client
 {
-    public class App : Acute.App
+    public class AcmeApp : Acute.App
     {
         protected override void ConfigureRoutes(RouteProvider routeProvider)
         {
@@ -362,7 +361,7 @@ namespace Acme.Client
 
 					  <p>This service will represent our 'shopping-cart'.</p>
 
-					  <p>We will add a 'buy' button to our products.</p>
+					  <p>We will add a 'buy' button to our <code>products.html</code>.</p>
 
 					  <pre class="prettyprint">
 &lt;h2&gt;Products&lt;/h2&gt;  
@@ -479,16 +478,16 @@ namespace Acme.Client
 					  <p>This now uses the <code>acute-repeat</code> directive to bind to the ProductQuantities collection (using the <code>Quantity</code> and <code>Name</code> properties of the anonymous-type used in the controller.</p>
 					  <p>It also introduces the <a href="directives.html#show">acute-show</a> directive.</p>
 
-					  <p>The final step is to modify <code>App.cs</code> to register the <code>CartService</code> and associate the <code>CartController</code> with the appropriate route:</p>
+					  <p>The final step is to modify <code>AcmeApp.cs</code> to register the <code>CartService</code> and associate the <code>CartController</code> with the appropriate route:</p>
 
 					  <pre class="prettyprint">
 using Acute;
 
 namespace Acme.Client
 {
-    public class App : Acute.App
+    public class AcmeApp : Acute.App
     {
-        public App()
+        public AcmeApp()
         {
            Service&lt;CartService&gt;(); 
         }
@@ -510,6 +509,8 @@ namespace Acme.Client
 					  <p>While useful for demos, generally we don't just create our data on the client. We would usually make a request to the server. This is where the <code>IHttpService</code> comes into play.</p>
 
 					  <p>We will create a web-service which our client will consume. We will use Microsoft's <a href="http://www.asp.net/web-api">Web API</a>.</p>
+
+					   <p>Reference the <code>Acme.Client</code> project from the <code>Acme.Web</code> project. This will allow us to share the <code>Products</code> class between client and server.</p>
 
 					  <p>Create a new class in the <code>Acme.Web</code> project (under the Controllers folder) named <code>ProductsController</code> (yes, we have a ProductsController on both the client and the server. I think that's OK.)</p>
 
@@ -638,15 +639,15 @@ namespace Acme.Client
 }
 </pre>
 
-					  <p>And to register the <code>ProductService</code> in <code>App</code>.</p>
+					  <p>And to register the <code>ProductService</code> in <code>AcmeApp</code>.</p>
 <pre class="prettyprint">
 using Acute;
 
 namespace Acme.Client
 {
-    public class App : Acute.App
+    public class AcmeApp : Acute.App
     {
-        public App()
+        public AcmeApp()
         {
            Service&lt;CartService&gt;(); 
            Service&lt;ProductService&gt;(); 
@@ -665,11 +666,10 @@ namespace Acme.Client
 			  </div>
 		  </div>
 	  <script type="text/javascript">
-		  var scrollOffset = 80;
 
 		  $(function(){
 			loadNavbar('learn');
-			scrollSpy('#contents-menu', 80);
+			scrollSpy('#contents-menu', 90);
 		  });
 
 		  trackPageView();
