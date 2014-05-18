@@ -37,12 +37,13 @@
 						  <li><a href="#add-static-html">3 - Add Static HTML</a></li>
 						  <li><a href="#create-acute-project">4 - Create Acute Project</a></li>
 						  <li><a href="#add-acute-nuget-package">5 - Add Acute Nuget Package</a></li>
-						  <li><a href="#create-client-application">6 - Create Client Application</a></li>
-						  <li><a href="#create-controller">7 - Create Controller</a></li>
-						  <li><a href="#create-template">8 - Create Template</a></li>
-						  <li><a href="#navigation">9 - Navigation</a></li>
-						  <li><a href="#add-service">10 - Add a Service</a></li>
-						  <li><a href="#http">11 - Get data via HTTP</a></li>
+						  <li><a href="#copy-javascript">6 - Copy Generated Javascript</a></li>
+						  <li><a href="#create-client-application">7 - Create Client Application</a></li>
+						  <li><a href="#create-controller">8 - Create Controller</a></li>
+						  <li><a href="#create-template">9 - Create Template</a></li>
+						  <li><a href="#navigation">10 - Navigation</a></li>
+						  <li><a href="#add-service">11 - Add a Service</a></li>
+						  <li><a href="#http">12 - Get data via HTTP</a></li>
 					  </ul>
 				  </div>
 			  </div>
@@ -122,10 +123,24 @@
 					  <p>Once the package is installed, you need to unload and reload the Acute.Client project. This is due to a glitch with Visual Studio when mscorlib.dll is replaced with a custom version.</p>
 				  </div>
 
+				  <div id="copy-javascript" class="walk-through-step">
+					  <h3>Copy Generated Javascript</h3>
+					  <p>When an Acute project is compiled, it produces a javascript file as output. This javascript will be needed by the web project. One way to achieve this, is to setup a post-build event in the web project.</p>
+					  <p>First we need to ensure that Visual Studio always compile the Acute client project before the web project. Right-click the solution, and select <kbd>Properties</kbd>, then select <kbd>Common Properties</kbd> -> <kbd>Project Dependencies</kbd>. Select <kbd>Acme.Web</kbd> in the drop-down-list, and check <kbd>Acute.Client</kbd>.  </p>
+					  <img src="images/walk-through-solution-project-dependencies.png"/>
+					  <p>And now we can add the post-build event. Right-click on the <code>Acme.Web</code> project, and select <kbd>Properties</kbd>, then <kbd>Build Events</kbd>. Add the following in the box labelled <kbd>Post-build event command-line:</kbd></p>
+<pre>
+xcopy $(SolutionDir)Acme.Client\acute.min.js $(ProjectDir) /y
+xcopy $(SolutionDir)Acme.Client\bin\$(ConfigurationName)\Acme.Client.js $(ProjectDir) /y
+</pre>  
+					   <p>The first line copies the Acute framework javascript file to the web project folder. The second copies the javascript produced by compiling the client project.</p>
+
+				  </div>
+
 				  <div id="create-client-application" class="walk-through-step">
 					  <h3>Create Client Application</h3>
 					  <p>Now we will create the class that represents our application.</p>
-					  <p>Add a new class named <kbd>AcmeApp</kbd> to the project.</p>
+					  <p>Add a new class named <code>AcmeApp</code> to the project.</p>
 					  <pre class="prettyprint">
 namespace Acme.Client
 {
@@ -153,7 +168,6 @@ namespace Acme.Client
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
-        public Product Blah { get; set; }
 
     }
 }
@@ -193,36 +207,6 @@ namespace Acme.Client
     }
 }
 					  </pre>
-
-					  <p>Modify index.html like so:</p>
-					  <pre class="prettyprint">
-&lt;html acute-app="Acme.Client.AcmeApp"&gt;
-    
-    &lt;head&gt;
-        &lt;title&gt;Products - Acme Corporation&lt;/title&gt;
-        
-        &lt;script type="text/javascript" src="acute.js"&gt;&lt;/script&gt;
-        &lt;script type="text/javascript" src="Acme.Client.js"&gt;&lt;/script&gt;
-    &lt;/head&gt;
-
-    &lt;body acute-controller="Acme.Client.ProductsController"&gt;
-        
-        &lt;h1&gt;Acme Corporation&lt;/h1&gt;
-        
-        &lt;h2&gt;Products&lt;/h2&gt;
-        
-        &lt;div&gt;
-            &lt;h3&gt;Giant Rubber-Band&lt;/h3&gt; 
-            &lt;p&gt;Perfect for tripping Road Runners&lt;/p&gt;
-        &lt;/div&gt; 
-
-    &lt;/body&gt;
-
-&lt;/html&gt;
-					  </pre>
-
-					  <p>Note that we've added the <code>acute-controller</code> attribute to <code>body</code>.</p>
-					  <p>This is a <a href="concepts.html#directives">directive</a>. We'll see more of them later. The important thing to know for now is that this attaches the controller to the view.</p>
 				  </div>
 					  
 				  <div id="create-template" class="walk-through-step">
@@ -235,7 +219,7 @@ namespace Acme.Client
     &lt;head&gt;
         &lt;title&gt;Products - Acme Corporation&lt;/title&gt;
         
-        &lt;script type="text/javascript" src="acute.js"&gt;&lt;/script&gt;
+        &lt;script type="text/javascript" src="acute.min.js"&gt;&lt;/script&gt;
         &lt;script type="text/javascript" src="Acme.Client.js"&gt;&lt;/script&gt;
     &lt;/head&gt;
 
@@ -254,7 +238,12 @@ namespace Acme.Client
 
 &lt;/html&gt;
 					  </pre>
-					  <p>We've replaced the static-content with a <a href="directives.html#repeat">repeat directive</a> bound to the products list created by our controller.</p>
+					  <p>You'll notice we've added some <code>acute-*</code> attributes. These are <a href="concepts.html#directives">directives</a>. The specific ones used are, in order:</p>
+					  <ul>
+						<li><code>app</code> - This directives identifies the root element of your Acute application.</li>
+						<li><code>controller</code> - Attaches a <a href="concepts.html#controllers">controller</a> to the view. You can also attach controllers via <a href="concepts.html#routing">routes</a>, which we will see later.</li>
+						<li><code>repeat</code> - Instantiates a template once per item in a collection. We've replaced the static content in <code>index.html</code> with a repeat directive bound to the products list created by the controller.</li>
+					  </ul>
 					  <p ><span class="label label-info">Information:</span> <code>{{product.Price | current}}</code> is an example of a <a href="concepts.html#filters">filter</a>.</p>
 
 				  </div>
@@ -510,9 +499,21 @@ namespace Acme.Client
 
 					  <p>We will create a web-service which our client will consume. We will use Microsoft's <a href="http://www.asp.net/web-api">Web API</a>.</p>
 
-					   <p>Reference the <code>Acme.Client</code> project from the <code>Acme.Web</code> project. This will allow us to share the <code>Products</code> class between client and server.</p>
+					  <p>Create two classes in the <code>Acme.Web</code> project. In the <code>Models</code> folder create a class named <code>Product</code>: </p>
+<pre class="prettyprint">
+namespace Acme.Web.Models
+{
+    public class Product
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public decimal Price { get; set; }
+    }
+}
+</pre>
 
-					  <p>Create a new class in the <code>Acme.Web</code> project (under the Controllers folder) named <code>ProductsController</code> (yes, we have a ProductsController on both the client and the server. I think that's OK.)</p>
+					  <p>And in the <code>Controllers</code> folder create a class, <code>ProductsController</code>:</p>
 
 					  <pre class="prettyprint">
 using System.Collections.Generic;
@@ -525,7 +526,7 @@ namespace Acme.Web.Controllers
     {
 
         [HttpGet]
-        public IEnumerable&lt;Product&gt; GetAllProducts()
+        public IEnumerable<Product> GetAllProducts()
         {
             return new[]
             {
@@ -547,7 +548,10 @@ namespace Acme.Web.Controllers
         }
     }
 }
+
 					  </pre>
+
+					  <p>Yes, we now have <code>Product</code> and <code>ProductController</code> classes in both the client and server projects. For the controllers, this is fine: we are using MVC frameworks both client-side and server-side. For the Product model, if you dislike the idea of having the class in both projects, you could define the class in one, and set up a <a href="http://blogs.msdn.com/b/saraford/archive/2008/11/26/did-you-know-how-to-add-a-linked-item-to-a-project-365.aspx">linked-file</a> in the other.</p>
 
 					  <p>The only other thing we have to modify in the web project, is to modify <code>WebApiConfig.cs</code>: </p>
 
