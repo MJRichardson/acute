@@ -55,8 +55,11 @@ $project.Save()
 # comment ComVisible and Guid attributes from AssemblyInfo.cs
 $assemblyInfoPath = Join-Path -Path ([System.IO.FileInfo]$project.FullName).DirectoryName -ChildPath "Properties\AssemblyInfo.cs"
 (Get-Content $assemblyInfoPath) `
-	-replace '\[assembly: ComVisible', '//[assembly: ComVisible' `
-	-replace '\[assembly: Guid', '//[assembly: Guid' `
-	| Out-File $assemblyInfoPath 
+ -replace '\[assembly: ComVisible', '//[assembly: ComVisible' `
+ -replace '\[assembly: Guid', '//[assembly: Guid' `
+| Out-File $assemblyInfoPath
 
-
+#and add the PreserveMemberCase attribute
+if (-not (Select-String $assemblyInfoPath -pattern "\[assembly: PreserveMemberCase\]" -quiet)) {
+	(Get-Content $assemblyInfoPath | Out-String) + "`r`n[assembly: PreserveMemberCase]" | Out-File $assemblyInfoPath
+}
