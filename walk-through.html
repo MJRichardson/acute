@@ -246,6 +246,8 @@ namespace Acme.Client
 					  </ul>
 					  <p ><span class="label label-info">Information:</span> <code>{{product.Price | current}}</code> is an example of a <a href="concepts.html#filters">filter</a>.</p>
 
+					  <p>At this point you should be able to run the application (ensure the web project is set as the start-up project). Navigate to <kbd>index.html</kbd> and view the list of products.</p>
+
 				  </div>
 
 				  <div id="navigation" class="walk-through-step">
@@ -278,7 +280,7 @@ namespace Acme.Client
     &lt;head&gt;
         &lt;title&gt;Products - Acme Corporation&lt;/title&gt;
         
-        &lt;script type="text/javascript" src="acute.js"&gt;&lt;/script&gt;
+        &lt;script type="text/javascript" src="acute.min.js"&gt;&lt;/script&gt;
         &lt;script type="text/javascript" src="Acme.Client.js"&gt;&lt;/script&gt;
     &lt;/head&gt;
 
@@ -312,6 +314,8 @@ namespace Acme.Client
 					  </pre>
 					  <!-- todo: link to routeprovider docs -->
 					  <p>We have implemented the <code>ConfigureRoutes</code> method, where we use the <code>RouteProvider</code> to configure the routes.</p>
+
+					  <p>If you run the application now, you will be able to navigate between the products list and the (always empty) shopping cart. Next we'll work on putting something in that shopping cart.</p>
 				  </div>
 
 				  <div id="add-service" class="walk-through-step">
@@ -490,6 +494,8 @@ namespace Acme.Client
 }
 					  </pre>
 
+					  <p>Running the application now, you should see a 'buy' button below each product. Clicking one will add the chosen product to your cart.</p>
+
 				  </div>
 
 				  <div id="http" class="walk-through-step">
@@ -515,7 +521,7 @@ namespace Acme.Web.Models
 
 					  <p>And in the <code>Controllers</code> folder create a class, <code>ProductsController</code>:</p>
 
-					  <pre class="prettyprint">
+<pre class="prettyprint">
 using System.Collections.Generic;
 using System.Web.Http;
 using Acme.Web.Models;
@@ -526,7 +532,7 @@ namespace Acme.Web.Controllers
     {
 
         [HttpGet]
-        public IEnumerable<Product> GetAllProducts()
+        public IEnumerable&lt;Product&gt; GetAllProducts()
         {
             return new[]
             {
@@ -548,15 +554,13 @@ namespace Acme.Web.Controllers
         }
     }
 }
-
-					  </pre>
+</pre>
 
 					  <p>Yes, we now have <code>Product</code> and <code>ProductController</code> classes in both the client and server projects. For the controllers, this is fine: we are using MVC frameworks both client-side and server-side. For the Product model, if you dislike the idea of having the class in both projects, you could define the class in one, and set up a <a href="http://blogs.msdn.com/b/saraford/archive/2008/11/26/did-you-know-how-to-add-a-linked-item-to-a-project-365.aspx">linked-file</a> in the other.</p>
 
 					  <p>The only other thing we have to modify in the web project, is to modify <code>WebApiConfig.cs</code>: </p>
 
 					  <pre class="prettyprint">
-
 using System.Net.Http.Headers;
 using System.Web.Http;
 
@@ -584,7 +588,6 @@ namespace Acme.Web
 					  <p>Now we have a web-service. To consume it, we create a class <code>ProductService</code> in the <code>Acme.Client</code> project.</p>
 
 					  <pre class="prettyprint">
-
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Acute.Services;
@@ -665,6 +668,8 @@ namespace Acme.Client
     }
 }
 </pre>
+
+					  <p>Hopefully this walk-through has shown you how to start an Acute project, and introduced a few of the basic pieces.</p>
 				  </div>
 
 			  </div>

@@ -29,9 +29,68 @@
 
 		  <p>Acute is an MVC framework for developing client-side HTML applications in C#.  </p>
 
-		  <p>Acute allows you to write MVC applications, using HTML for the views, and C# for the controllers, models, services, and whatever other components/patterns you desire. The C# portions are compiled into javascript, allowing your application to run in browsers everywhere.  </p>
+		  <p>Acute allows you to write MVC applications, using HTML for the views, and C# for the controllers, models, services, and whatever other components/patterns you desire. The C# portions are compiled into JavaScript, allowing your application to run in browsers everywhere.  </p>
 
-		  <p>Acute is inspired by <a href="http://angularjs.org">AngularJS</a>. Acute aims to pair the industrial-grade concepts of AngularJS (templates, controllers, dependency-injection, etc) with an industrial-grade language (C#). </p>
+		  <p>Acute aims to pair industrial-grade concepts (templates, controllers, dependency-injection, etc) with an industrial-grade language (C#). </p>
+
+		  <p><span class="label label-warning">Warning:</span> This project is in an early phase of development. If you wish to report issues or request features, please do so via GitHub. </p>
+
+		  <h2>What?</h2>
+		  <p>Acute is composed of two parts: a framework, and a compiler.</p>
+		  <p>Acute.dll contains a model-view-controller framework. The concepts will be familiar if you have used any MVC previously, and are explained in more details in the <a href="concepts.html">Concepts</a> section. </p>
+		  <p>When you build an Acute project, <em>two</em> compilers are invoked:</p>
+		  <ul>
+			  <li>The standard Microsoft C# compiler, which produces a DLL containing MSIL.</li>
+			  <li>The Acute compiler, which produces a JavaScript file containing... JavaScript.</li>
+		  </ul>
+		  <p>The standard compiler ensures your C# code is valid. The Acute compiler ensures you can reference it from an HTML page, and have it execute in any browser.</p>
+
+		  <h2>Why?</h2>
+		  <p>Because JavaScript.</p>
+		  <p>Javascript is an immensely successful scripting language. <em>But</em>, it has a number of <del>flaws</del> <ins>features</ins> that make it <del>completely unsuitable</del> <ins>less than optimal</ins> for typical enterprise-application development. These are well-documented, and include:</p>
+		  <ul>
+			  <li><strong>Module/namespace system</strong> - There isn't one.</li>
+			  <li><strong>Late-binding</strong> - I know in certain situations late-binding is very useful, but early-binding allows for static (i.e. compile-time) verification and vastly more powerful development tools. If only there was a language that offered both. <a href="http://msdn.microsoft.com/en-us/library/dd264741.aspx">Oh wait...</a> </li>
+			  <li><strong>Type-system</strong> - Javascript's type-system is non-intuitive for someone with a 'traditional' O-O background (e.g. Java or C#). Its prototypal inheritance is poorly-understood and often mis-used. Its type-coercions are often <a href="https://www.destroyallsoftware.com/talks/wat">bizarre</a> (skip forward to approx 1:21 for the JavaScript section). </li>
+		  </ul>
+
+		  <blockquote>
+			  <p>JavaScript is an astonishing language, in the very worst sense. ... JavaScript is also coupled with The DOM, a horrendous API.</p>
+			  <footer>Douglas Crockford in <cite><a href="http://javascript.crockford.com/popular.html">The World's Most Misunderstood Programming Language Has Become the World's Most Popular Programming Language</a></cite></footer>
+		  </blockquote>
+
+		  <blockquote>
+			  <p>You can write large programs in Javascript. You just can't maintain them.</p>
+			  <footer>Anders Heijlsberg during a <cite><a href="http://channel9.msdn.com/Events/Lang-NEXT/Lang-NEXT-2012/Panel-Web-and-Cloud-Programming">Lang.NEXT panel</a></cite> </footer>
+		  </blockquote>
+
+		  <p>Acute is targeted towards development teams using C# on the server. There is undeniable benefits in using the same language client-side, regardless of your opinion towards JavaScript. Each additional language in a solution brings the need for new conventions and tools; one more set of things a team must agree (or disagree) on. And there is simply only so many things we can devote the time to becoming expert in.</p>
+
+		  <p>But we <em>need</em> JavaScript. It is the only language implemented in all popular web browsers. So we make the only reasonable choice: we use JavaScript for the part we want (ubiquity), discarding the part we don't (the actual language).</p>
+
+		  <p>Javascript has become the assembly language of the web. Acute just takes this to its logical conclusion.</p>
+
+		  <blockquote>
+			  <p>JavaScript is an assembly language. ... The browser can execute it, but no human should really care what's there.</p>
+			  <footer>Erik Meijer as quoted by <cite><a href="http://www.hanselman.com/blog/JavaScriptIsAssemblyLanguageForTheWebSematicMarkupIsDeadCleanVsMachinecodedHTML.aspx">Scott Hanselman</a></cite> </footer>
+		  </blockquote>
+
+		  <blockquote>
+			  <p>JS is the x86 of the web</p>
+			  <footer>Brendan Eich, quoted again by <cite><a href="http://www.hanselman.com/blog/JavaScriptisAssemblyLanguagefortheWebPart2MadnessorjustInsanity.aspx">Hanselman</a></cite> </footer>
+		  </blockquote>
+
+		  <h2>How?</h2>
+		  <p>Acute stands on the shoulders of two giants:</p>
+
+		  <h3><a href="http://angularjs.org/">AngularJS</a></h3>
+		  <p>Acute is inspired by Angular. It borrows many concepts, and utilizes it for the implementation of much of the HTML-templating and DOM manipulation functionality.</p>
+
+		  <h3><a href="http://www.saltarelle-compiler.com/">Saltarelle Compiler</a></h3>
+		  <p>The Saltarelle-Compiler compiles C# into JavaScript. Without it, this project wouldn't have been possible (or at least would have taken a <em>lot</em> longer).</p>
+
+		  <p>The <a href="setup.html">setup</a> page has details of what happens when you install the Acute NuGet package into your project. The <a href="walk-through.html">walk-through</a> shows a step-by-step introduction to building an Acute application.</p>
+
 
 
 	  </div>

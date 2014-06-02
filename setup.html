@@ -25,7 +25,7 @@
 		  <div class="page-header">
 			  <h1>Setup</h1>
 		  </div>
-		  <p>The recommended approach is to create an ASP.NET project to serve your initial page (index.html, default.html, or whatever), and possibly to host your web services. Then create another project of type class-library, which will be your client-application project.</p>
+		  <p>The recommended approach is to create an ASP.NET project to serve your initial page (index.html, default.html, or whatever), and possibly to host your web services. Then create another project of type class-library, which will be your Acute client-application project.</p>
 
 		  <p>The easiest way to install Acute into your solution is via  Nuget. </p>
 
@@ -38,6 +38,8 @@
 
 			  <li><code>acute.min.js</code> is added to the project.  </li>
 		  </ul>
+
+		  <p><span class="label label-info">Note:</span> After installing the NuGet package, you must re-load the project. This is unfortunate, but I suppose replacing <code>mscorlib.dll</code> isn't a normal scenario for a NuGet package.</p>
 
 		  <p>Now, when you build your project, in your output directory there will be a <code>{Your.Project.Name}.js</code> file. You need to reference this and <code>acute.min.js</code> from your HTML file. You may want to set a post-build event on your ASP.NET project to copy these files into your web project directory.</p>
 
