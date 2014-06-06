@@ -80,6 +80,7 @@
     <Content Include="spec\HttpSpecs.js" />
     <Content Include="spec\LocationSpecs.js" />
     <Content Include="spec\PlayerSpec.js" />
+    <Content Include="spec\RouteArgsSpecs.js" />
     <Content Include="spec\RouteProviderSpecs.js" />
     <Content Include="spec\SpecHelper.js" />
   </ItemGroup>
@@ -111,7 +112,7 @@
   <PropertyGroup>
     <PostBuildEvent>
 xcopy $(ProjectDir)..\Test.Scenarios\bin\$(ConfigurationName)\Test.Scenarios.js $(ProjectDir)scenarios /Y
-xcopy $(ProjectDir)..\Acute\bin\$(ConfigurationName)\acute.js $(ProjectDir)scenarios /Y
+xcopy $(ProjectDir)..\bin\acute.js $(ProjectDir)scenarios /Y
 xcopy $(ProjectDir)..\..\submodules\saltarelle.compiler\Runtime\CoreLib.Script\bin\mscorlib.js $(ProjectDir)scenarios /Y</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

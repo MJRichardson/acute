@@ -70,20 +70,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="mscorlib">
+      <HintPath>..\bin\mscorlib.dll</HintPath>
+    </Reference>
+    <Reference Include="Acute">
+      <HintPath>..\bin\Acute.dll</HintPath>
+    </Reference>
     <Reference Include="Saltarelle.Linq">
-      <HintPath>..\packages\Saltarelle.Linq.2.4.0\lib\Saltarelle.Linq.dll</HintPath>
+      <HintPath>..\bin\Saltarelle.Linq.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\submodules\saltarelle.compiler\Runtime\CoreLib\CoreLib.csproj">
-      <Project>{36d4b098-a21c-4725-acd3-400922885f38}</Project>
-      <Name>CoreLib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Acute\Acute.csproj">
-      <Project>{b7e3a9c4-8680-47c5-84be-3530eb587dd1}</Project>
-      <Name>Acute</Name>
-    </ProjectReference>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" Condition="!Exists('$(SolutionDir)packages\Saltarelle.Compiler.2.4.0\tools\Saltarelle.Compiler.targets')" />
   <Import Project="$(SolutionDir)bin\Acute.Compile.targets" />
   <!--<Import Project="$(SolutionDir)packages\Saltarelle.Compiler.2.4.0\tools\Saltarelle.Compiler.targets" Condition="Exists('$(SolutionDir)packages\Saltarelle.Compiler.2.4.0\tools\Saltarelle.Compiler.targets')" />-->
