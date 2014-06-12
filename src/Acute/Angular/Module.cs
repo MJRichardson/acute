@@ -27,6 +27,11 @@ namespace Acute.Angular
         {
         }
 
+        [InlineCode("{this}.directive({Name},{func})")]
+        public void Directive(string Name, object func)
+        {
+        }
+
         [InlineCode("{this}.service({Name},{func})")]
         public void Service(string Name, object func)
         {
