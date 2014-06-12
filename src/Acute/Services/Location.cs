@@ -5,10 +5,16 @@ namespace Acute.Services
 {
     public interface ILocation
     {
+        string AbsoluteUrl { get; } 
+        string Host { get; } 
+        int Port { get; } 
+        string Protocol { get; } 
         string Path { get; set; } 
+        string Hash { get; }
+        JsDictionary<string, string> Search { get; }
     }
 
-    public class Location
+    public class Location : ILocation
     {
         private readonly Angular.Location _angularLocation;
 
