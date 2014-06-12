@@ -56,6 +56,7 @@
     <Compile Include="App.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Controller.cs" />
+    <Compile Include="Directive.cs" />
     <Compile Include="Services\Cookies.cs" />
     <Compile Include="Services\Http.cs" />
     <Compile Include="Services\Location.cs" />
@@ -85,7 +86,7 @@
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <PropertyGroup>
     <PostBuildEvent>
-</PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

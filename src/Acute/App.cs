@@ -57,6 +57,9 @@ namespace Acute
              _module.Controller(controllerType.AsAngularServiceName(), func);
         }
 
+        protected void Directive(Type directiveType)
+        { }
+
 
         protected void Service<T>()
         {
