@@ -64,7 +64,6 @@ namespace Acute
         }
 
 
-
         protected void Service<T>()
         {
             Service<T,T>();
