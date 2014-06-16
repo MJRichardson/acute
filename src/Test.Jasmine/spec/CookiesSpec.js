@@ -1,23 +1,28 @@
 ﻿describe("Cookies service", function () {
 
     //var app = new Test.Scenarios.TestApp();
+
+    var $cookies;
+    var $cookieStore;
+    var acuteCookiesService;
     
     beforeEach(function () {
-        module('ngCookies', 'Test.Scenarios.TestApp');
+        module('Test.Scenarios.TestApp');
+
+        inject(function ($rootScope, _$cookies_, _$cookieStore_) {
+            
+            $cookies = _$cookies_;
+            $cookieStore = _$cookieStore_;
+            acuteCookiesService = new Acute.Services.Cookies($cookieStore, $cookies);
+            
+        });
     });
     
     describe('When setting cookie with string value', function () {
 
-        var $cookies;
-
-        beforeEach(inject(function ($rootScope, _$cookies_, AcuteServicesICookies) {
-            
-            $cookies = _$cookies_;
-            $rootScope.$apply();
-
-            AcuteServicesICookies.set_item("foo", "bar");
-            
-        }));
+        beforeEach(function() {
+            acuteCookiesService.set_item("foo", "bar");
+        });
         
         it("should call Angular $cookies service", function () {
             expect($cookies.foo).toEqual("bar");
@@ -28,20 +33,12 @@
     
     describe('When getting cookie with string value', function () {
 
-        var $cookies;
-        var cookies;
-
-        beforeEach(inject(function ($rootScope, _$cookies_, AcuteServicesICookies) {
-
-            cookies = AcuteServicesICookies;
-            $cookies = _$cookies_;
+        beforeEach(function () {
             $cookies.foo = "bar";
-            $rootScope.$apply();
-
-        }));
+        });
         
         it("should return cookie value", function () {
-            expect(cookies.get_item("foo").toEqual("bar");
+            expect(acuteCookiesService.get_item("foo")).toEqual("bar");
         });
         
 
