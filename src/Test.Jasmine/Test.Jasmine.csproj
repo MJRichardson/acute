@@ -67,12 +67,6 @@
     <Content Include="lib\jasmine-2.0.0\jasmine.js" />
     <Content Include="lib\jasmine-2.0.0\jasmine_favicon.png" />
     <Content Include="scenarios\Acute.js" />
-    <Content Include="scenarios\angular-cookies.js" />
-    <Content Include="scenarios\angular-mocks.js" />
-    <Content Include="scenarios\angular-route.js" />
-    <Content Include="scenarios\angular.js" />
-    <Content Include="scenarios\linq.js" />
-    <Content Include="scenarios\mscorlib.js" />
     <Content Include="scenarios\Test.Scenarios.js" />
     <Content Include="SpecRunner.html" />
     <Content Include="spec\ControllerSpecs.js" />
@@ -109,10 +103,9 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>
+    <PostBuildEvent>xcopy $(ProjectDir)..\..\submodules\angular.js\build\angular-mocks.js $(ProjectDir)scenarios /Y
 xcopy $(ProjectDir)..\Test.Scenarios\bin\$(ConfigurationName)\Test.Scenarios.js $(ProjectDir)scenarios /Y
-xcopy $(ProjectDir)..\Acute\bin\$(ConfigurationName)\acute.js $(ProjectDir)scenarios /Y
-xcopy $(ProjectDir)..\..\submodules\saltarelle.compiler\Runtime\CoreLib.Script\bin\mscorlib.js $(ProjectDir)scenarios /Y</PostBuildEvent>
+xcopy $(ProjectDir)..\bin\acute.js $(ProjectDir)scenarios /Y</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
