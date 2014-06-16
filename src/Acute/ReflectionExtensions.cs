@@ -28,6 +28,14 @@ namespace Acute
                 : type.FullName;
         }
 
+        public static string AsAngularDirectiveName(this Type type)
+        {
+            //todo: allow attribute to override
+            var undotted =  type.FullName.Replace(".", "");
+            var firstCharLower = undotted[0].ToString().ToLower();
+            return firstCharLower + undotted.Substring(1);
+        }
+
         public static List<string> GetInstanceMethodNames(this Type type)
         {
             var result = new List<string>();

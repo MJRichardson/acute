@@ -24,6 +24,9 @@ namespace Acute
             {
                 foreach (var type in assembly.GetTypes())
                 {
+                    if (type.IsSubclassOf(typeof(Acute.Directive)))
+                        Directive(type);
+
                    if (type.IsSubclassOf(typeof(Acute.Controller))) 
                        Controller(type);
                 }
@@ -60,7 +63,7 @@ namespace Acute
         protected void Directive(Type directiveType)
         {
             var func = Acute.Directive.BuildDirectiveFunction(directiveType);     
-           _module.Directive(directiveType.AsAngularServiceName(), directiveType); 
+           _module.Directive(directiveType.AsAngularDirectiveName(), directiveType); 
         }
 
 

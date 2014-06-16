@@ -28927,6 +28927,9 @@ angular.module('ngCookies', ['ng']).
 			var $t3 = ss.getAssemblyTypes(assembly);
 			for (var $t4 = 0; $t4 < $t3.length; $t4++) {
 				var type = $t3[$t4];
+				if (type.prototype instanceof $Acute_Directive) {
+					this.directive(type);
+				}
 				if (type.prototype instanceof $Acute_Controller) {
 					this.controller$1(type);
 				}
@@ -29027,6 +29030,25 @@ angular.module('ngCookies', ['ng']).
 		//             return functionArrayNotation;
 	};
 	global.Acute.Controller = $Acute_Controller;
+	////////////////////////////////////////////////////////////////////////////////
+	// Acute.Directive
+	var $Acute_Directive = function() {
+	};
+	$Acute_Directive.__typeName = 'Acute.Directive';
+	$Acute_Directive.$buildDirectiveFunction = function(type) {
+		var functionArrayNotation = $Acute_$ReflectionExtensions.$createFunctionArray(type);
+		var parameters = Enumerable.from(functionArrayNotation).select(function(x) {
+			return ss.cast(x, String);
+		}).select(function(x) {
+			return ss.replaceAllString(x, '.', '_');
+		}).toArray();
+		var body = ss.formatString('var directive = new {0}({1});\n', ss.getTypeFullName(type), ss.arrayFromEnumerable(parameters).join(','));
+		body += ss.formatString('return directive.{0}();', $Acute_Directive.$definitionScriptName);
+		var modifiedFunc = new Function(parameters, body);
+		ss.setItem(functionArrayNotation, parameters.length, modifiedFunc);
+		return functionArrayNotation;
+	};
+	global.Acute.Directive = $Acute_Directive;
 	////////////////////////////////////////////////////////////////////////////////
 	// Acute.RouteConfig
 	var $Acute_RouteConfig = function() {
@@ -29225,6 +29247,10 @@ angular.module('ngCookies', ['ng']).
 			var func = $Acute_Controller.$buildControllerFunction(controllerType);
 			this.$_module.controller($Acute_$ReflectionExtensions.$asAngularServiceName(controllerType), func);
 		},
+		directive: function(directiveType) {
+			var func = $Acute_Directive.$buildDirectiveFunction(directiveType);
+			this.$_module.directive($Acute_$ReflectionExtensions.$asAngularServiceName(directiveType), directiveType);
+		},
 		service: function(T) {
 			return function() {
 				this.service$1(T, T).call(this);
@@ -29247,6 +29273,24 @@ angular.module('ngCookies', ['ng']).
 		}
 	});
 	ss.initClass($Acute_Controller, $asm, { control: null });
+	ss.initClass($Acute_Directive, $asm, {
+		get_template: function() {
+			return null;
+		},
+		get_templateUrl: function() {
+			return null;
+		},
+		definition: function() {
+			var definition = {};
+			if (ss.isValue(this.get_template())) {
+				definition['template'] = this.get_template();
+			}
+			else if (ss.isValue(this.get_templateUrl())) {
+				definition['templateUrl'] = this.get_templateUrl();
+			}
+			return definition;
+		}
+	});
 	ss.initClass($Acute_RouteConfig, $asm, {
 		get_templateUrl: function() {
 			return this.$1$TemplateUrlField;
@@ -29460,6 +29504,7 @@ angular.module('ngCookies', ['ng']).
 	ss.setMetadata($Acute_Services_Http, { members: [{ name: '.ctor', type: 1, params: [$Acute_Angular_$Http] }] });
 	ss.setMetadata($Acute_Services_Location, { members: [{ name: '.ctor', type: 1, params: [$Acute_Angular_$Location] }] });
 	$Acute_Controller.$controlScriptName = 'control';
+	$Acute_Directive.$definitionScriptName = 'definition';
 	$System_Net_Http_HttpMethod.$getMethod = new $System_Net_Http_HttpMethod('GET');
 	$System_Net_Http_HttpMethod.$putMethod = new $System_Net_Http_HttpMethod('PUT');
 	$System_Net_Http_HttpMethod.$postMethod = new $System_Net_Http_HttpMethod('POST');
