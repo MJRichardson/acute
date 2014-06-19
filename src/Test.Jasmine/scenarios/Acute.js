@@ -28878,6 +28878,12 @@ angular.module('ngCookies', ['ng']).
 		var angularServiceAttributes = ss.getAttributes(type, $Acute_Angular_$AngularServiceAttribute, false);
 		return ((angularServiceAttributes.length > 0) ? ss.cast(angularServiceAttributes[0], $Acute_Angular_$AngularServiceAttribute).get_$serviceName() : ss.getTypeFullName(type));
 	};
+	$Acute_$ReflectionExtensions.$asAngularDirectiveName = function(type) {
+		//todo: allow attribute to override
+		var undotted = ss.replaceAllString(ss.getTypeFullName(type), '.', '');
+		var firstCharLower = String.fromCharCode(undotted.charCodeAt(0)).toLowerCase();
+		return firstCharLower + undotted.substring(1);
+	};
 	$Acute_$ReflectionExtensions.$getInstanceMethodNames = function(type) {
 		var result = [];
 		var $t1 = ss.getEnumerator(Object.keys(type.prototype));
@@ -29037,7 +29043,7 @@ angular.module('ngCookies', ['ng']).
 	$Acute_Directive.__typeName = 'Acute.Directive';
 	$Acute_Directive.$buildDirectiveFunction = function(type) {
 		var functionArrayNotation = $Acute_$ReflectionExtensions.$createFunctionArray(type);
-		var parameters = Enumerable.from(functionArrayNotation).select(function(x) {
+		var parameters = Enumerable.from(functionArrayNotation).takeExceptLast().select(function(x) {
 			return ss.cast(x, String);
 		}).select(function(x) {
 			return ss.replaceAllString(x, '.', '_');
@@ -29249,7 +29255,7 @@ angular.module('ngCookies', ['ng']).
 		},
 		directive: function(directiveType) {
 			var func = $Acute_Directive.$buildDirectiveFunction(directiveType);
-			this.$_module.directive($Acute_$ReflectionExtensions.$asAngularServiceName(directiveType), directiveType);
+			this.$_module.directive($Acute_$ReflectionExtensions.$asAngularDirectiveName(directiveType), func);
 		},
 		service: function(T) {
 			return function() {

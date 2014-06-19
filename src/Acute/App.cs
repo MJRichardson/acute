@@ -63,7 +63,7 @@ namespace Acute
         protected void Directive(Type directiveType)
         {
             var func = Acute.Directive.BuildDirectiveFunction(directiveType);     
-           _module.Directive(directiveType.AsAngularDirectiveName(), directiveType); 
+           _module.Directive(directiveType.AsAngularDirectiveName(), func); 
         }
 
 

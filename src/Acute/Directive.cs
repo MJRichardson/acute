@@ -30,7 +30,7 @@ using System.Runtime.CompilerServices;
         internal static IList<object> BuildDirectiveFunction(Type type)
         {
             var functionArrayNotation = type.CreateFunctionArray();
-            var parameters = functionArrayNotation.Cast<string>().Select(x => x.Replace(".", "_")).ToList();
+            var parameters = functionArrayNotation.TakeExceptLast().Cast<string>().Select(x => x.Replace(".", "_")).ToList();
 
             string body = String.Format("var directive = new {0}({1});\n", type.FullName, string.Join(",", parameters));
             body += string.Format("return directive.{0}();", DefinitionScriptName);

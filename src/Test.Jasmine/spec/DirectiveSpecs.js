@@ -7,7 +7,7 @@
         beforeEach(function() {
             module('Test.Scenarios.TestApp');
 
-            var html = "<div testScenariosDirectivesDirective></div>";
+            var html = "<div test-scenarios-directives-test-directive></div>";
 
             inject(function($compile, $rootScope) {
                 var scope = $rootScope.$new();

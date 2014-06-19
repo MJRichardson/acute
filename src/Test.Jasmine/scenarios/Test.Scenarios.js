@@ -4,13 +4,13 @@
 	global.Test = global.Test || {};
 	global.Test.Scenarios = global.Test.Scenarios || {};
 	global.Test.Scenarios.Controllers = global.Test.Scenarios.Controllers || {};
+	global.Test.Scenarios.Directives = global.Test.Scenarios.Directives || {};
 	global.Test.Scenarios.Http = global.Test.Scenarios.Http || {};
 	global.Test.Scenarios.RouteConfiguration = global.Test.Scenarios.RouteConfiguration || {};
 	global.Test.Scenarios.RouteConfiguration.When = global.Test.Scenarios.RouteConfiguration.When || {};
 	global.Test.Scenarios.RouteConfiguration.When.WithGenericController = global.Test.Scenarios.RouteConfiguration.When.WithGenericController || {};
 	global.Test.Scenarios.RouteConfiguration.When.WithTemplateUrl = global.Test.Scenarios.RouteConfiguration.When.WithTemplateUrl || {};
 	global.Test.Scenarios.Scenarios = global.Test.Scenarios.Scenarios || {};
-	global.Test.Scenarios.Scenarios.Directives = global.Test.Scenarios.Scenarios.Directives || {};
 	global.Test.Scenarios.Scenarios.Location = global.Test.Scenarios.Scenarios.Location || {};
 	ss.initAssembly($asm, 'Test.Scenarios');
 	////////////////////////////////////////////////////////////////////////////////
@@ -36,6 +36,13 @@
 	};
 	$Test_Scenarios_Controllers_Controller.__typeName = 'Test.Scenarios.Controllers.Controller';
 	global.Test.Scenarios.Controllers.Controller = $Test_Scenarios_Controllers_Controller;
+	////////////////////////////////////////////////////////////////////////////////
+	// Test.Scenarios.Directives.TestDirective
+	var $Test_Scenarios_Directives_TestDirective = function() {
+		Acute.Directive.call(this);
+	};
+	$Test_Scenarios_Directives_TestDirective.__typeName = 'Test.Scenarios.Directives.TestDirective';
+	global.Test.Scenarios.Directives.TestDirective = $Test_Scenarios_Directives_TestDirective;
 	////////////////////////////////////////////////////////////////////////////////
 	// Test.Scenarios.Http.FooBar
 	var $Test_Scenarios_Http_FooBar = function() {
@@ -89,13 +96,6 @@
 	$Test_Scenarios_RouteConfiguration_When_WithTemplateUrl_App.__typeName = 'Test.Scenarios.RouteConfiguration.When.WithTemplateUrl.App';
 	global.Test.Scenarios.RouteConfiguration.When.WithTemplateUrl.App = $Test_Scenarios_RouteConfiguration_When_WithTemplateUrl_App;
 	////////////////////////////////////////////////////////////////////////////////
-	// Test.Scenarios.Scenarios.Directives.TestDirective
-	var $Test_Scenarios_Scenarios_Directives_TestDirective = function() {
-		Acute.Directive.call(this);
-	};
-	$Test_Scenarios_Scenarios_Directives_TestDirective.__typeName = 'Test.Scenarios.Scenarios.Directives.TestDirective';
-	global.Test.Scenarios.Scenarios.Directives.TestDirective = $Test_Scenarios_Scenarios_Directives_TestDirective;
-	////////////////////////////////////////////////////////////////////////////////
 	// Test.Scenarios.Scenarios.Location.LocationTestApp
 	var $Test_Scenarios_Scenarios_Location_LocationTestApp = function() {
 		Acute.App.call(this);
@@ -130,6 +130,11 @@
 			scope.FromObjectInitializer = $t1;
 		}
 	}, Acute.Controller);
+	ss.initClass($Test_Scenarios_Directives_TestDirective, $asm, {
+		get_template: function() {
+			return 'three blind mice';
+		}
+	}, Acute.Directive);
 	ss.initClass($Test_Scenarios_Http_FooBar, $asm, {});
 	ss.initClass($Test_Scenarios_Http_HttpTestApp, $asm, {}, Acute.App);
 	ss.initClass($Test_Scenarios_Http_HttpTestController, $asm, {
@@ -170,11 +175,6 @@
 			routeProvider.when('/this/is/a/path', $t1);
 		}
 	}, Acute.App);
-	ss.initClass($Test_Scenarios_Scenarios_Directives_TestDirective, $asm, {
-		get_template: function() {
-			return 'three blind mice';
-		}
-	}, Acute.Directive);
 	ss.initClass($Test_Scenarios_Scenarios_Location_LocationTestApp, $asm, {}, Acute.App);
 	ss.initClass($Test_Scenarios_Scenarios_Location_LocationTestController, $asm, {
 		control: function(scope) {
@@ -183,13 +183,13 @@
 	ss.setMetadata($Test_Scenarios_TestApp, { members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Controllers_App, { members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Controllers_Controller, { members: [{ name: '.ctor', type: 1, params: [] }] });
+	ss.setMetadata($Test_Scenarios_Directives_TestDirective, { members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Http_FooBar, { members: [{ name: '.ctor', type: 1, params: [], sname: '$ctor', sm: true }] });
 	ss.setMetadata($Test_Scenarios_Http_HttpTestApp, { members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Http_HttpTestController, { members: [{ name: '.ctor', type: 1, params: [Acute.Services.IHttp] }] });
 	ss.setMetadata($Test_Scenarios_RouteConfiguration_When_WithGenericController_App, { members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_RouteConfiguration_When_WithGenericController_DefaultController, { members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_RouteConfiguration_When_WithTemplateUrl_App, { members: [{ name: '.ctor', type: 1, params: [] }] });
-	ss.setMetadata($Test_Scenarios_Scenarios_Directives_TestDirective, { members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Scenarios_Location_LocationTestApp, { members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Scenarios_Location_LocationTestController, { members: [{ name: '.ctor', type: 1, params: [Acute.Services.Location] }] });
 })();
