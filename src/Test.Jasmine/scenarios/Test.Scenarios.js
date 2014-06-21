@@ -37,12 +37,20 @@
 	$Test_Scenarios_Controllers_Controller.__typeName = 'Test.Scenarios.Controllers.Controller';
 	global.Test.Scenarios.Controllers.Controller = $Test_Scenarios_Controllers_Controller;
 	////////////////////////////////////////////////////////////////////////////////
-	// Test.Scenarios.Directives.TestDirective
-	var $Test_Scenarios_Directives_TestDirective = function() {
+	// Test.Scenarios.Directives.TestDirectiveWithBoundProperty
+	var $Test_Scenarios_Directives_TestDirectiveWithBoundProperty = function() {
+		this.$2$MiceCountField = 0;
 		Acute.Directive.call(this);
 	};
-	$Test_Scenarios_Directives_TestDirective.__typeName = 'Test.Scenarios.Directives.TestDirective';
-	global.Test.Scenarios.Directives.TestDirective = $Test_Scenarios_Directives_TestDirective;
+	$Test_Scenarios_Directives_TestDirectiveWithBoundProperty.__typeName = 'Test.Scenarios.Directives.TestDirectiveWithBoundProperty';
+	global.Test.Scenarios.Directives.TestDirectiveWithBoundProperty = $Test_Scenarios_Directives_TestDirectiveWithBoundProperty;
+	////////////////////////////////////////////////////////////////////////////////
+	// Test.Scenarios.Directives.TestDirectiveWithTemplate
+	var $Test_Scenarios_Directives_TestDirectiveWithTemplate = function() {
+		Acute.Directive.call(this);
+	};
+	$Test_Scenarios_Directives_TestDirectiveWithTemplate.__typeName = 'Test.Scenarios.Directives.TestDirectiveWithTemplate';
+	global.Test.Scenarios.Directives.TestDirectiveWithTemplate = $Test_Scenarios_Directives_TestDirectiveWithTemplate;
 	////////////////////////////////////////////////////////////////////////////////
 	// Test.Scenarios.Http.FooBar
 	var $Test_Scenarios_Http_FooBar = function() {
@@ -130,7 +138,18 @@
 			scope.FromObjectInitializer = $t1;
 		}
 	}, Acute.Controller);
-	ss.initClass($Test_Scenarios_Directives_TestDirective, $asm, {
+	ss.initClass($Test_Scenarios_Directives_TestDirectiveWithBoundProperty, $asm, {
+		get_miceCount: function() {
+			return this.$2$MiceCountField;
+		},
+		set_miceCount: function(value) {
+			this.$2$MiceCountField = value;
+		},
+		get_template: function() {
+			return '{{MiceCount}} blind mice';
+		}
+	}, Acute.Directive);
+	ss.initClass($Test_Scenarios_Directives_TestDirectiveWithTemplate, $asm, {
 		get_template: function() {
 			return 'three blind mice';
 		}
@@ -183,7 +202,8 @@
 	ss.setMetadata($Test_Scenarios_TestApp, { members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Controllers_App, { members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Controllers_Controller, { members: [{ name: '.ctor', type: 1, params: [] }] });
-	ss.setMetadata($Test_Scenarios_Directives_TestDirective, { members: [{ name: '.ctor', type: 1, params: [] }] });
+	ss.setMetadata($Test_Scenarios_Directives_TestDirectiveWithBoundProperty, { members: [{ name: '.ctor', type: 1, params: [] }] });
+	ss.setMetadata($Test_Scenarios_Directives_TestDirectiveWithTemplate, { members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Http_FooBar, { members: [{ name: '.ctor', type: 1, params: [], sname: '$ctor', sm: true }] });
 	ss.setMetadata($Test_Scenarios_Http_HttpTestApp, { members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Http_HttpTestController, { members: [{ name: '.ctor', type: 1, params: [Acute.Services.IHttp] }] });

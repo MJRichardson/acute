@@ -57,6 +57,7 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Controller.cs" />
     <Compile Include="Directive.cs" />
+    <Compile Include="DirectivePropertyBindingType.cs" />
     <Compile Include="Services\Cookies.cs" />
     <Compile Include="Services\Http.cs" />
     <Compile Include="Services\Location.cs" />

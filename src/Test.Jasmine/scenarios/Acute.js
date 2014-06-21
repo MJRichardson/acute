@@ -29056,6 +29056,20 @@ angular.module('ngCookies', ['ng']).
 	};
 	global.Acute.Directive = $Acute_Directive;
 	////////////////////////////////////////////////////////////////////////////////
+	// Acute.DirectivePropertyBindingType
+	var $Acute_DirectivePropertyBindingType = function() {
+	};
+	$Acute_DirectivePropertyBindingType.__typeName = 'Acute.DirectivePropertyBindingType';
+	global.Acute.DirectivePropertyBindingType = $Acute_DirectivePropertyBindingType;
+	////////////////////////////////////////////////////////////////////////////////
+	// Acute.DirectivePropertyBindingTypeAttribute
+	var $Acute_DirectivePropertyBindingTypeAttribute = function(bindingType) {
+		this.$2$BindingTypeField = 0;
+		this.set_bindingType(bindingType);
+	};
+	$Acute_DirectivePropertyBindingTypeAttribute.__typeName = 'Acute.DirectivePropertyBindingTypeAttribute';
+	global.Acute.DirectivePropertyBindingTypeAttribute = $Acute_DirectivePropertyBindingTypeAttribute;
+	////////////////////////////////////////////////////////////////////////////////
 	// Acute.RouteConfig
 	var $Acute_RouteConfig = function() {
 		this.$1$TemplateUrlField = null;
@@ -29294,7 +29308,25 @@ angular.module('ngCookies', ['ng']).
 			else if (ss.isValue(this.get_templateUrl())) {
 				definition['templateUrl'] = this.get_templateUrl();
 			}
+			var scope = {};
+			var $t1 = Enumerable.from(ss.getMembers(ss.getInstanceType(this), 31, 18)).where(function(x) {
+				return x.type === 16;
+			}).toArray();
+			for (var $t2 = 0; $t2 < $t1.length; $t2++) {
+				var prop = $t1[$t2];
+				scope[prop.name] = '=';
+			}
+			definition['scope'] = scope;
 			return definition;
+		}
+	});
+	ss.initEnum($Acute_DirectivePropertyBindingType, $asm, { bound: 0, evaluated: 1 });
+	ss.initClass($Acute_DirectivePropertyBindingTypeAttribute, $asm, {
+		get_bindingType: function() {
+			return this.$2$BindingTypeField;
+		},
+		set_bindingType: function(value) {
+			this.$2$BindingTypeField = value;
 		}
 	});
 	ss.initClass($Acute_RouteConfig, $asm, {

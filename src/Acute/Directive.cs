@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 
 ﻿namespace Acute
@@ -22,6 +23,20 @@ using System.Runtime.CompilerServices;
                 definition["template"] = Template;
             else if (TemplateUrl != null)
                 definition["templateUrl"] = TemplateUrl;
+
+            var scope = new JsDictionary();
+
+            foreach (
+                var prop in
+                    this.GetType()
+                        .GetMembers(BindingFlags.Public | BindingFlags.DeclaredOnly | BindingFlags.Instance)
+                        .Where(x => x.MemberType == MemberTypes.Property)
+                        .ToList())
+            {
+                scope[prop.Name] = "=";
+            }
+
+            definition["scope"] = scope;
 
             return definition;
 
