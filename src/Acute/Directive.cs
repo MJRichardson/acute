@@ -33,8 +33,30 @@ using System.Runtime.CompilerServices;
                         .Where(x => x.MemberType == MemberTypes.Property)
                         .ToList())
             {
-               var customBindingAttributes = prop.GetCustomAttributes(typeof (DirectivePropertyBindingTypeAttribute), false);
-                scope[prop.Name] = "=";
+                //binding-type defaults to bound
+                var bindingType = DirectivePropertyBindingType.Bound;
+
+                //but may be overriden via an attribute
+               var bindingAttributes = prop.GetCustomAttributes(typeof (DirectivePropertyBindingTypeAttribute), false);
+                if (bindingAttributes.Length > 0)
+                {
+                    bindingType = ((DirectivePropertyBindingTypeAttribute) bindingAttributes[0]).BindingType;
+                }
+
+                switch (bindingType)
+                {
+                   case DirectivePropertyBindingType.Bound: 
+                        scope[prop.Name] = "=";
+                        break;
+
+                    case DirectivePropertyBindingType.Evaluated:
+                        scope[prop.Name] = "@";
+                        break;
+
+                    default:
+                        throw new Exception("Unexpected binding type: " + bindingType);
+                        
+                }
             }
 
             definition["scope"] = scope;

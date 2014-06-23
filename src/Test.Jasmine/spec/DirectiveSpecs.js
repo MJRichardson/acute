@@ -10,7 +10,7 @@
 
         beforeEach(function() {
 
-            var html = "<div test-scenarios-directives-test-directive-with-template></div>";
+            var html = "<div test-directive-with-template></div>";
 
             inject(function($compile, $rootScope) {
                 var scope = $rootScope.$new();
@@ -32,11 +32,11 @@
 
         beforeEach(function() {
 
-            var html = "<div test-scenarios-directives-test-directive-with-bound-property MiceCount=\"MiceCount\"></div>";
+            var html = "<div test-directive-with-bound-property mice-count=\"miceCount\"></div>";
 
             inject(function($compile, $rootScope) {
                 var scope = $rootScope.$new();
-                scope.MiceCount = 9;
+                scope.miceCount = 9;
                 element = angular.element(html);
                 var compiled = $compile(element);
                 compiled(scope);

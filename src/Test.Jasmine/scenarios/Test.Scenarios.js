@@ -39,7 +39,7 @@
 	////////////////////////////////////////////////////////////////////////////////
 	// Test.Scenarios.Directives.TestDirectiveWithBoundProperty
 	var $Test_Scenarios_Directives_TestDirectiveWithBoundProperty = function() {
-		this.$2$MiceCountField = 0;
+		this.$2$miceCountField = 0;
 		Acute.Directive.call(this);
 	};
 	$Test_Scenarios_Directives_TestDirectiveWithBoundProperty.__typeName = 'Test.Scenarios.Directives.TestDirectiveWithBoundProperty';
@@ -140,13 +140,13 @@
 	}, Acute.Controller);
 	ss.initClass($Test_Scenarios_Directives_TestDirectiveWithBoundProperty, $asm, {
 		get_miceCount: function() {
-			return this.$2$MiceCountField;
+			return this.$2$miceCountField;
 		},
 		set_miceCount: function(value) {
-			this.$2$MiceCountField = value;
+			this.$2$miceCountField = value;
 		},
 		get_template: function() {
-			return '{{MiceCount}} blind mice';
+			return '{{miceCount}} blind mice';
 		}
 	}, Acute.Directive);
 	ss.initClass($Test_Scenarios_Directives_TestDirectiveWithTemplate, $asm, {
@@ -202,7 +202,7 @@
 	ss.setMetadata($Test_Scenarios_TestApp, { members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Controllers_App, { members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Controllers_Controller, { members: [{ name: '.ctor', type: 1, params: [] }] });
-	ss.setMetadata($Test_Scenarios_Directives_TestDirectiveWithBoundProperty, { members: [{ name: '.ctor', type: 1, params: [] }] });
+	ss.setMetadata($Test_Scenarios_Directives_TestDirectiveWithBoundProperty, { members: [{ name: '.ctor', type: 1, params: [] }, { name: 'miceCount', type: 16, returnType: ss.Int32, getter: { name: 'get_miceCount', type: 8, sname: 'get_miceCount', returnType: ss.Int32, params: [] }, setter: { name: 'set_miceCount', type: 8, sname: 'set_miceCount', returnType: Object, params: [ss.Int32] } }] });
 	ss.setMetadata($Test_Scenarios_Directives_TestDirectiveWithTemplate, { members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Http_FooBar, { members: [{ name: '.ctor', type: 1, params: [], sname: '$ctor', sm: true }] });
 	ss.setMetadata($Test_Scenarios_Http_HttpTestApp, { members: [{ name: '.ctor', type: 1, params: [] }] });
