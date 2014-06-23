@@ -33,6 +33,7 @@ using System.Runtime.CompilerServices;
                         .Where(x => x.MemberType == MemberTypes.Property)
                         .ToList())
             {
+               var customBindingAttributes = prop.GetCustomAttributes(typeof (DirectivePropertyBindingTypeAttribute), false);
                 scope[prop.Name] = "=";
             }
 

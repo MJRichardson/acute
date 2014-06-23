@@ -30,10 +30,25 @@ namespace Acute
 
         public static string AsAngularDirectiveName(this Type type)
         {
-            //todo: allow attribute to override
-            var undotted =  type.FullName.Replace(".", "");
-            var firstCharLower = undotted[0].ToString().ToLower();
-            return firstCharLower + undotted.Substring(1);
+            //if the directive name attribute is applied, use the name value supplied
+            var directiveNameAttributes = type.GetCustomAttributes(typeof (DirectiveNameAttribute), false);
+            if (directiveNameAttributes.Length > 0)
+            {
+                return ((DirectiveNameAttribute) directiveNameAttributes[0]).Name;
+            }
+
+            //otherwise we build the directive name from the class name
+
+            //camel-case
+            var directiveName = type.Name[0].ToString().ToLower() + type.Name.Substring(1);
+
+            //if the class name ends with 'Directive', then remove it
+           if (directiveName.EndsWith("Directive"))
+           {
+               directiveName = directiveName.Substring(0, directiveName.Length - 9);
+           }
+
+            return directiveName;
         }
 
         public static List<string> GetInstanceMethodNames(this Type type)
