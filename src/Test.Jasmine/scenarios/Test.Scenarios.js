@@ -44,6 +44,13 @@
 	$Test_Scenarios_Directives_TestDirectiveWithBoundProperty.__typeName = 'Test.Scenarios.Directives.TestDirectiveWithBoundProperty';
 	global.Test.Scenarios.Directives.TestDirectiveWithBoundProperty = $Test_Scenarios_Directives_TestDirectiveWithBoundProperty;
 	////////////////////////////////////////////////////////////////////////////////
+	// Test.Scenarios.Directives.TestDirectiveWithEvaluatedProperty
+	var $Test_Scenarios_Directives_TestDirectiveWithEvaluatedProperty = function() {
+		Acute.Directive.call(this);
+	};
+	$Test_Scenarios_Directives_TestDirectiveWithEvaluatedProperty.__typeName = 'Test.Scenarios.Directives.TestDirectiveWithEvaluatedProperty';
+	global.Test.Scenarios.Directives.TestDirectiveWithEvaluatedProperty = $Test_Scenarios_Directives_TestDirectiveWithEvaluatedProperty;
+	////////////////////////////////////////////////////////////////////////////////
 	// Test.Scenarios.Directives.TestDirectiveWithTemplate
 	var $Test_Scenarios_Directives_TestDirectiveWithTemplate = function() {
 		Acute.Directive.call(this);
@@ -142,6 +149,11 @@
 			return '{{miceCount}} blind mice';
 		}
 	}, Acute.Directive);
+	ss.initClass($Test_Scenarios_Directives_TestDirectiveWithEvaluatedProperty, $asm, {
+		get_template: function() {
+			return "And all the people sing '{{song}}'.";
+		}
+	}, Acute.Directive);
 	ss.initClass($Test_Scenarios_Directives_TestDirectiveWithTemplate, $asm, {
 		get_template: function() {
 			return 'three blind mice';
@@ -196,6 +208,7 @@
 	ss.setMetadata($Test_Scenarios_Controllers_App, { members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Controllers_Controller, { members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Directives_TestDirectiveWithBoundProperty, { attr: [new Acute.BindDomAttributeToDirectiveScopeAttribute('miceCount', 0)], members: [{ name: '.ctor', type: 1, params: [] }] });
+	ss.setMetadata($Test_Scenarios_Directives_TestDirectiveWithEvaluatedProperty, { attr: [new Acute.BindDomAttributeToDirectiveScopeAttribute('song', 1)], members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Directives_TestDirectiveWithTemplate, { members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Http_FooBar, { members: [{ name: '.ctor', type: 1, params: [], sname: '$ctor', sm: true }] });
 	ss.setMetadata($Test_Scenarios_Http_HttpTestApp, { members: [{ name: '.ctor', type: 1, params: [] }] });

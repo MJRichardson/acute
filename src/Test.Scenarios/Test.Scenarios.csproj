@@ -48,6 +48,9 @@
     <Compile Include="Scenarios\Directives\TestDirectiveWithBoundProperty.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Scenarios\Directives\TestDirectiveWithEvaluatedProperty.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Scenarios\Directives\TestDirectiveWithTemplate.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
