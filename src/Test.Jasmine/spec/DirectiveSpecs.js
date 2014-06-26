@@ -32,11 +32,14 @@
 
         beforeEach(function() {
 
-            var html = "<div test-directive-with-bound-property mice-count=\"miceCount\"></div>";
+            var html = "<div test-directive-with-bound-properties lowercaseword=\"do\" Uppercaseword=\"rae\" multi-word-camel-case=\"mi\" multi-word-pascal-case=\"fa\"></div>";
 
             inject(function($compile, $rootScope) {
                 var scope = $rootScope.$new();
-                scope.miceCount = 9;
+                scope.do = "do";
+                scope.rae = "rae";
+                scope.mi = "mi";
+                scope.fa = "fa";
                 element = angular.element(html);
                 var compiled = $compile(element);
                 compiled(scope);
@@ -44,8 +47,8 @@
             });
         });
 
-        it("Should set the element content to the template", function() {
-            expect(element.text()).toBe("9 blind mice");
+        it("Should bind the attribute values to the template", function() {
+            expect(element.text()).toBe("do rae mi fa");
         });
     });
 
@@ -67,7 +70,7 @@
             });
         });
 
-        it("Should set the element content to the template", function() {
+        it("Should evaluate the attribute values", function() {
             expect(element.text()).toBe("And all the people sing 'Old MacDonald had a farm, E-I-E-I-O. And on that farm he had a duck, E-I-E-I-O'.");
         });
     });

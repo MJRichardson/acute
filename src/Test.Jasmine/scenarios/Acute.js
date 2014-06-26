@@ -28994,7 +28994,7 @@ angular.module('ngCookies', ['ng']).
 		this.$2$AttributeNameField = null;
 		this.$2$BindingTypeField = 0;
 		this.set_propertyName(propertyName);
-		this.set_attributeName(attributeName);
+		this.set_attributeName($Acute_$StringUtilities.$firstCharToLower(attributeName));
 		this.set_bindingType(bindingType);
 	};
 	global.Acute.BindDomAttributeToDirectiveScopeAttribute = $Acute_BindDomAttributeToDirectiveScopeAttribute;
@@ -29105,14 +29105,6 @@ angular.module('ngCookies', ['ng']).
 	};
 	$Acute_DirectiveNameAttribute.__typeName = 'Acute.DirectiveNameAttribute';
 	global.Acute.DirectiveNameAttribute = $Acute_DirectiveNameAttribute;
-	////////////////////////////////////////////////////////////////////////////////
-	// Acute.DirectivePropertyBindingTypeAttribute
-	var $Acute_DirectivePropertyBindingTypeAttribute = function(bindingType) {
-		this.$2$BindingTypeField = 0;
-		this.set_bindingType(bindingType);
-	};
-	$Acute_DirectivePropertyBindingTypeAttribute.__typeName = 'Acute.DirectivePropertyBindingTypeAttribute';
-	global.Acute.DirectivePropertyBindingTypeAttribute = $Acute_DirectivePropertyBindingTypeAttribute;
 	////////////////////////////////////////////////////////////////////////////////
 	// Acute.DomAttributeBindingType
 	var $Acute_DomAttributeBindingType = function() {
@@ -29402,34 +29394,6 @@ angular.module('ngCookies', ['ng']).
 				}
 				scope[domAttributeBinding.get_propertyName()] = angularBindingMagicPrefix + domAttributeBinding.get_attributeName();
 			}
-			//foreach (
-			//    var prop in
-			//        this.GetType()
-			//            .GetMembers(BindingFlags.Public | BindingFlags.DeclaredOnly | BindingFlags.Instance)
-			//            .Where(x => x.MemberType == MemberTypes.Property)
-			//            .ToList())
-			//{
-			//    //binding-type defaults to bound
-			//    var bindingType = DomAttributeBindingType.Bound;
-			//    var lowerCasedPropertyName = prop.Name.FirstCharToLower();
-			//    //but may be overriden via an attribute
-			//   var bindingAttributes = prop.GetCustomAttributes(typeof (DirectivePropertyBindingTypeAttribute), false);
-			//    if (bindingAttributes.Length > 0)
-			//    {
-			//        bindingType = ((DirectivePropertyBindingTypeAttribute) bindingAttributes[0]).BindingType;
-			//    }
-			//    switch (bindingType)
-			//    {
-			//       case DomAttributeBindingType.Bound: 
-			//            scope[prop.Name] = "=" + lowerCasedPropertyName;
-			//            break;
-			//        case DomAttributeBindingType.Evaluated:
-			//            scope[prop.Name] = "@" + lowerCasedPropertyName;
-			//            break;
-			//        default:
-			//            throw new Exception("Unexpected binding type: " + bindingType);
-			//    }
-			//}
 			definition['scope'] = scope;
 			return definition;
 		}
@@ -29440,14 +29404,6 @@ angular.module('ngCookies', ['ng']).
 		},
 		set_name: function(value) {
 			this.$2$NameField = value;
-		}
-	});
-	ss.initClass($Acute_DirectivePropertyBindingTypeAttribute, $asm, {
-		get_bindingType: function() {
-			return this.$2$BindingTypeField;
-		},
-		set_bindingType: function(value) {
-			this.$2$BindingTypeField = value;
 		}
 	});
 	ss.initEnum($Acute_DomAttributeBindingType, $asm, { bound: 0, evaluated: 1 });
@@ -29654,6 +29610,7 @@ angular.module('ngCookies', ['ng']).
 	}, null, [ss.IEquatable]);
 	ss.initEnum($System_Net_Http_HttpStatusCode, $asm, { continue$1: 100, switchingProtocols: 101, OK: 200, created: 201, accepted: 202, nonAuthoritativeInformation: 203, noContent: 204, resetContent: 205, partialContent: 206, ambiguous: 300, multipleChoices: 300, moved: 301, movedPermanently: 301, found: 302, redirect: 302, redirectMethod: 303, seeOther: 303, notModified: 304, useProxy: 305, unused: 306, redirectKeepVerb: 307, temporaryRedirect: 307, badRequest: 400, unauthorized: 401, paymentRequired: 402, forbidden: 403, notFound: 404, methodNotAllowed: 405, notAcceptable: 406, proxyAuthenticationRequired: 407, requestTimeout: 408, conflict: 409, gone: 410, lengthRequired: 411, preconditionFailed: 412, requestEntityTooLarge: 413, requestUriTooLong: 414, unsupportedMediaType: 415, requestedRangeNotSatisfiable: 416, expectationFailed: 417, upgradeRequired: 426, internalServerError: 500, notImplemented: 501, badGateway: 502, serviceUnavailable: 503, gatewayTimeout: 504, httpVersionNotSupported: 505 });
 	ss.setMetadata($Acute_App, { members: [{ name: 'ConfigureRoutes', type: 8, sname: 'configureRoutes', returnType: Object, params: [$Acute_RouteProvider] }] });
+	ss.setMetadata($Acute_BindDomAttributeToDirectiveScopeAttribute, { attrAllowMultiple: true });
 	ss.setMetadata($Acute_RouteProvider, { members: [{ name: '.ctor', type: 1, params: [$Acute_Angular_$RouteProvider] }] });
 	ss.setMetadata($Acute_Angular_$Cookies, { attr: [new $Acute_Angular_$AngularServiceAttribute('$cookies')] });
 	ss.setMetadata($Acute_Angular_$CookieStore, { attr: [new $Acute_Angular_$AngularServiceAttribute('$cookieStore')] });
