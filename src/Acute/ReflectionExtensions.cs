@@ -40,7 +40,7 @@ namespace Acute
             //otherwise we build the directive name from the class name
 
             //camel-case
-            var directiveName = type.Name[0].ToString().ToLower() + type.Name.Substring(1);
+            var directiveName = type.Name.FirstCharToLower(); 
 
             //if the class name ends with 'Directive', then remove it
            if (directiveName.EndsWith("Directive"))

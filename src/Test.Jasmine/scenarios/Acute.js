@@ -28886,7 +28886,7 @@ angular.module('ngCookies', ['ng']).
 		}
 		//otherwise we build the directive name from the class name
 		//camel-case
-		var directiveName = String.fromCharCode(ss.getTypeName(type).charCodeAt(0)).toLowerCase() + ss.getTypeName(type).substring(1);
+		var directiveName = $Acute_$StringUtilities.$firstCharToLower(ss.getTypeName(type));
 		//if the class name ends with 'Directive', then remove it
 		if (ss.endsWithString(directiveName, 'Directive')) {
 			directiveName = directiveName.substr(0, directiveName.length - 9);
@@ -28927,6 +28927,24 @@ angular.module('ngCookies', ['ng']).
 		return functionArrayNotation;
 	};
 	////////////////////////////////////////////////////////////////////////////////
+	// Acute.StringUtilities
+	var $Acute_$StringUtilities = function() {
+	};
+	$Acute_$StringUtilities.__typeName = 'Acute.$StringUtilities';
+	$Acute_$StringUtilities.$firstCharToLower = function(s) {
+		if (ss.isNullOrUndefined(s)) {
+			throw new ss.ArgumentException('s');
+		}
+		if (s.length === 0) {
+			return s;
+		}
+		var firstChar = String.fromCharCode(s.charCodeAt(0)).toLowerCase();
+		if (s.length === 1) {
+			return firstChar;
+		}
+		return firstChar + s.substring(1);
+	};
+	////////////////////////////////////////////////////////////////////////////////
 	// Acute.App
 	var $Acute_App = function() {
 		this.$_module = null;
@@ -28965,6 +28983,21 @@ angular.module('ngCookies', ['ng']).
 	};
 	$Acute_App.__typeName = 'Acute.App';
 	global.Acute.App = $Acute_App;
+	////////////////////////////////////////////////////////////////////////////////
+	// Acute.BindDomAttributeToDirectiveScopeAttribute
+	var $Acute_BindDomAttributeToDirectiveScopeAttribute = function(propertyName, bindingType) {
+		$Acute_BindDomAttributeToDirectiveScopeAttribute.$ctor1.call(this, propertyName, propertyName, bindingType);
+	};
+	$Acute_BindDomAttributeToDirectiveScopeAttribute.__typeName = 'Acute.BindDomAttributeToDirectiveScopeAttribute';
+	$Acute_BindDomAttributeToDirectiveScopeAttribute.$ctor1 = function(propertyName, attributeName, bindingType) {
+		this.$2$PropertyNameField = null;
+		this.$2$AttributeNameField = null;
+		this.$2$BindingTypeField = 0;
+		this.set_propertyName(propertyName);
+		this.set_attributeName(attributeName);
+		this.set_bindingType(bindingType);
+	};
+	global.Acute.BindDomAttributeToDirectiveScopeAttribute = $Acute_BindDomAttributeToDirectiveScopeAttribute;
 	////////////////////////////////////////////////////////////////////////////////
 	// Acute.Controller
 	var $Acute_Controller = function() {
@@ -29073,12 +29106,6 @@ angular.module('ngCookies', ['ng']).
 	$Acute_DirectiveNameAttribute.__typeName = 'Acute.DirectiveNameAttribute';
 	global.Acute.DirectiveNameAttribute = $Acute_DirectiveNameAttribute;
 	////////////////////////////////////////////////////////////////////////////////
-	// Acute.DirectivePropertyBindingType
-	var $Acute_DirectivePropertyBindingType = function() {
-	};
-	$Acute_DirectivePropertyBindingType.__typeName = 'Acute.DirectivePropertyBindingType';
-	global.Acute.DirectivePropertyBindingType = $Acute_DirectivePropertyBindingType;
-	////////////////////////////////////////////////////////////////////////////////
 	// Acute.DirectivePropertyBindingTypeAttribute
 	var $Acute_DirectivePropertyBindingTypeAttribute = function(bindingType) {
 		this.$2$BindingTypeField = 0;
@@ -29086,6 +29113,12 @@ angular.module('ngCookies', ['ng']).
 	};
 	$Acute_DirectivePropertyBindingTypeAttribute.__typeName = 'Acute.DirectivePropertyBindingTypeAttribute';
 	global.Acute.DirectivePropertyBindingTypeAttribute = $Acute_DirectivePropertyBindingTypeAttribute;
+	////////////////////////////////////////////////////////////////////////////////
+	// Acute.DomAttributeBindingType
+	var $Acute_DomAttributeBindingType = function() {
+	};
+	$Acute_DomAttributeBindingType.__typeName = 'Acute.DomAttributeBindingType';
+	global.Acute.DomAttributeBindingType = $Acute_DomAttributeBindingType;
 	////////////////////////////////////////////////////////////////////////////////
 	// Acute.RouteConfig
 	var $Acute_RouteConfig = function() {
@@ -29274,6 +29307,7 @@ angular.module('ngCookies', ['ng']).
 	$System_Net_Http_HttpStatusCode.__typeName = 'System.Net.Http.HttpStatusCode';
 	global.System.Net.Http.HttpStatusCode = $System_Net_Http_HttpStatusCode;
 	ss.initClass($Acute_$ReflectionExtensions, $asm, {});
+	ss.initClass($Acute_$StringUtilities, $asm, {});
 	ss.initClass($Acute_App, $asm, {
 		controller: function(T) {
 			return function() {
@@ -29309,6 +29343,27 @@ angular.module('ngCookies', ['ng']).
 		configureRoutes: function(routeProvider) {
 		}
 	});
+	ss.initClass($Acute_BindDomAttributeToDirectiveScopeAttribute, $asm, {
+		get_propertyName: function() {
+			return this.$2$PropertyNameField;
+		},
+		set_propertyName: function(value) {
+			this.$2$PropertyNameField = value;
+		},
+		get_attributeName: function() {
+			return this.$2$AttributeNameField;
+		},
+		set_attributeName: function(value) {
+			this.$2$AttributeNameField = value;
+		},
+		get_bindingType: function() {
+			return this.$2$BindingTypeField;
+		},
+		set_bindingType: function(value) {
+			this.$2$BindingTypeField = value;
+		}
+	});
+	$Acute_BindDomAttributeToDirectiveScopeAttribute.$ctor1.prototype = $Acute_BindDomAttributeToDirectiveScopeAttribute.prototype;
 	ss.initClass($Acute_Controller, $asm, { control: null });
 	ss.initClass($Acute_Directive, $asm, {
 		get_template: function() {
@@ -29326,34 +29381,55 @@ angular.module('ngCookies', ['ng']).
 				definition['templateUrl'] = this.get_templateUrl();
 			}
 			var scope = {};
-			var $t1 = Enumerable.from(ss.getMembers(ss.getInstanceType(this), 31, 22)).where(function(x) {
-				return x.type === 16;
-			}).toArray();
+			var $t1 = ss.getAttributes(ss.getInstanceType(this), $Acute_BindDomAttributeToDirectiveScopeAttribute, false).map(function(x) {
+				return ss.cast(x, $Acute_BindDomAttributeToDirectiveScopeAttribute);
+			});
 			for (var $t2 = 0; $t2 < $t1.length; $t2++) {
-				var prop = $t1[$t2];
-				//binding-type defaults to bound
-				var bindingType = 0;
-				//but may be overriden via an attribute
-				var bindingAttributes = (prop.attr || []).filter(function(a) {
-					return ss.isInstanceOfType(a, $Acute_DirectivePropertyBindingTypeAttribute);
-				});
-				if (bindingAttributes.length > 0) {
-					bindingType = ss.cast(bindingAttributes[0], $Acute_DirectivePropertyBindingTypeAttribute).get_bindingType();
-				}
-				switch (bindingType) {
+				var domAttributeBinding = $t1[$t2];
+				var angularBindingMagicPrefix;
+				switch (domAttributeBinding.get_bindingType()) {
 					case 0: {
-						scope[prop.name] = '=';
+						angularBindingMagicPrefix = '=';
 						break;
 					}
 					case 1: {
-						scope[prop.name] = '@';
+						angularBindingMagicPrefix = '@';
 						break;
 					}
 					default: {
-						throw new ss.Exception('Unexpected binding type: ' + bindingType);
+						throw new ss.ArgumentOutOfRangeException();
 					}
 				}
+				scope[domAttributeBinding.get_propertyName()] = angularBindingMagicPrefix + domAttributeBinding.get_attributeName();
 			}
+			//foreach (
+			//    var prop in
+			//        this.GetType()
+			//            .GetMembers(BindingFlags.Public | BindingFlags.DeclaredOnly | BindingFlags.Instance)
+			//            .Where(x => x.MemberType == MemberTypes.Property)
+			//            .ToList())
+			//{
+			//    //binding-type defaults to bound
+			//    var bindingType = DomAttributeBindingType.Bound;
+			//    var lowerCasedPropertyName = prop.Name.FirstCharToLower();
+			//    //but may be overriden via an attribute
+			//   var bindingAttributes = prop.GetCustomAttributes(typeof (DirectivePropertyBindingTypeAttribute), false);
+			//    if (bindingAttributes.Length > 0)
+			//    {
+			//        bindingType = ((DirectivePropertyBindingTypeAttribute) bindingAttributes[0]).BindingType;
+			//    }
+			//    switch (bindingType)
+			//    {
+			//       case DomAttributeBindingType.Bound: 
+			//            scope[prop.Name] = "=" + lowerCasedPropertyName;
+			//            break;
+			//        case DomAttributeBindingType.Evaluated:
+			//            scope[prop.Name] = "@" + lowerCasedPropertyName;
+			//            break;
+			//        default:
+			//            throw new Exception("Unexpected binding type: " + bindingType);
+			//    }
+			//}
 			definition['scope'] = scope;
 			return definition;
 		}
@@ -29366,7 +29442,6 @@ angular.module('ngCookies', ['ng']).
 			this.$2$NameField = value;
 		}
 	});
-	ss.initEnum($Acute_DirectivePropertyBindingType, $asm, { bound: 0, evaluated: 1 });
 	ss.initClass($Acute_DirectivePropertyBindingTypeAttribute, $asm, {
 		get_bindingType: function() {
 			return this.$2$BindingTypeField;
@@ -29375,6 +29450,7 @@ angular.module('ngCookies', ['ng']).
 			this.$2$BindingTypeField = value;
 		}
 	});
+	ss.initEnum($Acute_DomAttributeBindingType, $asm, { bound: 0, evaluated: 1 });
 	ss.initClass($Acute_RouteConfig, $asm, {
 		get_templateUrl: function() {
 			return this.$1$TemplateUrlField;

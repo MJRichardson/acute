@@ -27,36 +27,26 @@ using System.Runtime.CompilerServices;
             var scope = new JsDictionary();
 
             foreach (
-                var prop in
-                    this.GetType()
-                        .GetMembers(BindingFlags.Public | BindingFlags.DeclaredOnly | BindingFlags.Instance)
-                        .Where(x => x.MemberType == MemberTypes.Property)
-                        .ToList())
+                var domAttributeBinding in
+                    this.GetType().GetCustomAttributes(typeof (BindDomAttributeToDirectiveScopeAttribute), false).Map(x => (BindDomAttributeToDirectiveScopeAttribute)x))
             {
-                //binding-type defaults to bound
-                var bindingType = DirectivePropertyBindingType.Bound;
+                string angularBindingMagicPrefix;
 
-                //but may be overriden via an attribute
-               var bindingAttributes = prop.GetCustomAttributes(typeof (DirectivePropertyBindingTypeAttribute), false);
-                if (bindingAttributes.Length > 0)
+                switch (domAttributeBinding.BindingType)
                 {
-                    bindingType = ((DirectivePropertyBindingTypeAttribute) bindingAttributes[0]).BindingType;
-                }
-
-                switch (bindingType)
-                {
-                   case DirectivePropertyBindingType.Bound: 
-                        scope[prop.Name] = "=";
+                    case DomAttributeBindingType.Bound:
+                        angularBindingMagicPrefix = "=";
                         break;
 
-                    case DirectivePropertyBindingType.Evaluated:
-                        scope[prop.Name] = "@";
+                    case DomAttributeBindingType.Evaluated:
+                        angularBindingMagicPrefix = "@"; 
                         break;
 
                     default:
-                        throw new Exception("Unexpected binding type: " + bindingType);
-                        
+                        throw new ArgumentOutOfRangeException();
                 }
+
+                scope[domAttributeBinding.PropertyName] = angularBindingMagicPrefix + domAttributeBinding.AttributeName;
             }
 
             definition["scope"] = scope;

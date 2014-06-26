@@ -3,10 +3,9 @@ using Acute;
 
 namespace Test.Scenarios.Directives
 {
+    [BindDomAttributeToDirectiveScope("miceCount", DomAttributeBindingType.Bound)]
     public class TestDirectiveWithBoundProperty : Directive
     {
-        [Reflectable]
-        public int miceCount { get; set; }
 
         public override string Template
         {
