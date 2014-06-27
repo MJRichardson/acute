@@ -45,6 +45,16 @@
     <Compile Include="Scenarios\Controllers\Controller.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Scenarios\Directives\TestDirectiveRestrictedToAttribute.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Scenarios\Directives\TestDirectiveRestrictedToAttributeOrElement.cs" />
+    <Compile Include="Scenarios\Directives\TestDirectiveRestrictedToClass.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Scenarios\Directives\TestDirectiveRestrictedToElement.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Scenarios\Directives\TestDirectiveWithBoundProperties.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>

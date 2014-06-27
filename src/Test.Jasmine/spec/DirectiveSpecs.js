@@ -74,4 +74,105 @@
             expect(element.text()).toBe("And all the people sing 'Old MacDonald had a farm, E-I-E-I-O. And on that farm he had a duck, E-I-E-I-O'.");
         });
     });
+
+    describe("Restricted to attribute", function () {
+
+        var element;
+
+        beforeEach(function() {
+
+            var html = "<test-directive-restricted-to-attribute>mary had a little lamb</test-directive-restricted-to-attribute>";
+
+            inject(function($compile, $rootScope) {
+                var scope = $rootScope.$new();
+                element = angular.element(html);
+                var compiled = $compile(element);
+                compiled(scope);
+                scope.$digest();
+            });
+        });
+
+        it("should not bind to matching element", function() {
+            expect(element.text()).toBe("mary had a little lamb");
+            expect(element.text()).not.toBe("incy wincy spider");
+        });
+    });
+
+    describe("restricted to element", function () {
+
+        var elementDom;
+        var attributeDom;
+
+        beforeEach(function() {
+
+            var elementHtml = "<test-directive-restricted-to-element>mary had a little lamb</test-directive-restricted-to-element>";
+            var attributeHtml = "<div test-directive-restricted-to-element>mary had a little lamb</div>";
+
+            inject(function($compile, $rootScope) {
+                var scope = $rootScope.$new();
+                elementDom = angular.element(elementHtml);
+                attributeDom = angular.element(attributeHtml);
+                $compile(elementDom);
+                $compile(attributeDom);
+            });
+        });
+
+        it("should bind to matching element", function() {
+            expect(elementDom.text()).toBe("incy wincy spider");
+        });
+
+        it("should not bind to matching attribute", function() {
+            expect(attributeDom.text()).not.toBe("incy wincy spider");
+        });
+    });
+
+    describe("restricted to element or attribute", function () {
+
+        var elementDom;
+        var attributeDom;
+
+        beforeEach(function() {
+
+            var elementHtml = "<test-directive-restricted-to-attribute-or-element>mary had a little lamb</test-directive-restricted-to-attribute-or-element>";
+            var attributeHtml = "<div test-directive-restricted-to-attribute-or-element>mary had a little lamb</div>";
+
+            inject(function($compile, $rootScope) {
+                var scope = $rootScope.$new();
+                elementDom = angular.element(elementHtml);
+                attributeDom = angular.element(attributeHtml);
+                $compile(elementDom);
+                $compile(attributeDom);
+            });
+        });
+
+        it("should bind to matching element", function() {
+            expect(elementDom.text()).toBe("incy wincy spider");
+        });
+
+        it("should bind to matching attribute", function() {
+            expect(attributeDom.text()).toBe("incy wincy spider");
+        });
+    });
+
+    describe("restricted to class", function () {
+
+        var element;
+
+        beforeEach(function() {
+
+            var html = "<div class=\"test-directive-restricted-to-class\" mice-count=\"3\"></div>";
+
+            inject(function($compile, $rootScope) {
+                var scope = $rootScope.$new();
+                element = angular.element(html);
+                var compiled = $compile(element);
+                compiled(scope);
+                scope.$digest();
+            });
+        });
+
+        it("Should apply the directive", function() {
+            expect(element.text()).toBe("3 blind mice");
+        });
+    });
 });

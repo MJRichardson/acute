@@ -37,6 +37,34 @@
 	$Test_Scenarios_Controllers_Controller.__typeName = 'Test.Scenarios.Controllers.Controller';
 	global.Test.Scenarios.Controllers.Controller = $Test_Scenarios_Controllers_Controller;
 	////////////////////////////////////////////////////////////////////////////////
+	// Test.Scenarios.Directives.TestDirectiveRestrictedToAttribute
+	var $Test_Scenarios_Directives_TestDirectiveRestrictedToAttribute = function() {
+		Acute.Directive.call(this);
+	};
+	$Test_Scenarios_Directives_TestDirectiveRestrictedToAttribute.__typeName = 'Test.Scenarios.Directives.TestDirectiveRestrictedToAttribute';
+	global.Test.Scenarios.Directives.TestDirectiveRestrictedToAttribute = $Test_Scenarios_Directives_TestDirectiveRestrictedToAttribute;
+	////////////////////////////////////////////////////////////////////////////////
+	// Test.Scenarios.Directives.TestDirectiveRestrictedToAttributeOrElement
+	var $Test_Scenarios_Directives_TestDirectiveRestrictedToAttributeOrElement = function() {
+		Acute.Directive.call(this);
+	};
+	$Test_Scenarios_Directives_TestDirectiveRestrictedToAttributeOrElement.__typeName = 'Test.Scenarios.Directives.TestDirectiveRestrictedToAttributeOrElement';
+	global.Test.Scenarios.Directives.TestDirectiveRestrictedToAttributeOrElement = $Test_Scenarios_Directives_TestDirectiveRestrictedToAttributeOrElement;
+	////////////////////////////////////////////////////////////////////////////////
+	// Test.Scenarios.Directives.TestDirectiveRestrictedToClass
+	var $Test_Scenarios_Directives_TestDirectiveRestrictedToClass = function() {
+		Acute.Directive.call(this);
+	};
+	$Test_Scenarios_Directives_TestDirectiveRestrictedToClass.__typeName = 'Test.Scenarios.Directives.TestDirectiveRestrictedToClass';
+	global.Test.Scenarios.Directives.TestDirectiveRestrictedToClass = $Test_Scenarios_Directives_TestDirectiveRestrictedToClass;
+	////////////////////////////////////////////////////////////////////////////////
+	// Test.Scenarios.Directives.TestDirectiveRestrictedToElement
+	var $Test_Scenarios_Directives_TestDirectiveRestrictedToElement = function() {
+		Acute.Directive.call(this);
+	};
+	$Test_Scenarios_Directives_TestDirectiveRestrictedToElement.__typeName = 'Test.Scenarios.Directives.TestDirectiveRestrictedToElement';
+	global.Test.Scenarios.Directives.TestDirectiveRestrictedToElement = $Test_Scenarios_Directives_TestDirectiveRestrictedToElement;
+	////////////////////////////////////////////////////////////////////////////////
 	// Test.Scenarios.Directives.TestDirectiveWithBoundProperties
 	var $Test_Scenarios_Directives_TestDirectiveWithBoundProperties = function() {
 		Acute.Directive.call(this);
@@ -144,6 +172,26 @@
 			scope.FromObjectInitializer = $t1;
 		}
 	}, Acute.Controller);
+	ss.initClass($Test_Scenarios_Directives_TestDirectiveRestrictedToAttribute, $asm, {
+		get_template: function() {
+			return 'incy wincy spider';
+		}
+	}, Acute.Directive);
+	ss.initClass($Test_Scenarios_Directives_TestDirectiveRestrictedToAttributeOrElement, $asm, {
+		get_template: function() {
+			return 'incy wincy spider';
+		}
+	}, Acute.Directive);
+	ss.initClass($Test_Scenarios_Directives_TestDirectiveRestrictedToClass, $asm, {
+		get_template: function() {
+			return '{{MiceCount}} blind mice';
+		}
+	}, Acute.Directive);
+	ss.initClass($Test_Scenarios_Directives_TestDirectiveRestrictedToElement, $asm, {
+		get_template: function() {
+			return 'incy wincy spider';
+		}
+	}, Acute.Directive);
 	ss.initClass($Test_Scenarios_Directives_TestDirectiveWithBoundProperties, $asm, {
 		get_template: function() {
 			return '{{lowercaseword}} {{Uppercaseword}} {{multiWordCamelCase}} {{MultiWordPascalCase}}';
@@ -207,6 +255,10 @@
 	ss.setMetadata($Test_Scenarios_TestApp, { members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Controllers_App, { members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Controllers_Controller, { members: [{ name: '.ctor', type: 1, params: [] }] });
+	ss.setMetadata($Test_Scenarios_Directives_TestDirectiveRestrictedToAttribute, { attr: [new Acute.DirectiveDomTypesAttribute(1)], members: [{ name: '.ctor', type: 1, params: [] }] });
+	ss.setMetadata($Test_Scenarios_Directives_TestDirectiveRestrictedToAttributeOrElement, { attr: [new Acute.DirectiveDomTypesAttribute(3)], members: [{ name: '.ctor', type: 1, params: [] }] });
+	ss.setMetadata($Test_Scenarios_Directives_TestDirectiveRestrictedToClass, { attr: [new Acute.DirectiveDomTypesAttribute(4), new Acute.BindDomAttributeToDirectiveScopeAttribute('MiceCount', 0)], members: [{ name: '.ctor', type: 1, params: [] }] });
+	ss.setMetadata($Test_Scenarios_Directives_TestDirectiveRestrictedToElement, { attr: [new Acute.DirectiveDomTypesAttribute(2)], members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Directives_TestDirectiveWithBoundProperties, { attr: [new Acute.BindDomAttributeToDirectiveScopeAttribute('lowercaseword', 0), new Acute.BindDomAttributeToDirectiveScopeAttribute('Uppercaseword', 0), new Acute.BindDomAttributeToDirectiveScopeAttribute('multiWordCamelCase', 0), new Acute.BindDomAttributeToDirectiveScopeAttribute('MultiWordPascalCase', 0)], members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Directives_TestDirectiveWithEvaluatedProperty, { attr: [new Acute.BindDomAttributeToDirectiveScopeAttribute('song', 1)], members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Directives_TestDirectiveWithTemplate, { members: [{ name: '.ctor', type: 1, params: [] }] });

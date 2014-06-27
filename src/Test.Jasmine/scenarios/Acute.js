@@ -29098,6 +29098,20 @@ angular.module('ngCookies', ['ng']).
 	};
 	global.Acute.Directive = $Acute_Directive;
 	////////////////////////////////////////////////////////////////////////////////
+	// Acute.DirectiveDomTypes
+	var $Acute_DirectiveDomTypes = function() {
+	};
+	$Acute_DirectiveDomTypes.__typeName = 'Acute.DirectiveDomTypes';
+	global.Acute.DirectiveDomTypes = $Acute_DirectiveDomTypes;
+	////////////////////////////////////////////////////////////////////////////////
+	// Acute.DirectiveDomTypesAttribute
+	var $Acute_DirectiveDomTypesAttribute = function(domTypes) {
+		this.$2$DomTypesField = 0;
+		this.set_domTypes(domTypes);
+	};
+	$Acute_DirectiveDomTypesAttribute.__typeName = 'Acute.DirectiveDomTypesAttribute';
+	global.Acute.DirectiveDomTypesAttribute = $Acute_DirectiveDomTypesAttribute;
+	////////////////////////////////////////////////////////////////////////////////
 	// Acute.DirectiveNameAttribute
 	var $Acute_DirectiveNameAttribute = function(name) {
 		this.$2$NameField = null;
@@ -29395,7 +29409,32 @@ angular.module('ngCookies', ['ng']).
 				scope[domAttributeBinding.get_propertyName()] = angularBindingMagicPrefix + domAttributeBinding.get_attributeName();
 			}
 			definition['scope'] = scope;
+			var restrict = '';
+			var domTypeAttribute = Enumerable.from(ss.getAttributes(ss.getInstanceType(this), $Acute_DirectiveDomTypesAttribute, false)).select(function(x) {
+				return ss.cast(x, $Acute_DirectiveDomTypesAttribute);
+			}).firstOrDefault(null, ss.getDefaultValue($Acute_DirectiveDomTypesAttribute));
+			if (ss.isValue(domTypeAttribute)) {
+				if ((1 & domTypeAttribute.get_domTypes()) !== 0) {
+					restrict += 'A';
+				}
+				if ((2 & domTypeAttribute.get_domTypes()) !== 0) {
+					restrict += 'E';
+				}
+				if ((4 & domTypeAttribute.get_domTypes()) !== 0) {
+					restrict += 'C';
+				}
+			}
+			definition['restrict'] = restrict;
 			return definition;
+		}
+	});
+	ss.initEnum($Acute_DirectiveDomTypes, $asm, { attribute: 1, element: 2, class$1: 4 });
+	ss.initClass($Acute_DirectiveDomTypesAttribute, $asm, {
+		get_domTypes: function() {
+			return this.$2$DomTypesField;
+		},
+		set_domTypes: function(value) {
+			this.$2$DomTypesField = value;
 		}
 	});
 	ss.initClass($Acute_DirectiveNameAttribute, $asm, {
@@ -29611,6 +29650,7 @@ angular.module('ngCookies', ['ng']).
 	ss.initEnum($System_Net_Http_HttpStatusCode, $asm, { continue$1: 100, switchingProtocols: 101, OK: 200, created: 201, accepted: 202, nonAuthoritativeInformation: 203, noContent: 204, resetContent: 205, partialContent: 206, ambiguous: 300, multipleChoices: 300, moved: 301, movedPermanently: 301, found: 302, redirect: 302, redirectMethod: 303, seeOther: 303, notModified: 304, useProxy: 305, unused: 306, redirectKeepVerb: 307, temporaryRedirect: 307, badRequest: 400, unauthorized: 401, paymentRequired: 402, forbidden: 403, notFound: 404, methodNotAllowed: 405, notAcceptable: 406, proxyAuthenticationRequired: 407, requestTimeout: 408, conflict: 409, gone: 410, lengthRequired: 411, preconditionFailed: 412, requestEntityTooLarge: 413, requestUriTooLong: 414, unsupportedMediaType: 415, requestedRangeNotSatisfiable: 416, expectationFailed: 417, upgradeRequired: 426, internalServerError: 500, notImplemented: 501, badGateway: 502, serviceUnavailable: 503, gatewayTimeout: 504, httpVersionNotSupported: 505 });
 	ss.setMetadata($Acute_App, { members: [{ name: 'ConfigureRoutes', type: 8, sname: 'configureRoutes', returnType: Object, params: [$Acute_RouteProvider] }] });
 	ss.setMetadata($Acute_BindDomAttributeToDirectiveScopeAttribute, { attrAllowMultiple: true });
+	ss.setMetadata($Acute_DirectiveDomTypes, { enumFlags: true });
 	ss.setMetadata($Acute_RouteProvider, { members: [{ name: '.ctor', type: 1, params: [$Acute_Angular_$RouteProvider] }] });
 	ss.setMetadata($Acute_Angular_$Cookies, { attr: [new $Acute_Angular_$AngularServiceAttribute('$cookies')] });
 	ss.setMetadata($Acute_Angular_$CookieStore, { attr: [new $Acute_Angular_$AngularServiceAttribute('$cookieStore')] });

@@ -51,6 +51,24 @@ using System.Runtime.CompilerServices;
 
             definition["scope"] = scope;
 
+            string restrict = "";
+            var domTypeAttribute = this.GetType().GetCustomAttributes(typeof (DirectiveDomTypesAttribute), false).Cast<DirectiveDomTypesAttribute>().FirstOrDefault();
+
+            if (domTypeAttribute != null)
+            {
+                if ((DirectiveDomTypes.Attribute & domTypeAttribute.DomTypes) != 0)
+                    restrict += "A";
+
+                if ((DirectiveDomTypes.Element & domTypeAttribute.DomTypes) != 0)
+                    restrict += "E";
+
+                if ((DirectiveDomTypes.Class & domTypeAttribute.DomTypes) != 0)
+                    restrict += "C";
+            }
+
+            definition["restrict"] = restrict;
+
+
             return definition;
 
         }
