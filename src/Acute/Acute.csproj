@@ -53,6 +53,7 @@
     <Compile Include="Angular\Module.cs" />
     <Compile Include="Angular\RouteConfig.cs" />
     <Compile Include="Angular\RouteProvider.cs" />
+    <Compile Include="Angular\Scope.cs" />
     <Compile Include="App.cs" />
     <Compile Include="BindDomAttributeToDirectiveScopeAttribute.cs" />
     <Compile Include="Bootstrapper.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="DirectiveDomTypes.cs" />
     <Compile Include="DirectiveNameAttribute.cs" />
     <Compile Include="DomAttributeBindingType.cs" />
+    <Compile Include="Scope.cs" />
     <Compile Include="Services\Cookies.cs" />
     <Compile Include="Services\Http.cs" />
     <Compile Include="Services\Location.cs" />
