@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text;
 
-﻿namespace Acute
+namespace Acute
 {
     public abstract class Directive
     {
@@ -14,8 +15,9 @@ using System.Runtime.CompilerServices;
 
 
         [ScriptName(DefinitionScriptName)]
-        internal static object ScriptDefinition(Type directiveType)
+        internal static object ScriptDefinition(string directiveTypeName)
         {
+            var directiveType = Type.GetType(directiveTypeName);
             var definition = new JsDictionary();
 
             //if (Template != null)
@@ -86,14 +88,42 @@ using System.Runtime.CompilerServices;
                     .FirstOrDefault(parameterNotPresentIndex);
 
             var functionArrayNotation = type.CreateFunctionArray();
+            var parameters = functionArrayNotation.TakeExceptLast().Cast<string>().Select(x => x.Replace(".", "_")).ToList();
 
-            var nonScopeParameters = new List<Object>();
+            if (scopeParameterIndex != parameterNotPresentIndex)
+                functionArrayNotation.RemoveAt(scopeParameterIndex);
+
+            var nonScopeParameters = new List<string>();
             //get all parameters except the scope parameter (if there is one) and the last (which is the function itself)
-            for (int i = 0; i < functionArrayNotation.Count; i++)
+            for (int i = 0; i < functionArrayNotation.Count-1; i++)
             {
-               if (i != scopeParameterIndex && i != functionArrayNotation.Count -1) 
-                   nonScopeParameters.Add(((string)functionArrayNotation[i]).Replace(".", "_"));
+               if (i != scopeParameterIndex ) 
+                   nonScopeParameters.Add(parameters[i]);
             }
+
+
+            var bodyBuilder = new StringBuilder()
+                .AppendLine(string.Format("var directiveDefinition = {0}.{1}('{2}');", typeof(Directive).FullName, DefinitionScriptName, type.FullName))
+                .AppendLine("directiveDefinition.link = function(scope, element){");
+
+            if (scopeParameterIndex != parameterNotPresentIndex)
+            {
+                bodyBuilder.AppendLine(string.Format("var {0} = scope;", parameters[scopeParameterIndex]));
+            }
+            bodyBuilder.AppendLine(string.Format("var directive = new {0}({1});", type.FullName,
+                                                 string.Join(",", parameters)))
+                       .AppendLine("var template;")
+                       .AppendLine("if (template = directive.Template) {")
+                       .AppendLine("element.html = template;")
+                       .AppendLine("$compile(element.contents(), scope);")
+                       .AppendLine("}")
+                       .AppendLine("};")
+                       .AppendLine("return directiveDefinition;");
+
+            var modifiedFunc = ReflectionExtensions.CreateNewFunction(nonScopeParameters, bodyBuilder.ToString());
+            functionArrayNotation[nonScopeParameters.Count] = modifiedFunc;
+            return functionArrayNotation;
+
 
             //var functionArrayNotation = type.CreateFunctionArray();
             //var parameters = functionArrayNotation.TakeExceptLast().Cast<string>().Select(x => x.Replace(".", "_")).ToList();
