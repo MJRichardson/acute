@@ -9,7 +9,10 @@ namespace Acute
 
     public class Scope : IScope
     {
+        [ScriptName(AngularScopeScriptName)]
         private readonly Angular.Scope _scope;
+
+        internal const string AngularScopeScriptName = "_scope";
 
         [Reflectable]
         internal Scope(Angular.Scope scope)

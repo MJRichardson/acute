@@ -55,6 +55,9 @@
     <Compile Include="Scenarios\Directives\TestDirectiveRestrictedToElement.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Scenarios\Directives\TestDirectiveWhichModifiesScope.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Scenarios\Directives\TestDirectiveWithBoundProperties.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>

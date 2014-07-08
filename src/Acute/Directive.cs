@@ -84,7 +84,7 @@ namespace Acute
             var scopeParameterIndex =
                 parameterTypes
                     .Select((x, i) => new {Index = i, ParameterType = x})
-                    .Where(x => x.ParameterType.IsInstanceOfType(typeof(IScope))).Select(x => x.Index)
+                    .Where(x => typeof(IScope).IsAssignableFrom(x.ParameterType)).Select(x => x.Index)
                     .FirstOrDefault(parameterNotPresentIndex);
 
             var functionArrayNotation = type.CreateFunctionArray();
@@ -110,7 +110,7 @@ namespace Acute
 
             if (scopeParameterIndex != parameterNotPresentIndex)
             {
-                bodyBuilder.AppendLine(string.Format("var {0} = scope;", parameters[scopeParameterIndex]));
+                bodyBuilder.AppendLine(string.Format("var {0} = new {1}(scope);", parameters[scopeParameterIndex], typeof(Scope).FullName));
             }
             bodyBuilder.AppendLine(string.Format("var directive = new {0}({1});", type.FullName,
                                                  string.Join(",", parameters)))

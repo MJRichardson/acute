@@ -173,4 +173,26 @@
             expect(element.text()).toBe("3 blind mice");
         });
     });
+
+    describe("which modifies scope", function () {
+
+        var element;
+
+        beforeEach(function() {
+
+            var html = "<div test-directive-which-modifies-scope></div>";
+
+            inject(function($compile, $rootScope) {
+                var scope = $rootScope.$new();
+                element = angular.element(html);
+                var compiled = $compile(element);
+                compiled(scope);
+                scope.$digest();
+            });
+        });
+
+        it("Should apply the directive", function() {
+            expect(element.text()).toBe("5 little ducks went out one day");
+        });
+    });
 });

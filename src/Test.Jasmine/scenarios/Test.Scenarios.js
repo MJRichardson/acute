@@ -65,6 +65,14 @@
 	$Test_Scenarios_Directives_TestDirectiveRestrictedToElement.__typeName = 'Test.Scenarios.Directives.TestDirectiveRestrictedToElement';
 	global.Test.Scenarios.Directives.TestDirectiveRestrictedToElement = $Test_Scenarios_Directives_TestDirectiveRestrictedToElement;
 	////////////////////////////////////////////////////////////////////////////////
+	// Test.Scenarios.Directives.TestDirectiveWhichModifiesScope
+	var $Test_Scenarios_Directives_TestDirectiveWhichModifiesScope = function(scope) {
+		Acute.Directive.call(this);
+		scope.get_model().DuckCount = 5;
+	};
+	$Test_Scenarios_Directives_TestDirectiveWhichModifiesScope.__typeName = 'Test.Scenarios.Directives.TestDirectiveWhichModifiesScope';
+	global.Test.Scenarios.Directives.TestDirectiveWhichModifiesScope = $Test_Scenarios_Directives_TestDirectiveWhichModifiesScope;
+	////////////////////////////////////////////////////////////////////////////////
 	// Test.Scenarios.Directives.TestDirectiveWithBoundProperties
 	var $Test_Scenarios_Directives_TestDirectiveWithBoundProperties = function() {
 		Acute.Directive.call(this);
@@ -192,6 +200,11 @@
 			return 'incy wincy spider';
 		}
 	}, Acute.Directive);
+	ss.initClass($Test_Scenarios_Directives_TestDirectiveWhichModifiesScope, $asm, {
+		get_template: function() {
+			return '{{DuckCount}} little ducks went out one day';
+		}
+	}, Acute.Directive);
 	ss.initClass($Test_Scenarios_Directives_TestDirectiveWithBoundProperties, $asm, {
 		get_template: function() {
 			return '{{lowercaseword}} {{Uppercaseword}} {{multiWordCamelCase}} {{MultiWordPascalCase}}';
@@ -259,6 +272,7 @@
 	ss.setMetadata($Test_Scenarios_Directives_TestDirectiveRestrictedToAttributeOrElement, { attr: [new Acute.DirectiveDomTypesAttribute(3)], members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Directives_TestDirectiveRestrictedToClass, { attr: [new Acute.DirectiveDomTypesAttribute(4), new Acute.BindDomAttributeToDirectiveScopeAttribute('MiceCount', 0)], members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Directives_TestDirectiveRestrictedToElement, { attr: [new Acute.DirectiveDomTypesAttribute(2)], members: [{ name: '.ctor', type: 1, params: [] }] });
+	ss.setMetadata($Test_Scenarios_Directives_TestDirectiveWhichModifiesScope, { members: [{ name: '.ctor', type: 1, params: [Acute.IScope] }] });
 	ss.setMetadata($Test_Scenarios_Directives_TestDirectiveWithBoundProperties, { attr: [new Acute.BindDomAttributeToDirectiveScopeAttribute('lowercaseword', 0), new Acute.BindDomAttributeToDirectiveScopeAttribute('Uppercaseword', 0), new Acute.BindDomAttributeToDirectiveScopeAttribute('multiWordCamelCase', 0), new Acute.BindDomAttributeToDirectiveScopeAttribute('MultiWordPascalCase', 0)], members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Directives_TestDirectiveWithEvaluatedProperty, { attr: [new Acute.BindDomAttributeToDirectiveScopeAttribute('song', 1)], members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Directives_TestDirectiveWithTemplate, { members: [{ name: '.ctor', type: 1, params: [] }] });
