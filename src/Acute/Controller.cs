@@ -16,7 +16,6 @@ namespace Acute
 
         internal static IList<object> BuildControllerFunction(Type type)
         {
-             const string scopeVar = "$scope";  
 
             var functionArrayNotation = type.CreateFunctionArray();
             var parameters = functionArrayNotation.TakeExceptLast().Cast<string>().Select(x => x.Replace(".", "_")).ToList();
@@ -25,14 +24,14 @@ namespace Acute
              //var parameters = GlobalApi.Injector().Annotate(type.GetConstructorFunction());
            
             string body = String.Format("var controller = new {0}({1});\n", type.FullName, string.Join(",", parameters));
-            body += String.Format("controller.{0}({1});\n", Acute.Controller.ControlScriptName, scopeVar);
+            body += String.Format("controller.{0}({1});\n", Acute.Controller.ControlScriptName, AngularServices.Scope);
 
 
             //and add $scope as a parameter
-            functionArrayNotation.Insert(functionArrayNotation.Count - 1, scopeVar );
+            functionArrayNotation.Insert(functionArrayNotation.Count - 1, AngularServices.Scope );
 
             //and add $scope as a parameter
-            parameters.Add(scopeVar);
+            parameters.Add(AngularServices.Scope);
 
             var modifiedFunc = ReflectionExtensions.CreateNewFunction(parameters,body);
             functionArrayNotation[parameters.Count] = modifiedFunc;

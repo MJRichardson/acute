@@ -44,6 +44,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Angular\AngularServiceAttribute.cs" />
+    <Compile Include="Angular\AngularServices.cs" />
+    <Compile Include="Angular\Compile.cs" />
     <Compile Include="Angular\Cookies.cs" />
     <Compile Include="Angular\CookieStore.cs" />
     <Compile Include="Angular\GlobalApi.cs" />

@@ -109,11 +109,10 @@
             var attributeHtml = "<div test-directive-restricted-to-element>mary had a little lamb</div>";
 
             inject(function($compile, $rootScope) {
-                var scope = $rootScope.$new();
                 elementDom = angular.element(elementHtml);
                 attributeDom = angular.element(attributeHtml);
-                $compile(elementDom);
-                $compile(attributeDom);
+                $compile(elementDom)($rootScope.$new());
+                $compile(attributeDom)($rootScope.$new());
             });
         });
 
@@ -137,11 +136,10 @@
             var attributeHtml = "<div test-directive-restricted-to-attribute-or-element>mary had a little lamb</div>";
 
             inject(function($compile, $rootScope) {
-                var scope = $rootScope.$new();
                 elementDom = angular.element(elementHtml);
                 attributeDom = angular.element(attributeHtml);
-                $compile(elementDom);
-                $compile(attributeDom);
+                $compile(elementDom)($rootScope.$new());
+                $compile(attributeDom)($rootScope.$new());
             });
         });
 

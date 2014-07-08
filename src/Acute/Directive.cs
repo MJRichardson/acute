@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using Acute.Angular;
 
 namespace Acute
 {
@@ -69,7 +70,6 @@ namespace Acute
 
             definition["restrict"] = restrict;
 
-
             return definition;
 
         }
@@ -101,6 +101,8 @@ namespace Acute
                    nonScopeParameters.Add(parameters[i]);
             }
 
+            nonScopeParameters.Add(AngularServices.Compile);
+            functionArrayNotation.Insert(functionArrayNotation.Count - 1, AngularServices.Compile);
 
             var bodyBuilder = new StringBuilder()
                 .AppendLine(string.Format("var directiveDefinition = {0}.{1}('{2}');", typeof(Directive).FullName, DefinitionScriptName, type.FullName))
@@ -112,16 +114,17 @@ namespace Acute
             }
             bodyBuilder.AppendLine(string.Format("var directive = new {0}({1});", type.FullName,
                                                  string.Join(",", parameters)))
-                       .AppendLine("var template;")
-                       .AppendLine("if (template = directive.Template) {")
-                       .AppendLine("element.html = template;")
-                       .AppendLine("$compile(element.contents(), scope);")
-                       .AppendLine("}")
+                       .AppendLine(string.Format("directive.{0}({1}, element, scope);", CompileTemplateScriptName, AngularServices.Compile ))
+                       //.AppendLine("var template;")
+                       //.AppendLine("if (template = directive.Template) {")
+                       //.AppendLine("element.html = template;")
+                       //.AppendLine("$compile(element.contents(), scope);")
+                       //.AppendLine("}")
                        .AppendLine("};")
                        .AppendLine("return directiveDefinition;");
 
             var modifiedFunc = ReflectionExtensions.CreateNewFunction(nonScopeParameters, bodyBuilder.ToString());
-            functionArrayNotation[nonScopeParameters.Count] = modifiedFunc;
+            functionArrayNotation[functionArrayNotation.Count - 1] = modifiedFunc;
             return functionArrayNotation;
 
 
@@ -136,6 +139,18 @@ namespace Acute
             //return functionArrayNotation;
         }
 
+        [ScriptName(CompileTemplateScriptName)]
+        private void CompileTemplate(Compiler compiler, dynamic element, object scope)
+        {
+            //todo: handle TemplateUrl
+            if (!string.IsNullOrEmpty(Template))
+            {
+                element.html(Template);
+                compiler.Compile(element.contents(), scope);
+            }
+        }
+
         internal const string DefinitionScriptName = "definition";
+        private const string CompileTemplateScriptName = "compileTemplate";
     }
 }
