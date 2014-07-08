@@ -6,7 +6,7 @@ namespace Test.Scenarios.Directives
     [BindDomAttributeToDirectiveScope("MiceCount", DomAttributeBindingType.Bound)]
     public class TestDirectiveRestrictedToClass : Directive
     {
-        public override string Template
+        protected override string Template
         {
             get { return "{{MiceCount}} blind mice"; }
         }

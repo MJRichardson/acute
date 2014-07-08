@@ -5,7 +5,7 @@ namespace Test.Scenarios.Directives
     [DirectiveDomTypes(DirectiveDomTypes.Element)]
     public class TestDirectiveRestrictedToElement : Directive
     {
-        public override string Template
+        protected override string Template
         {
             get { return "incy wincy spider"; }
         }

@@ -10,7 +10,7 @@ namespace Test.Scenarios.Directives
     public class TestDirectiveWithBoundProperties : Directive
     {
 
-        public override string Template
+        protected override string Template
         {
             get { return "{{lowercaseword}} {{Uppercaseword}} {{multiWordCamelCase}} {{MultiWordPascalCase}}"; }
         }
