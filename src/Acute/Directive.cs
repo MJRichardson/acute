@@ -76,7 +76,7 @@ namespace Acute
 
         internal static IList<object> BuildDirectiveFunction(Type type)
         {
-            var constructorInfo = type.GetConstructors()[0]; //todo: assert only one constructor
+            var constructorInfo = type.GetConstructors().First(); //todo: assert only one constructor
             var parameterTypes = constructorInfo.ParameterTypes;
 
             const int parameterNotPresentIndex = -1;
@@ -84,7 +84,7 @@ namespace Acute
             var scopeParameterIndex =
                 parameterTypes
                     .Select((x, i) => new {Index = i, ParameterType = x})
-                    .Where(x => typeof(IScope).IsAssignableFrom(x.ParameterType)).Select(x => x.Index)
+                    .Where(x => typeof(Scope).IsAssignableFrom(x.ParameterType)).Select(x => x.Index)
                     .FirstOrDefault(parameterNotPresentIndex);
 
             var functionArrayNotation = type.CreateFunctionArray();

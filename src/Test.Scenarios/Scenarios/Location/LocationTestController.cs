@@ -9,8 +9,5 @@
             _location = location;
         }
 
-        public override void Control(dynamic scope)
-        {
-        }
     }
 }

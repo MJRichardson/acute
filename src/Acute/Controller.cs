@@ -1,72 +1,45 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using Acute.Angular;
 
 namespace Acute
 {
     public abstract class Controller
     {
-        internal const string ControlScriptName = "control";
-
-        [ScriptName(ControlScriptName)]
-        public abstract void Control(dynamic scope);
 
         internal static IList<object> BuildControllerFunction(Type type)
         {
+            var constructorInfo = type.GetConstructors().First(); //todo: assert only one constructor
+            var parameterTypes = constructorInfo.ParameterTypes;
+
+            const int parameterNotPresentIndex = -1;
+
+            var scopeParameterIndex =
+                parameterTypes
+                    .Select((x, i) => new {Index = i, ParameterType = x})
+                    .Where(x => typeof(Scope).IsAssignableFrom(x.ParameterType)).Select(x => x.Index)
+                    .FirstOrDefault(parameterNotPresentIndex);
 
             var functionArrayNotation = type.CreateFunctionArray();
             var parameters = functionArrayNotation.TakeExceptLast().Cast<string>().Select(x => x.Replace(".", "_")).ToList();
 
-            //get the constructor parameters
-             //var parameters = GlobalApi.Injector().Annotate(type.GetConstructorFunction());
-           
-            string body = String.Format("var controller = new {0}({1});\n", type.FullName, string.Join(",", parameters));
-            body += String.Format("controller.{0}({1});\n", Acute.Controller.ControlScriptName, AngularServices.Scope);
+            string body = ""; 
+            if (scopeParameterIndex != parameterNotPresentIndex )
+                body += string.Format("var {0} = new {1}({2});" , parameters[scopeParameterIndex], typeof(Acute.Scope).FullName, AngularServices.Scope);
 
+            body += String.Format("var controller = new {0}({1});\n", type.FullName, string.Join(",", parameters));
 
-            //and add $scope as a parameter
-            functionArrayNotation.Insert(functionArrayNotation.Count - 1, AngularServices.Scope );
-
-            //and add $scope as a parameter
-            parameters.Add(AngularServices.Scope);
-
-            var modifiedFunc = ReflectionExtensions.CreateNewFunction(parameters,body);
-            functionArrayNotation[parameters.Count] = modifiedFunc;
-
-            return functionArrayNotation;
-
-            /*
-             string body = "";
-             const string scopeVar = "$scope";  
-
-
-             // takes method into $scope, binding "$scope" to "this"                 
-             foreach(string funcname in type.GetInstanceMethodNames())
-             {
-                body += String.Format("{2}.{1} = {0}.prototype.{1}.bind({2});\r\n",type.FullName,funcname,scopeVar);             
-             }
-
-             // put call at the end so that methods are defined first
-             body+=String.Format("{0}.apply({1},arguments);\r\n",type.FullName,scopeVar);
-
-            //get the constructor parameters
-             var parameters = GlobalApi.Injector().Annotate(type.GetConstructorFunction());
-
-            var functionArrayNotation = type.CreateFunctionArray(); 
-            //and add $scope as a parameter
-            functionArrayNotation.Insert(functionArrayNotation.Count - 1, scopeVar );
-
-            //and add $scope as a parameter
-            parameters.Add(scopeVar);
+            if (scopeParameterIndex != parameterNotPresentIndex)
+            {
+                functionArrayNotation[scopeParameterIndex] = AngularServices.Scope;
+                parameters[scopeParameterIndex] = AngularServices.Scope;
+            }
 
             var modifiedFunc = ReflectionExtensions.CreateNewFunction(parameters,body);
             functionArrayNotation[parameters.Count] = modifiedFunc;
 
             return functionArrayNotation;
-             */
         }
     }
 }

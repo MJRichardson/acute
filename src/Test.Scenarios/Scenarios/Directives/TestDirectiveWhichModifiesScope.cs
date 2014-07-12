@@ -4,7 +4,7 @@ namespace Test.Scenarios.Directives
 {
     public class TestDirectiveWhichModifiesScope : Directive
     {
-        public TestDirectiveWhichModifiesScope(IScope scope)
+        public TestDirectiveWhichModifiesScope(Scope scope)
         {
             scope.Model.DuckCount = 5;
         }

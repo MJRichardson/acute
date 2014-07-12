@@ -2,12 +2,7 @@
 
 namespace Acute
 {
-    public interface IScope
-    {
-        dynamic Model { get; } 
-    }
-
-    public class Scope : IScope
+    public sealed class Scope  
     {
         [ScriptName(AngularScopeScriptName)]
         private readonly Angular.Scope _scope;

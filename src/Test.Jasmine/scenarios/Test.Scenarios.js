@@ -29,10 +29,20 @@
 	global.Test.Scenarios.Controllers.App = $Test_Scenarios_Controllers_App;
 	////////////////////////////////////////////////////////////////////////////////
 	// Test.Scenarios.Controllers.Controller
-	var $Test_Scenarios_Controllers_Controller = function() {
+	var $Test_Scenarios_Controllers_Controller = function(scope) {
 		this.$_simpleString = null;
 		Acute.Controller.call(this);
 		this.$_simpleString = 'Yabba dabba doo!';
+		var simpleStringFunc = ss.mkdel(this, function() {
+			return this.$_simpleString;
+		});
+		scope.get_model().SimpleString = simpleStringFunc;
+		var $t1 = [];
+		ss.add($t1, 'Eenie');
+		null;
+		ss.add($t1, 'Meenie');
+		null;
+		scope.get_model().FromObjectInitializer = $t1;
 	};
 	$Test_Scenarios_Controllers_Controller.__typeName = 'Test.Scenarios.Controllers.Controller';
 	global.Test.Scenarios.Controllers.Controller = $Test_Scenarios_Controllers_Controller;
@@ -117,10 +127,21 @@
 	global.Test.Scenarios.Http.HttpTestApp = $Test_Scenarios_Http_HttpTestApp;
 	////////////////////////////////////////////////////////////////////////////////
 	// Test.Scenarios.Http.HttpTestController
-	var $Test_Scenarios_Http_HttpTestController = function(http) {
-		this.$_http = null;
+	var $Test_Scenarios_Http_HttpTestController = function(http, scope) {
 		Acute.Controller.call(this);
-		this.$_http = http;
+		scope.get_model().getStringData = function() {
+			http.getAsync('/foo/bar').continueWith(function(task) {
+				scope.get_model().status = task.getResult().get_status();
+				scope.get_model().data = task.getResult().get_data();
+			});
+		};
+		scope.get_model().getObjectData = function() {
+			http.getAsync('/foo/bar').continueWith(function(task1) {
+				scope.get_model().status = task1.getResult().get_status();
+				var dataObject = task1.getResult().get_data();
+				scope.get_model().dataObjectId = dataObject.id;
+			});
+		};
 	};
 	$Test_Scenarios_Http_HttpTestController.__typeName = 'Test.Scenarios.Http.HttpTestController';
 	global.Test.Scenarios.Http.HttpTestController = $Test_Scenarios_Http_HttpTestController;
@@ -166,18 +187,6 @@
 	ss.initClass($Test_Scenarios_Controllers_Controller, $asm, {
 		simpleString: function() {
 			return this.$_simpleString;
-		},
-		control: function(scope) {
-			var simpleStringFunc = ss.mkdel(this, function() {
-				return this.$_simpleString;
-			});
-			scope.SimpleString = simpleStringFunc;
-			var $t1 = [];
-			ss.add($t1, 'Eenie');
-			null;
-			ss.add($t1, 'Meenie');
-			null;
-			scope.FromObjectInitializer = $t1;
 		}
 	}, Acute.Controller);
 	ss.initClass($Test_Scenarios_Directives_TestDirectiveRestrictedToAttribute, $asm, {
@@ -222,23 +231,7 @@
 	}, Acute.Directive);
 	ss.initClass($Test_Scenarios_Http_FooBar, $asm, {});
 	ss.initClass($Test_Scenarios_Http_HttpTestApp, $asm, {}, Acute.App);
-	ss.initClass($Test_Scenarios_Http_HttpTestController, $asm, {
-		control: function(scope) {
-			scope.getStringData = ss.mkdel(this, function() {
-				this.$_http.getAsync('/foo/bar').continueWith(function(task) {
-					scope.status = task.getResult().get_status();
-					scope.data = task.getResult().get_data();
-				});
-			});
-			scope.getObjectData = ss.mkdel(this, function() {
-				this.$_http.getAsync('/foo/bar').continueWith(function(task1) {
-					scope.status = task1.getResult().get_status();
-					var dataObject = task1.getResult().get_data();
-					scope.dataObjectId = dataObject.id;
-				});
-			});
-		}
-	}, Acute.Controller);
+	ss.initClass($Test_Scenarios_Http_HttpTestController, $asm, {}, Acute.Controller);
 	ss.initClass($Test_Scenarios_RouteConfiguration_When_WithGenericController_App, $asm, {
 		configureRoutes: function(routeProvider) {
 			//route-config with default constuctor and no initializers
@@ -249,10 +242,7 @@
 			routeProvider.when('/path/for/route/config/with/initializer', $t1);
 		}
 	}, Acute.App);
-	ss.initClass($Test_Scenarios_RouteConfiguration_When_WithGenericController_DefaultController, $asm, {
-		control: function(scope) {
-		}
-	}, Acute.Controller);
+	ss.initClass($Test_Scenarios_RouteConfiguration_When_WithGenericController_DefaultController, $asm, {}, Acute.Controller);
 	ss.initClass($Test_Scenarios_RouteConfiguration_When_WithTemplateUrl_App, $asm, {
 		configureRoutes: function(routeProvider) {
 			var $t1 = new Acute.RouteConfig();
@@ -261,24 +251,21 @@
 		}
 	}, Acute.App);
 	ss.initClass($Test_Scenarios_Scenarios_Location_LocationTestApp, $asm, {}, Acute.App);
-	ss.initClass($Test_Scenarios_Scenarios_Location_LocationTestController, $asm, {
-		control: function(scope) {
-		}
-	}, Acute.Controller);
+	ss.initClass($Test_Scenarios_Scenarios_Location_LocationTestController, $asm, {}, Acute.Controller);
 	ss.setMetadata($Test_Scenarios_TestApp, { members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Controllers_App, { members: [{ name: '.ctor', type: 1, params: [] }] });
-	ss.setMetadata($Test_Scenarios_Controllers_Controller, { members: [{ name: '.ctor', type: 1, params: [] }] });
+	ss.setMetadata($Test_Scenarios_Controllers_Controller, { members: [{ name: '.ctor', type: 1, params: [Acute.Scope] }] });
 	ss.setMetadata($Test_Scenarios_Directives_TestDirectiveRestrictedToAttribute, { attr: [new Acute.DirectiveDomTypesAttribute(1)], members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Directives_TestDirectiveRestrictedToAttributeOrElement, { attr: [new Acute.DirectiveDomTypesAttribute(3)], members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Directives_TestDirectiveRestrictedToClass, { attr: [new Acute.DirectiveDomTypesAttribute(4), new Acute.BindDomAttributeToDirectiveScopeAttribute('MiceCount', 0)], members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Directives_TestDirectiveRestrictedToElement, { attr: [new Acute.DirectiveDomTypesAttribute(2)], members: [{ name: '.ctor', type: 1, params: [] }] });
-	ss.setMetadata($Test_Scenarios_Directives_TestDirectiveWhichModifiesScope, { members: [{ name: '.ctor', type: 1, params: [Acute.IScope] }] });
+	ss.setMetadata($Test_Scenarios_Directives_TestDirectiveWhichModifiesScope, { members: [{ name: '.ctor', type: 1, params: [Acute.Scope] }] });
 	ss.setMetadata($Test_Scenarios_Directives_TestDirectiveWithBoundProperties, { attr: [new Acute.BindDomAttributeToDirectiveScopeAttribute('lowercaseword', 0), new Acute.BindDomAttributeToDirectiveScopeAttribute('Uppercaseword', 0), new Acute.BindDomAttributeToDirectiveScopeAttribute('multiWordCamelCase', 0), new Acute.BindDomAttributeToDirectiveScopeAttribute('MultiWordPascalCase', 0)], members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Directives_TestDirectiveWithEvaluatedProperty, { attr: [new Acute.BindDomAttributeToDirectiveScopeAttribute('song', 1)], members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Directives_TestDirectiveWithTemplate, { members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Http_FooBar, { members: [{ name: '.ctor', type: 1, params: [], sname: '$ctor', sm: true }] });
 	ss.setMetadata($Test_Scenarios_Http_HttpTestApp, { members: [{ name: '.ctor', type: 1, params: [] }] });
-	ss.setMetadata($Test_Scenarios_Http_HttpTestController, { members: [{ name: '.ctor', type: 1, params: [Acute.Services.IHttp] }] });
+	ss.setMetadata($Test_Scenarios_Http_HttpTestController, { members: [{ name: '.ctor', type: 1, params: [Acute.Services.IHttp, Acute.Scope] }] });
 	ss.setMetadata($Test_Scenarios_RouteConfiguration_When_WithGenericController_App, { members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_RouteConfiguration_When_WithGenericController_DefaultController, { members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_RouteConfiguration_When_WithTemplateUrl_App, { members: [{ name: '.ctor', type: 1, params: [] }] });

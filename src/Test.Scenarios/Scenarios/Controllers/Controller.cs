@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
+using Acute;
 
 namespace Test.Scenarios.Controllers
 {
@@ -9,9 +10,14 @@ namespace Test.Scenarios.Controllers
     {
         private string _simpleString;
 
-        public Controller()
+        public Controller(Scope scope)
         {
             _simpleString = "Yabba dabba doo!";
+
+            var simpleStringFunc = new Func<string>(() => _simpleString);
+            scope.Model.SimpleString = simpleStringFunc;
+
+            scope.Model.FromObjectInitializer = new List<string> {"Eenie", "Meenie"};
 
         }
 
@@ -20,12 +26,5 @@ namespace Test.Scenarios.Controllers
             return _simpleString;
         }
 
-        public override void Control(dynamic scope)
-        {
-            var simpleStringFunc = new Func<string>(() => _simpleString);
-            scope.SimpleString = simpleStringFunc;
-
-            scope.FromObjectInitializer = new List<string> {"Eenie", "Meenie"};
-        }
     }
 }
