@@ -195,4 +195,26 @@
             expect(element.text()).toBe("5 little ducks went out one day");
         });
     });
+
+    describe("With a dependency on another directive", function () {
+
+        var element;
+
+        beforeEach(function() {
+
+            var html = "<div directive-a Animal=\"cow\"><div directive-b/></div>";
+
+            inject(function($compile, $rootScope) {
+                var scope = $rootScope.$new();
+                element = angular.element(html);
+                var compiled = $compile(element);
+                compiled(scope);
+                scope.$digest();
+            });
+        });
+
+        it("Should bind the attribute values to the template", function() {
+            expect(element.text()).toBe("Old MacDonald has a farm, E-I-E-I-O. And on that farm he had a cow");
+        });
+    });
 });

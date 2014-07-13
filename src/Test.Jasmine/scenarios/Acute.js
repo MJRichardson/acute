@@ -29101,39 +29101,51 @@ angular.module('ngCookies', ['ng']).
 		}).select(function(x2) {
 			return x2.Index;
 		}).firstOrDefault(null, parameterNotPresentIndex);
+		var directiveParameterIndices = Enumerable.from(parameterTypes).select(function(x3, i1) {
+			return { Index: i1, ParameterType: x3 };
+		}).where(function(x4) {
+			return ss.isAssignableFrom($Acute_Directive, x4.ParameterType);
+		}).select(function(x5) {
+			return x5.Index;
+		}).toArray();
 		var functionArrayNotation = $Acute_$ReflectionExtensions.$createFunctionArray(type);
 		var parameters = Enumerable.from(functionArrayNotation).takeExceptLast().select(function(x) {
 			return ss.cast(x, String);
-		}).select(function(x3) {
-			return ss.replaceAllString(x3, '.', '_');
+		}).select(function(x6) {
+			return ss.replaceAllString(x6, '.', '_');
 		}).toArray();
-		if (scopeParameterIndex !== parameterNotPresentIndex) {
-			ss.removeAt(functionArrayNotation, scopeParameterIndex);
-		}
-		var nonScopeParameters = [];
-		//get all parameters except the scope parameter (if there is one) and the last (which is the function itself)
-		for (var i1 = 0; i1 < ss.count(functionArrayNotation) - 1; i1++) {
-			if (i1 !== scopeParameterIndex) {
-				ss.add(nonScopeParameters, parameters[i1]);
+		functionArrayNotation = Enumerable.from(functionArrayNotation).toArray().filter(function(x7, i2, X) {
+			return scopeParameterIndex !== i2 && !ss.contains(directiveParameterIndices, i2);
+		});
+		var injectableParameters = [];
+		//get all parameters which can be injected into the directive's constructor  
+		//i.e. not scope, directives, or the function itself
+		for (var i3 = 0; i3 < ss.count(functionArrayNotation) - 1; i3++) {
+			if (i3 !== scopeParameterIndex && !ss.contains(directiveParameterIndices, i3)) {
+				ss.add(injectableParameters, parameters[i3]);
 			}
 		}
-		ss.add(nonScopeParameters, $Acute_Angular_$AngularServices.$compile);
+		ss.add(injectableParameters, $Acute_Angular_$AngularServices.$compile);
 		ss.insert(functionArrayNotation, ss.count(functionArrayNotation) - 1, $Acute_Angular_$AngularServices.$compile);
-		var bodyBuilder = (new ss.StringBuilder()).appendLine(ss.formatString("var directiveDefinition = {0}.{1}('{2}');", ss.getTypeFullName($Acute_Directive), $Acute_Directive.$definitionScriptName, ss.getTypeFullName(type))).appendLine('directiveDefinition.link = function(scope, element){');
+		var bodyBuilder = (new ss.StringBuilder()).appendLine(ss.formatString("var directiveDefinition = {0}.{1}('{2}');", ss.getTypeFullName($Acute_Directive), $Acute_Directive.$definitionScriptName, ss.getTypeFullName(type)));
+		if (Enumerable.from(directiveParameterIndices).any()) {
+			bodyBuilder.appendLine('directiveDefinition.require = [' + ss.arrayFromEnumerable(Enumerable.from(directiveParameterIndices).select(function(i4) {
+				return ss.formatString("'^{0}'", $Acute_$ReflectionExtensions.$asAngularDirectiveName(parameterTypes[i4]));
+			})).join(',')).appendLine('];');
+		}
+		bodyBuilder.appendLine('var directive;').appendLine('directiveDefinition.compile = function(){').appendLine('return {').appendLine('pre: function(scope, element, attributes, controllers) {');
 		if (scopeParameterIndex !== parameterNotPresentIndex) {
 			bodyBuilder.appendLine(ss.formatString('var {0} = new {1}(scope);', parameters[scopeParameterIndex], ss.getTypeFullName($Acute_Scope)));
 		}
-		bodyBuilder.appendLine(ss.formatString('var directive = new {0}({1});', ss.getTypeFullName(type), ss.arrayFromEnumerable(parameters).join(','))).appendLine(ss.formatString('directive.{0}({1}, element, scope);', $Acute_Directive.$compileTemplateScriptName, $Acute_Angular_$AngularServices.$compile)).appendLine('};').appendLine('return directiveDefinition;');
-		var modifiedFunc = new Function(nonScopeParameters, bodyBuilder.toString());
+		for (var i5 = 0; i5 < directiveParameterIndices.length; i5++) {
+			var directiveParameterIndex = directiveParameterIndices[i5];
+			bodyBuilder.appendLine(ss.formatString('var {0} = controllers[{1}]', parameters[directiveParameterIndex], i5));
+		}
+		bodyBuilder.appendLine(ss.formatString('directive = new {0}({1});', ss.getTypeFullName(type), ss.arrayFromEnumerable(parameters).join(',')));
+		bodyBuilder.appendLine('},').appendLine('post: function(scope, element ) {').appendLine(ss.formatString('directive.{0}({1}, element, scope);', $Acute_Directive.$compileTemplateScriptName, $Acute_Angular_$AngularServices.$compile)).appendLine('}').appendLine('}').appendLine('};').appendLine('directiveDefinition.controller = function($scope) {').appendLine('return directive;').appendLine('};').appendLine('return directiveDefinition;');
+		var modifiedFunc = new Function(injectableParameters, bodyBuilder.toString());
 		ss.setItem(functionArrayNotation, ss.count(functionArrayNotation) - 1, modifiedFunc);
 		return functionArrayNotation;
-		//var functionArrayNotation = type.CreateFunctionArray();
-		//var parameters = functionArrayNotation.TakeExceptLast().Cast<string>().Select(x => x.Replace(".", "_")).ToList();
-		//string body = String.Format("var directive = new {0}({1});\n", type.FullName, string.Join(",", parameters));
-		//body += string.Format("return directive.{0}();", DefinitionScriptName);
-		//var modifiedFunc = ReflectionExtensions.CreateNewFunction(parameters,body);
-		//functionArrayNotation[parameters.Count] = modifiedFunc;
-		//return functionArrayNotation;
 	};
 	global.Acute.Directive = $Acute_Directive;
 	////////////////////////////////////////////////////////////////////////////////

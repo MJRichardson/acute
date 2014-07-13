@@ -13,8 +13,6 @@ namespace Acute
         protected virtual string Template { get { return null; } } 
         protected virtual string TemplateUrl { get { return null; } }
 
-
-
         [ScriptName(DefinitionScriptName)]
         internal static object ScriptDefinition(string directiveTypeName)
         {
@@ -87,56 +85,78 @@ namespace Acute
                     .Where(x => typeof(Scope).IsAssignableFrom(x.ParameterType)).Select(x => x.Index)
                     .FirstOrDefault(parameterNotPresentIndex);
 
+            var directiveParameterIndices =
+                parameterTypes
+                    .Select((x, i) => new {Index = i, ParameterType = x})
+                    .Where(x => typeof (Directive).IsAssignableFrom(x.ParameterType)).Select(x => x.Index)
+                    .ToList();
+
             var functionArrayNotation = type.CreateFunctionArray();
             var parameters = functionArrayNotation.TakeExceptLast().Cast<string>().Select(x => x.Replace(".", "_")).ToList();
 
-            if (scopeParameterIndex != parameterNotPresentIndex)
-                functionArrayNotation.RemoveAt(scopeParameterIndex);
+            functionArrayNotation =
+                functionArrayNotation.ToArray().Filter((x, i, X) => scopeParameterIndex != i && !directiveParameterIndices.Contains(i));
 
-            var nonScopeParameters = new List<string>();
-            //get all parameters except the scope parameter (if there is one) and the last (which is the function itself)
+            var injectableParameters = new List<string>();
+            //get all parameters which can be injected into the directive's constructor  
+            //i.e. not scope, directives, or the function itself
             for (int i = 0; i < functionArrayNotation.Count-1; i++)
             {
-               if (i != scopeParameterIndex ) 
-                   nonScopeParameters.Add(parameters[i]);
+               if (i != scopeParameterIndex && !directiveParameterIndices.Contains(i) ) 
+                   injectableParameters.Add(parameters[i]);
             }
 
-            nonScopeParameters.Add(AngularServices.Compile);
+            injectableParameters.Add(AngularServices.Compile);
             functionArrayNotation.Insert(functionArrayNotation.Count - 1, AngularServices.Compile);
 
             var bodyBuilder = new StringBuilder()
-                .AppendLine(string.Format("var directiveDefinition = {0}.{1}('{2}');", typeof(Directive).FullName, DefinitionScriptName, type.FullName))
-                .AppendLine("directiveDefinition.link = function(scope, element){");
+                .AppendLine(string.Format("var directiveDefinition = {0}.{1}('{2}');", typeof (Directive).FullName, DefinitionScriptName,
+                                          type.FullName));
 
-            if (scopeParameterIndex != parameterNotPresentIndex)
+            if (directiveParameterIndices.Any())
             {
-                bodyBuilder.AppendLine(string.Format("var {0} = new {1}(scope);", parameters[scopeParameterIndex], typeof(Scope).FullName));
+                bodyBuilder.AppendLine("directiveDefinition.require = [" + string.Join(",", directiveParameterIndices.Select(i => string.Format("'^{0}'", parameterTypes[i].AsAngularDirectiveName()) )) )
+                           .AppendLine("];");
             }
-            bodyBuilder.AppendLine(string.Format("var directive = new {0}({1});", type.FullName,
-                                                 string.Join(",", parameters)))
-                       .AppendLine(string.Format("directive.{0}({1}, element, scope);", CompileTemplateScriptName, AngularServices.Compile ))
-                       //.AppendLine("var template;")
-                       //.AppendLine("if (template = directive.Template) {")
-                       //.AppendLine("element.html = template;")
-                       //.AppendLine("$compile(element.contents(), scope);")
-                       //.AppendLine("}")
-                       .AppendLine("};")
+
+                bodyBuilder.AppendLine("var directive;")
+
+                .AppendLine("directiveDefinition.compile = function(){")
+                .AppendLine("return {")
+                .AppendLine("pre: function(scope, element, attributes, controllers) {");
+
+                            if (scopeParameterIndex != parameterNotPresentIndex)
+                            {
+                                bodyBuilder.AppendLine(string.Format("var {0} = new {1}(scope);", parameters[scopeParameterIndex], typeof(Scope).FullName));
+                            }
+
+                            for (int i = 0; i < directiveParameterIndices.Count; i++ )
+                            {
+                                var directiveParameterIndex = directiveParameterIndices[i];
+                                bodyBuilder.AppendLine(string.Format("var {0} = controllers[{1}]", parameters[directiveParameterIndex], i));
+                            }
+
+                            bodyBuilder.AppendLine(string.Format("directive = new {0}({1});", type.FullName, string.Join(",", parameters)));
+
+                        bodyBuilder.AppendLine("},")
+                        .AppendLine("post: function(scope, element ) {")
+                           .AppendLine(string.Format("directive.{0}({1}, element, scope);", CompileTemplateScriptName, AngularServices.Compile ))
+                        .AppendLine("}")
+                    .AppendLine("}")
+                .AppendLine("};" )
+
+                .AppendLine("directiveDefinition.controller = function($scope) {")
+
+                .AppendLine("return directive;")
+
+                    .AppendLine("};")
+
                        .AppendLine("return directiveDefinition;");
 
-            var modifiedFunc = ReflectionExtensions.CreateNewFunction(nonScopeParameters, bodyBuilder.ToString());
+            var modifiedFunc = ReflectionExtensions.CreateNewFunction(injectableParameters, bodyBuilder.ToString());
             functionArrayNotation[functionArrayNotation.Count - 1] = modifiedFunc;
             return functionArrayNotation;
 
-
-            //var functionArrayNotation = type.CreateFunctionArray();
-            //var parameters = functionArrayNotation.TakeExceptLast().Cast<string>().Select(x => x.Replace(".", "_")).ToList();
-
-            //string body = String.Format("var directive = new {0}({1});\n", type.FullName, string.Join(",", parameters));
-            //body += string.Format("return directive.{0}();", DefinitionScriptName);
-
-            //var modifiedFunc = ReflectionExtensions.CreateNewFunction(parameters,body);
-            //functionArrayNotation[parameters.Count] = modifiedFunc;
-            //return functionArrayNotation;
         }
 
         [ScriptName(CompileTemplateScriptName)]
@@ -149,6 +169,7 @@ namespace Acute
                 compiler.Compile(element.contents(), scope);
             }
         }
+
 
         internal const string DefinitionScriptName = "definition";
         private const string CompileTemplateScriptName = "compileTemplate";
