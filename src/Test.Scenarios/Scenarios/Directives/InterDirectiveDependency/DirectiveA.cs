@@ -2,7 +2,6 @@
 
 namespace Test.Scenarios.Directives.InterDirectiveDependency
 {
-    [BindDomAttributeToDirectiveScope("Animal", DomAttributeBindingType.Bound)]
     public class DirectiveA : Directive
     {
         private readonly Scope _scope;
@@ -10,6 +9,7 @@ namespace Test.Scenarios.Directives.InterDirectiveDependency
         public DirectiveA(Scope scope)
         {
             _scope = scope;
+            _scope.Model.Animal = "sheep";
         }
 
         public string Animal { set { _scope.Model.Animal = value; } }

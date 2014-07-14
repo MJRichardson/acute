@@ -2,11 +2,12 @@
 
 namespace Test.Scenarios.Directives.InterDirectiveDependency
 {
+    [BindDomAttributeToDirectiveScope("Animal", DomAttributeBindingType.Evaluated)]
     public class DirectiveB : Directive
     {
-        public DirectiveB(DirectiveA directiveA)
+        public DirectiveB(Scope scope, DirectiveA directiveA)
         {
-            directiveA.Animal = "sheep";
+            directiveA.Animal = scope.Model.Animal;
         } 
     }
 }

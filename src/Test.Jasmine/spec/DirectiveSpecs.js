@@ -202,7 +202,7 @@
 
         beforeEach(function() {
 
-            var html = "<div directive-a Animal=\"cow\"><div directive-b/></div>";
+            var html = "<div directive-a><div directive-b animal=\"cow\"/></div>";
 
             inject(function($compile, $rootScope) {
                 var scope = $rootScope.$new();

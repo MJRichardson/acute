@@ -29133,16 +29133,16 @@ angular.module('ngCookies', ['ng']).
 				return ss.formatString("'^{0}'", $Acute_$ReflectionExtensions.$asAngularDirectiveName(parameterTypes[i4]));
 			})).join(',')).appendLine('];');
 		}
-		bodyBuilder.appendLine('var directive;').appendLine('directiveDefinition.compile = function(){').appendLine('return {').appendLine('pre: function(scope, element, attributes, controllers) {');
+		bodyBuilder.appendLine('var _directive;').appendLine('directiveDefinition.compile = function(){').appendLine('return {').appendLine('pre: function(scope, element, attributes, controllers) {');
 		if (scopeParameterIndex !== parameterNotPresentIndex) {
 			bodyBuilder.appendLine(ss.formatString('var {0} = new {1}(scope);', parameters[scopeParameterIndex], ss.getTypeFullName($Acute_Scope)));
 		}
 		for (var i5 = 0; i5 < directiveParameterIndices.length; i5++) {
 			var directiveParameterIndex = directiveParameterIndices[i5];
-			bodyBuilder.appendLine(ss.formatString('var {0} = controllers[{1}]', parameters[directiveParameterIndex], i5));
+			bodyBuilder.appendLine(ss.formatString('var {0} = controllers[{1}].directive()', parameters[directiveParameterIndex], i5));
 		}
-		bodyBuilder.appendLine(ss.formatString('directive = new {0}({1});', ss.getTypeFullName(type), ss.arrayFromEnumerable(parameters).join(',')));
-		bodyBuilder.appendLine('},').appendLine('post: function(scope, element ) {').appendLine(ss.formatString('directive.{0}({1}, element, scope);', $Acute_Directive.$compileTemplateScriptName, $Acute_Angular_$AngularServices.$compile)).appendLine('}').appendLine('}').appendLine('};').appendLine('directiveDefinition.controller = function($scope) {').appendLine('return directive;').appendLine('};').appendLine('return directiveDefinition;');
+		bodyBuilder.appendLine(ss.formatString('_directive = new {0}({1});', ss.getTypeFullName(type), ss.arrayFromEnumerable(parameters).join(',')));
+		bodyBuilder.appendLine('},').appendLine('post: function(scope, element ) {').appendLine(ss.formatString('_directive.{0}({1}, element, scope);', $Acute_Directive.$compileTemplateScriptName, $Acute_Angular_$AngularServices.$compile)).appendLine('}').appendLine('}').appendLine('};').appendLine('directiveDefinition.controller = function($scope) {').appendLine('this.directive = function(){return _directive;};').appendLine('};').appendLine('return directiveDefinition;');
 		var modifiedFunc = new Function(injectableParameters, bodyBuilder.toString());
 		ss.setItem(functionArrayNotation, ss.count(functionArrayNotation) - 1, modifiedFunc);
 		return functionArrayNotation;

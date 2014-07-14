@@ -119,37 +119,39 @@ namespace Acute
                            .AppendLine("];");
             }
 
-                bodyBuilder.AppendLine("var directive;")
+            bodyBuilder.AppendLine("var _directive;")
+
 
                 .AppendLine("directiveDefinition.compile = function(){")
                 .AppendLine("return {")
                 .AppendLine("pre: function(scope, element, attributes, controllers) {");
 
-                            if (scopeParameterIndex != parameterNotPresentIndex)
-                            {
-                                bodyBuilder.AppendLine(string.Format("var {0} = new {1}(scope);", parameters[scopeParameterIndex], typeof(Scope).FullName));
-                            }
+            if (scopeParameterIndex != parameterNotPresentIndex)
+            {
+                bodyBuilder.AppendLine(string.Format("var {0} = new {1}(scope);", parameters[scopeParameterIndex], typeof(Scope).FullName));
+            }
 
-                            for (int i = 0; i < directiveParameterIndices.Count; i++ )
-                            {
-                                var directiveParameterIndex = directiveParameterIndices[i];
-                                bodyBuilder.AppendLine(string.Format("var {0} = controllers[{1}]", parameters[directiveParameterIndex], i));
-                            }
+            for (int i = 0; i < directiveParameterIndices.Count; i++)
+            {
+                var directiveParameterIndex = directiveParameterIndices[i];
+                bodyBuilder.AppendLine(string.Format("var {0} = controllers[{1}].directive()", parameters[directiveParameterIndex], i));
+            }
 
-                            bodyBuilder.AppendLine(string.Format("directive = new {0}({1});", type.FullName, string.Join(",", parameters)));
+            bodyBuilder.AppendLine(string.Format("_directive = new {0}({1});", type.FullName, string.Join(",", parameters)));
 
-                        bodyBuilder.AppendLine("},")
-                        .AppendLine("post: function(scope, element ) {")
-                           .AppendLine(string.Format("directive.{0}({1}, element, scope);", CompileTemplateScriptName, AngularServices.Compile ))
-                        .AppendLine("}")
-                    .AppendLine("}")
-                .AppendLine("};" )
+            bodyBuilder.AppendLine("},")
+            .AppendLine("post: function(scope, element ) {")
+               .AppendLine(string.Format("_directive.{0}({1}, element, scope);", CompileTemplateScriptName, AngularServices.Compile))
+            .AppendLine("}")
+        .AppendLine("}")
+    .AppendLine("};")
 
                 .AppendLine("directiveDefinition.controller = function($scope) {")
 
-                .AppendLine("return directive;")
+                    .AppendLine("this.directive = function(){return _directive;};")
+                    //.AppendLine("return directive;")
 
-                    .AppendLine("};")
+                .AppendLine("};")
 
                        .AppendLine("return directiveDefinition;");
 

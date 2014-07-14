@@ -110,14 +110,15 @@
 		this.$_scope = null;
 		Acute.Directive.call(this);
 		this.$_scope = scope;
+		this.$_scope.get_model().Animal = 'sheep';
 	};
 	$Test_Scenarios_Directives_InterDirectiveDependency_DirectiveA.__typeName = 'Test.Scenarios.Directives.InterDirectiveDependency.DirectiveA';
 	global.Test.Scenarios.Directives.InterDirectiveDependency.DirectiveA = $Test_Scenarios_Directives_InterDirectiveDependency_DirectiveA;
 	////////////////////////////////////////////////////////////////////////////////
 	// Test.Scenarios.Directives.InterDirectiveDependency.DirectiveB
-	var $Test_Scenarios_Directives_InterDirectiveDependency_DirectiveB = function(directiveA) {
+	var $Test_Scenarios_Directives_InterDirectiveDependency_DirectiveB = function(scope, directiveA) {
 		Acute.Directive.call(this);
-		directiveA.set_animal('sheep');
+		directiveA.set_animal(ss.cast(scope.get_model().Animal, String));
 	};
 	$Test_Scenarios_Directives_InterDirectiveDependency_DirectiveB.__typeName = 'Test.Scenarios.Directives.InterDirectiveDependency.DirectiveB';
 	global.Test.Scenarios.Directives.InterDirectiveDependency.DirectiveB = $Test_Scenarios_Directives_InterDirectiveDependency_DirectiveB;
@@ -290,8 +291,8 @@
 	ss.setMetadata($Test_Scenarios_Directives_TestDirectiveWithBoundProperties, { attr: [new Acute.BindDomAttributeToDirectiveScopeAttribute('lowercaseword', 0), new Acute.BindDomAttributeToDirectiveScopeAttribute('Uppercaseword', 0), new Acute.BindDomAttributeToDirectiveScopeAttribute('multiWordCamelCase', 0), new Acute.BindDomAttributeToDirectiveScopeAttribute('MultiWordPascalCase', 0)], members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Directives_TestDirectiveWithEvaluatedProperty, { attr: [new Acute.BindDomAttributeToDirectiveScopeAttribute('song', 1)], members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Directives_TestDirectiveWithTemplate, { members: [{ name: '.ctor', type: 1, params: [] }] });
-	ss.setMetadata($Test_Scenarios_Directives_InterDirectiveDependency_DirectiveA, { attr: [new Acute.BindDomAttributeToDirectiveScopeAttribute('Animal', 0)], members: [{ name: '.ctor', type: 1, params: [Acute.Scope] }] });
-	ss.setMetadata($Test_Scenarios_Directives_InterDirectiveDependency_DirectiveB, { members: [{ name: '.ctor', type: 1, params: [$Test_Scenarios_Directives_InterDirectiveDependency_DirectiveA] }] });
+	ss.setMetadata($Test_Scenarios_Directives_InterDirectiveDependency_DirectiveA, { members: [{ name: '.ctor', type: 1, params: [Acute.Scope] }] });
+	ss.setMetadata($Test_Scenarios_Directives_InterDirectiveDependency_DirectiveB, { attr: [new Acute.BindDomAttributeToDirectiveScopeAttribute('Animal', 1)], members: [{ name: '.ctor', type: 1, params: [Acute.Scope, $Test_Scenarios_Directives_InterDirectiveDependency_DirectiveA] }] });
 	ss.setMetadata($Test_Scenarios_Http_FooBar, { members: [{ name: '.ctor', type: 1, params: [], sname: '$ctor', sm: true }] });
 	ss.setMetadata($Test_Scenarios_Http_HttpTestApp, { members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Http_HttpTestController, { members: [{ name: '.ctor', type: 1, params: [Acute.Services.IHttp, Acute.Scope] }] });

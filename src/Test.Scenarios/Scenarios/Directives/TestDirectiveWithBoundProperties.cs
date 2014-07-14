@@ -9,7 +9,6 @@ namespace Test.Scenarios.Directives
     [BindDomAttributeToDirectiveScope("MultiWordPascalCase", DomAttributeBindingType.Bound)]
     public class TestDirectiveWithBoundProperties : Directive
     {
-
         protected override string Template
         {
             get { return "{{lowercaseword}} {{Uppercaseword}} {{multiWordCamelCase}} {{MultiWordPascalCase}}"; }
