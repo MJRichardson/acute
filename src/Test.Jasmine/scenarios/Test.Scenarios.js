@@ -44,9 +44,19 @@
 		ss.add($t1, 'Meenie');
 		null;
 		scope.get_model().FromObjectInitializer = $t1;
+		var $t2 = new $Test_Scenarios_Controllers_ViewModel();
+		$t2.set_greenBottleCount(99);
+		scope.get_model().FromClass = $t2;
 	};
 	$Test_Scenarios_Controllers_Controller.__typeName = 'Test.Scenarios.Controllers.Controller';
 	global.Test.Scenarios.Controllers.Controller = $Test_Scenarios_Controllers_Controller;
+	////////////////////////////////////////////////////////////////////////////////
+	// Test.Scenarios.Controllers.ViewModel
+	var $Test_Scenarios_Controllers_ViewModel = function() {
+		this.$1$GreenBottleCountField = 0;
+	};
+	$Test_Scenarios_Controllers_ViewModel.__typeName = 'Test.Scenarios.Controllers.ViewModel';
+	global.Test.Scenarios.Controllers.ViewModel = $Test_Scenarios_Controllers_ViewModel;
 	////////////////////////////////////////////////////////////////////////////////
 	// Test.Scenarios.Directives.TestDirectiveRestrictedToAttribute
 	var $Test_Scenarios_Directives_TestDirectiveRestrictedToAttribute = function() {
@@ -208,6 +218,22 @@
 			return this.$_simpleString;
 		}
 	}, Acute.Controller);
+	ss.initClass($Test_Scenarios_Controllers_ViewModel, $asm, {
+		get_greenBottleCount: function() {
+			return this.$1$GreenBottleCountField;
+		},
+		set_greenBottleCount: function(value) {
+			this.$1$GreenBottleCountField = value;
+		},
+		GreenBottleCount: function(value) {
+			if (arguments.length == 0) {
+				return this.get_greenBottleCount();
+			}
+			else {
+				this.set_greenBottleCount(value);
+			}
+		}
+	});
 	ss.initClass($Test_Scenarios_Directives_TestDirectiveRestrictedToAttribute, $asm, {
 		get_template: function() {
 			return 'incy wincy spider';
@@ -252,6 +278,9 @@
 		set_animal: function(value) {
 			this.$_scope.get_model().Animal = value;
 		},
+		Animal: function(value) {
+			this.set_animal(value);
+		},
 		get_template: function() {
 			return 'Old MacDonald has a farm, E-I-E-I-O. And on that farm he had a {{Animal}}';
 		}
@@ -283,6 +312,7 @@
 	ss.setMetadata($Test_Scenarios_TestApp, { members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Controllers_App, { members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Controllers_Controller, { members: [{ name: '.ctor', type: 1, params: [Acute.Scope] }] });
+	ss.setMetadata($Test_Scenarios_Controllers_ViewModel, { members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Directives_TestDirectiveRestrictedToAttribute, { attr: [new Acute.DirectiveDomTypesAttribute(1)], members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Directives_TestDirectiveRestrictedToAttributeOrElement, { attr: [new Acute.DirectiveDomTypesAttribute(3)], members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Directives_TestDirectiveRestrictedToClass, { attr: [new Acute.DirectiveDomTypesAttribute(4), new Acute.BindDomAttributeToDirectiveScopeAttribute('MiceCount', 0)], members: [{ name: '.ctor', type: 1, params: [] }] });

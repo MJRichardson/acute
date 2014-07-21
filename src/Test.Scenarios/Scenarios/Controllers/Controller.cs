@@ -19,6 +19,8 @@ namespace Test.Scenarios.Controllers
 
             scope.Model.FromObjectInitializer = new List<string> {"Eenie", "Meenie"};
 
+            scope.Model.FromClass = new ViewModel {GreenBottleCount = 99};
+
         }
 
         public string SimpleString()

@@ -29,4 +29,14 @@
         });
     });
 
+    describe("assigning a property from a class", function () {
+
+        describe("with an auto-property", function() {
+            it("should be able to access the property via the scope as a method", function () {
+                expect(scope.FromClass.GreenBottleCount()).toEqual(99);
+            });
+        });
+
+    });
+
 });

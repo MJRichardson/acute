@@ -45,6 +45,9 @@
     <Compile Include="Scenarios\Controllers\Controller.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Scenarios\Controllers\ViewModel.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Scenarios\Directives\InterDirectiveDependency\DirectiveA.cs" />
     <Compile Include="Scenarios\Directives\InterDirectiveDependency\DirectiveB.cs" />
     <Compile Include="Scenarios\Directives\TestDirectiveRestrictedToAttribute.cs">
