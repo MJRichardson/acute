@@ -83,6 +83,8 @@
     </Compile>
     <Compile Include="Scenarios\Location\LocationTestApp.cs" />
     <Compile Include="Scenarios\Location\LocationTestController.cs" />
+    <Compile Include="Scenarios\RouteArgs\RouteArgsTestController.cs" />
+    <Compile Include="Scenarios\RouteArgs\TypedRouteArgs.cs" />
     <Compile Include="Scenarios\RouteConfiguration\When\WithGenericController\App.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>

@@ -224,14 +224,6 @@
 		},
 		set_greenBottleCount: function(value) {
 			this.$1$GreenBottleCountField = value;
-		},
-		GreenBottleCount: function(value) {
-			if (arguments.length == 0) {
-				return this.get_greenBottleCount();
-			}
-			else {
-				this.set_greenBottleCount(value);
-			}
 		}
 	});
 	ss.initClass($Test_Scenarios_Directives_TestDirectiveRestrictedToAttribute, $asm, {
@@ -277,9 +269,6 @@
 	ss.initClass($Test_Scenarios_Directives_InterDirectiveDependency_DirectiveA, $asm, {
 		set_animal: function(value) {
 			this.$_scope.get_model().Animal = value;
-		},
-		Animal: function(value) {
-			this.set_animal(value);
 		},
 		get_template: function() {
 			return 'Old MacDonald has a farm, E-I-E-I-O. And on that farm he had a {{Animal}}';
