@@ -28954,6 +28954,7 @@ angular.module('ngCookies', ['ng']).
 		this.service$1($Acute_Services_IHttp, $Acute_Services_Http).call(this);
 		this.service$1($Acute_Services_ILocation, $Acute_Services_Location).call(this);
 		this.service$1($Acute_Services_ICookies, $Acute_Services_Cookies).call(this);
+		this.service$1($Acute_Services_IRouteArgs, $Acute_Services_RouteArgs).call(this);
 		this.service($Acute_Scope).call(this);
 		var $t1 = ss.getAssemblies();
 		for (var $t2 = 0; $t2 < $t1.length; $t2++) {
@@ -29255,6 +29256,11 @@ angular.module('ngCookies', ['ng']).
 	};
 	$Acute_Angular_$Location.__typeName = 'Acute.Angular.$Location';
 	////////////////////////////////////////////////////////////////////////////////
+	// Acute.Angular.RouteParams
+	var $Acute_Angular_$RouteParams = function() {
+	};
+	$Acute_Angular_$RouteParams.__typeName = 'Acute.Angular.$RouteParams';
+	////////////////////////////////////////////////////////////////////////////////
 	// Acute.Angular.RouteProvider
 	var $Acute_Angular_$RouteProvider = function() {
 	};
@@ -29327,6 +29333,12 @@ angular.module('ngCookies', ['ng']).
 	$Acute_Services_ILocation.__typeName = 'Acute.Services.ILocation';
 	global.Acute.Services.ILocation = $Acute_Services_ILocation;
 	////////////////////////////////////////////////////////////////////////////////
+	// Acute.Services.IRouteArgs
+	var $Acute_Services_IRouteArgs = function() {
+	};
+	$Acute_Services_IRouteArgs.__typeName = 'Acute.Services.IRouteArgs';
+	global.Acute.Services.IRouteArgs = $Acute_Services_IRouteArgs;
+	////////////////////////////////////////////////////////////////////////////////
 	// Acute.Services.Location
 	var $Acute_Services_Location = function(angularLocation) {
 		this.$_angularLocation = null;
@@ -29334,6 +29346,16 @@ angular.module('ngCookies', ['ng']).
 	};
 	$Acute_Services_Location.__typeName = 'Acute.Services.Location';
 	global.Acute.Services.Location = $Acute_Services_Location;
+	////////////////////////////////////////////////////////////////////////////////
+	// Acute.Services.RouteArgs
+	var $Acute_Services_RouteArgs = function(routeParams) {
+		this._routeParams = null;
+		this.$1$BagField = null;
+		this._routeParams = routeParams;
+		this.set_bag(this._routeParams);
+	};
+	$Acute_Services_RouteArgs.__typeName = 'Acute.Services.RouteArgs';
+	global.Acute.Services.RouteArgs = $Acute_Services_RouteArgs;
 	////////////////////////////////////////////////////////////////////////////////
 	// System.Net.Http.HttpMethod
 	var $System_Net_Http_HttpMethod = function(method) {
@@ -29533,6 +29555,7 @@ angular.module('ngCookies', ['ng']).
 	ss.initClass($Acute_Angular_$CookieStore, $asm, {});
 	ss.initClass($Acute_Angular_$Http, $asm, {});
 	ss.initClass($Acute_Angular_$Location, $asm, {});
+	ss.initClass($Acute_Angular_$RouteParams, $asm, {});
 	ss.initClass($Acute_Angular_$RouteProvider, $asm, {});
 	ss.initClass($Acute_Angular_$Scope, $asm, {});
 	ss.initInterface($Acute_Services_ICookies, $asm, { get_item: null, set_item: null, get: null, put: null, remove: null });
@@ -29632,6 +29655,7 @@ angular.module('ngCookies', ['ng']).
 	});
 	$Acute_Services_HttpResponse.$ctor1.prototype = $Acute_Services_HttpResponse.prototype;
 	ss.initInterface($Acute_Services_ILocation, $asm, { get_absoluteUrl: null, get_host: null, get_port: null, get_protocol: null, get_path: null, set_path: null, get_hash: null, get_search: null });
+	ss.initInterface($Acute_Services_IRouteArgs, $asm, { get_bag: null, as$1: null });
 	ss.initClass($Acute_Services_Location, $asm, {
 		get_absoluteUrl: function() {
 			return this.$_angularLocation.absUrl();
@@ -29664,6 +29688,19 @@ angular.module('ngCookies', ['ng']).
 			this.$_angularLocation.search(value);
 		}
 	}, null, [$Acute_Services_ILocation]);
+	ss.initClass($Acute_Services_RouteArgs, $asm, {
+		get_bag: function() {
+			return this.$1$BagField;
+		},
+		set_bag: function(value) {
+			this.$1$BagField = value;
+		},
+		as$1: function(T) {
+			return function() {
+				return this._routeParams;
+			};
+		}
+	}, null, [$Acute_Services_IRouteArgs]);
 	ss.initClass($System_Net_Http_HttpMethod, $asm, {
 		get_method: function() {
 			return this.$_method;
@@ -29698,11 +29735,13 @@ angular.module('ngCookies', ['ng']).
 	ss.setMetadata($Acute_Angular_$CookieStore, { attr: [new $Acute_Angular_$AngularServiceAttribute('$cookieStore')] });
 	ss.setMetadata($Acute_Angular_$Http, { attr: [new $Acute_Angular_$AngularServiceAttribute('$http')] });
 	ss.setMetadata($Acute_Angular_$Location, { attr: [new $Acute_Angular_$AngularServiceAttribute('$location')] });
+	ss.setMetadata($Acute_Angular_$RouteParams, { attr: [new $Acute_Angular_$AngularServiceAttribute('$routeParams')] });
 	ss.setMetadata($Acute_Angular_$RouteProvider, { attr: [new $Acute_Angular_$AngularServiceAttribute('$routeProvider')] });
 	ss.setMetadata($Acute_Angular_$Scope, { attr: [new $Acute_Angular_$AngularServiceAttribute('$scope')] });
 	ss.setMetadata($Acute_Services_Cookies, { members: [{ name: '.ctor', type: 1, params: [$Acute_Angular_$CookieStore, $Acute_Angular_$Cookies] }] });
 	ss.setMetadata($Acute_Services_Http, { members: [{ name: '.ctor', type: 1, params: [$Acute_Angular_$Http] }] });
 	ss.setMetadata($Acute_Services_Location, { members: [{ name: '.ctor', type: 1, params: [$Acute_Angular_$Location] }] });
+	ss.setMetadata($Acute_Services_RouteArgs, { members: [{ name: '.ctor', type: 1, params: [$Acute_Angular_$RouteParams] }] });
 	$Acute_Scope.$angularScopeScriptName = '_scope';
 	$Acute_Angular_$AngularServices.$compile = '$compile';
 	$Acute_Angular_$AngularServices.$scope = '$scope';

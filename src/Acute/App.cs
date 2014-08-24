@@ -19,6 +19,7 @@ namespace Acute
             Service<IHttp, Acute.Services.Http>();
             Service<ILocation, Acute.Services.Location>();
             Service<ICookies, Acute.Services.Cookies>();
+            Service<IRouteArgs, Acute.Services.RouteArgs>();
             Service<Acute.Scope>();
 
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
