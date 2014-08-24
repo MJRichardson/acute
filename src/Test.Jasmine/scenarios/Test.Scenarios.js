@@ -7,6 +7,7 @@
 	global.Test.Scenarios.Directives = global.Test.Scenarios.Directives || {};
 	global.Test.Scenarios.Directives.InterDirectiveDependency = global.Test.Scenarios.Directives.InterDirectiveDependency || {};
 	global.Test.Scenarios.Http = global.Test.Scenarios.Http || {};
+	global.Test.Scenarios.RouteArgs = global.Test.Scenarios.RouteArgs || {};
 	global.Test.Scenarios.RouteConfiguration = global.Test.Scenarios.RouteConfiguration || {};
 	global.Test.Scenarios.RouteConfiguration.When = global.Test.Scenarios.RouteConfiguration.When || {};
 	global.Test.Scenarios.RouteConfiguration.When.WithGenericController = global.Test.Scenarios.RouteConfiguration.When.WithGenericController || {};
@@ -38,15 +39,17 @@
 			return this.$_simpleString;
 		});
 		scope.get_model().SimpleString = simpleStringFunc;
+		var $t2 = scope.get_model();
 		var $t1 = [];
 		ss.add($t1, 'Eenie');
 		null;
 		ss.add($t1, 'Meenie');
 		null;
-		scope.get_model().FromObjectInitializer = $t1;
-		var $t2 = new $Test_Scenarios_Controllers_ViewModel();
-		$t2.set_greenBottleCount(99);
-		scope.get_model().FromClass = $t2;
+		$t2.FromObjectInitializer = $t1;
+		var $t4 = scope.get_model();
+		var $t3 = new $Test_Scenarios_Controllers_ViewModel();
+		$t3.set_GreenBottleCount(99);
+		$t4.FromClass = $t3;
 	};
 	$Test_Scenarios_Controllers_Controller.__typeName = 'Test.Scenarios.Controllers.Controller';
 	global.Test.Scenarios.Controllers.Controller = $Test_Scenarios_Controllers_Controller;
@@ -128,7 +131,7 @@
 	// Test.Scenarios.Directives.InterDirectiveDependency.DirectiveB
 	var $Test_Scenarios_Directives_InterDirectiveDependency_DirectiveB = function(scope, directiveA) {
 		Acute.Directive.call(this);
-		directiveA.set_animal(ss.cast(scope.get_model().Animal, String));
+		directiveA.set_Animal(ss.cast(scope.get_model().Animal, String));
 	};
 	$Test_Scenarios_Directives_InterDirectiveDependency_DirectiveB.__typeName = 'Test.Scenarios.Directives.InterDirectiveDependency.DirectiveB';
 	global.Test.Scenarios.Directives.InterDirectiveDependency.DirectiveB = $Test_Scenarios_Directives_InterDirectiveDependency_DirectiveB;
@@ -142,8 +145,8 @@
 	};
 	$Test_Scenarios_Http_FooBar.$ctor = function() {
 		var $this = {};
-		$this.id = 0;
-		$this.name = null;
+		$this.Id = 0;
+		$this.Name = null;
 		return $this;
 	};
 	global.Test.Scenarios.Http.FooBar = $Test_Scenarios_Http_FooBar;
@@ -168,12 +171,37 @@
 			http.getAsync('/foo/bar').continueWith(function(task1) {
 				scope.get_model().status = task1.getResult().get_status();
 				var dataObject = task1.getResult().get_data();
-				scope.get_model().dataObjectId = dataObject.id;
+				scope.get_model().dataObjectId = dataObject.Id;
 			});
 		};
 	};
 	$Test_Scenarios_Http_HttpTestController.__typeName = 'Test.Scenarios.Http.HttpTestController';
 	global.Test.Scenarios.Http.HttpTestController = $Test_Scenarios_Http_HttpTestController;
+	////////////////////////////////////////////////////////////////////////////////
+	// Test.Scenarios.RouteArgs.RouteArgsTestController
+	var $Test_Scenarios_RouteArgs_RouteArgsTestController = function(routeArgs, scope) {
+		Acute.Controller.call(this);
+		scope.get_model().ArgsBag = { Id: routeArgs.get_bag().Id, Name: routeArgs.get_bag().Name };
+		var typedArgs = routeArgs.as$1($Test_Scenarios_RouteArgs_TypedRouteArgs).call(routeArgs);
+		scope.get_model().TypedArgs = { Id: typedArgs.Id, Name: typedArgs.Name };
+	};
+	$Test_Scenarios_RouteArgs_RouteArgsTestController.__typeName = 'Test.Scenarios.RouteArgs.RouteArgsTestController';
+	global.Test.Scenarios.RouteArgs.RouteArgsTestController = $Test_Scenarios_RouteArgs_RouteArgsTestController;
+	////////////////////////////////////////////////////////////////////////////////
+	// Test.Scenarios.RouteArgs.TypedRouteArgs
+	var $Test_Scenarios_RouteArgs_TypedRouteArgs = function() {
+	};
+	$Test_Scenarios_RouteArgs_TypedRouteArgs.__typeName = 'Test.Scenarios.RouteArgs.TypedRouteArgs';
+	$Test_Scenarios_RouteArgs_TypedRouteArgs.createInstance = function() {
+		return $Test_Scenarios_RouteArgs_TypedRouteArgs.$ctor();
+	};
+	$Test_Scenarios_RouteArgs_TypedRouteArgs.$ctor = function() {
+		var $this = {};
+		$this.Id = 0;
+		$this.Name = null;
+		return $this;
+	};
+	global.Test.Scenarios.RouteArgs.TypedRouteArgs = $Test_Scenarios_RouteArgs_TypedRouteArgs;
 	////////////////////////////////////////////////////////////////////////////////
 	// Test.Scenarios.RouteConfiguration.When.WithGenericController.App
 	var $Test_Scenarios_RouteConfiguration_When_WithGenericController_App = function() {
@@ -214,16 +242,24 @@
 	ss.initClass($Test_Scenarios_TestApp, $asm, {}, Acute.App);
 	ss.initClass($Test_Scenarios_Controllers_App, $asm, {}, Acute.App);
 	ss.initClass($Test_Scenarios_Controllers_Controller, $asm, {
-		simpleString: function() {
+		SimpleString: function() {
 			return this.$_simpleString;
 		}
 	}, Acute.Controller);
 	ss.initClass($Test_Scenarios_Controllers_ViewModel, $asm, {
-		get_greenBottleCount: function() {
+		get_GreenBottleCount: function() {
 			return this.$1$GreenBottleCountField;
 		},
-		set_greenBottleCount: function(value) {
+		set_GreenBottleCount: function(value) {
 			this.$1$GreenBottleCountField = value;
+		},
+		GreenBottleCount: function(value) {
+			if (arguments.length == 0) {
+				return this.get_GreenBottleCount();
+			}
+			else {
+				this.set_GreenBottleCount(value);
+			}
 		}
 	});
 	ss.initClass($Test_Scenarios_Directives_TestDirectiveRestrictedToAttribute, $asm, {
@@ -267,8 +303,11 @@
 		}
 	}, Acute.Directive);
 	ss.initClass($Test_Scenarios_Directives_InterDirectiveDependency_DirectiveA, $asm, {
-		set_animal: function(value) {
+		set_Animal: function(value) {
 			this.$_scope.get_model().Animal = value;
+		},
+		Animal: function(value) {
+			this.set_Animal(value);
 		},
 		get_template: function() {
 			return 'Old MacDonald has a farm, E-I-E-I-O. And on that farm he had a {{Animal}}';
@@ -278,6 +317,8 @@
 	ss.initClass($Test_Scenarios_Http_FooBar, $asm, {});
 	ss.initClass($Test_Scenarios_Http_HttpTestApp, $asm, {}, Acute.App);
 	ss.initClass($Test_Scenarios_Http_HttpTestController, $asm, {}, Acute.Controller);
+	ss.initClass($Test_Scenarios_RouteArgs_RouteArgsTestController, $asm, {}, Acute.Controller);
+	ss.initClass($Test_Scenarios_RouteArgs_TypedRouteArgs, $asm, {});
 	ss.initClass($Test_Scenarios_RouteConfiguration_When_WithGenericController_App, $asm, {
 		configureRoutes: function(routeProvider) {
 			//route-config with default constuctor and no initializers
@@ -315,6 +356,8 @@
 	ss.setMetadata($Test_Scenarios_Http_FooBar, { members: [{ name: '.ctor', type: 1, params: [], sname: '$ctor', sm: true }] });
 	ss.setMetadata($Test_Scenarios_Http_HttpTestApp, { members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_Http_HttpTestController, { members: [{ name: '.ctor', type: 1, params: [Acute.Services.IHttp, Acute.Scope] }] });
+	ss.setMetadata($Test_Scenarios_RouteArgs_RouteArgsTestController, { members: [{ name: '.ctor', type: 1, params: [Acute.Services.IRouteArgs, Acute.Scope] }] });
+	ss.setMetadata($Test_Scenarios_RouteArgs_TypedRouteArgs, { members: [{ name: '.ctor', type: 1, params: [], sname: '$ctor', sm: true }] });
 	ss.setMetadata($Test_Scenarios_RouteConfiguration_When_WithGenericController_App, { members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_RouteConfiguration_When_WithGenericController_DefaultController, { members: [{ name: '.ctor', type: 1, params: [] }] });
 	ss.setMetadata($Test_Scenarios_RouteConfiguration_When_WithTemplateUrl_App, { members: [{ name: '.ctor', type: 1, params: [] }] });

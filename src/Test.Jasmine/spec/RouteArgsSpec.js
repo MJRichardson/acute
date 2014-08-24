@@ -10,19 +10,19 @@
         var scope;
 
         beforeEach(inject(function ($rootScope, $controller) {
-            routeArgs = new Acute.Services.RouteArgs(new { Id: 1, Name: "Papa Smurf" });
+            routeArgs = new Acute.Services.RouteArgs( { Id: 1, Name: "Papa Smurf" });
             scope = $rootScope.$new();
-            new Test.Scenarios.RouteArgs.RouteArgsTestController(routeArgs, scope);
+            new Test.Scenarios.RouteArgs.RouteArgsTestController(routeArgs, new Acute.Scope(scope));
         }));
 
         it("Arguments should be accessable via dynamic Bag property", function () {
-            expect(routeArgs.Bag().Id).toBe(1);
-            expect(routeArgs.Bag().Name).toBe("Papa Smurf");
+            expect(scope.ArgsBag.Id).toBe(1);
+            expect(scope.ArgsBag.Name).toBe("Papa Smurf");
         });
 
         it("Arguments should be accessable via strongly-typed As function", function () {
-            expect(scope.Id).toBe(1);
-            expect(scope.Name).toBe("Papa Smurf");
+            expect(scope.TypedArgs.Id).toBe(1);
+            expect(scope.TypedArgs.Name).toBe("Papa Smurf");
         });
 
 

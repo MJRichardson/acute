@@ -45,7 +45,7 @@
         describe("and object data is returned", function () {
 
             beforeEach(function () {
-                $httpBackend.when('GET', '/foo/bar').respond(200, '{"id": 123, "name": "Foo Bar"}');
+                $httpBackend.when('GET', '/foo/bar').respond(200, '{"Id": 123, "Name": "Foo Bar"}');
                 scope.getObjectData();
             });
 

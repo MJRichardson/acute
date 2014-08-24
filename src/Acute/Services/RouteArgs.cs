@@ -1,4 +1,5 @@
-﻿using Acute.Angular;
+﻿using System.Runtime.CompilerServices;
+using Acute.Angular;
 
 namespace Acute.Services
 {
@@ -11,8 +12,10 @@ namespace Acute.Services
 
     public class RouteArgs : IRouteArgs
     {
+        [ScriptName("_routeParams")]
         private readonly RouteParams _routeParams;
 
+        [Reflectable]
         internal RouteArgs(Angular.RouteParams routeParams)
         {
             _routeParams = routeParams;
@@ -23,7 +26,13 @@ namespace Acute.Services
 
         public T As<T>() where T : class
         {
-            return  _routeParams as T;
+            return AsInternal<T>();
+        }
+
+        [InlineCode("{this}._routeParams")]
+        private T AsInternal<T>() where T : class
+        {
+            return default(T);
         }
     }
 }

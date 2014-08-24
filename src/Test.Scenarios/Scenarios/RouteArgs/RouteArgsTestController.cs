@@ -7,9 +7,14 @@ namespace Test.Scenarios.RouteArgs
     {
         public RouteArgsTestController(IRouteArgs routeArgs, Scope scope)
         {
-           var typedArgs = routeArgs.As<TypedRouteArgs>();
-            scope.Model.Id = typedArgs.Id;
-            scope.Model.Name = typedArgs.Name;
+            scope.Model.ArgsBag = new {Id = routeArgs.Bag.Id, Name = routeArgs.Bag.Name };
+
+            var typedArgs = routeArgs.As<TypedRouteArgs>();
+            scope.Model.TypedArgs = new
+                {
+                    Id = typedArgs.Id,
+                    Name = typedArgs.Name
+                };
         } 
     }
 }

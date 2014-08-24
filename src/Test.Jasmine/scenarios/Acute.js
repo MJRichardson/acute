@@ -29349,10 +29349,10 @@ angular.module('ngCookies', ['ng']).
 	////////////////////////////////////////////////////////////////////////////////
 	// Acute.Services.RouteArgs
 	var $Acute_Services_RouteArgs = function(routeParams) {
-		this.$_routeParams = null;
+		this._routeParams = null;
 		this.$1$BagField = null;
-		this.$_routeParams = routeParams;
-		this.set_bag(this.$_routeParams);
+		this._routeParams = routeParams;
+		this.set_bag(this._routeParams);
 	};
 	$Acute_Services_RouteArgs.__typeName = 'Acute.Services.RouteArgs';
 	global.Acute.Services.RouteArgs = $Acute_Services_RouteArgs;
@@ -29697,7 +29697,7 @@ angular.module('ngCookies', ['ng']).
 		},
 		as$1: function(T) {
 			return function() {
-				return ss.safeCast(this.$_routeParams, T);
+				return this._routeParams;
 			};
 		}
 	}, null, [$Acute_Services_IRouteArgs]);
@@ -29741,6 +29741,7 @@ angular.module('ngCookies', ['ng']).
 	ss.setMetadata($Acute_Services_Cookies, { members: [{ name: '.ctor', type: 1, params: [$Acute_Angular_$CookieStore, $Acute_Angular_$Cookies] }] });
 	ss.setMetadata($Acute_Services_Http, { members: [{ name: '.ctor', type: 1, params: [$Acute_Angular_$Http] }] });
 	ss.setMetadata($Acute_Services_Location, { members: [{ name: '.ctor', type: 1, params: [$Acute_Angular_$Location] }] });
+	ss.setMetadata($Acute_Services_RouteArgs, { members: [{ name: '.ctor', type: 1, params: [$Acute_Angular_$RouteParams] }] });
 	$Acute_Scope.$angularScopeScriptName = '_scope';
 	$Acute_Angular_$AngularServices.$compile = '$compile';
 	$Acute_Angular_$AngularServices.$scope = '$scope';

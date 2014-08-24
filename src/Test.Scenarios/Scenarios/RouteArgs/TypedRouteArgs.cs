@@ -1,5 +1,8 @@
-﻿namespace Test.Scenarios.RouteArgs
+﻿using System;
+
+namespace Test.Scenarios.RouteArgs
 {
+    [Serializable]
     public class TypedRouteArgs
     {
         public int Id { get; set; }
